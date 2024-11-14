@@ -10,12 +10,14 @@
     <LinearLayout
         android:id="@+id/linepay"
         android:layout_width="match_parent"
+        android:weightSum="10"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
             android:orientation="horizontal">
 
             <ImageView
@@ -34,91 +36,6 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView23"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_qr" />
-
-        <TextView
-            android:id="@+id/textView49"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Lưu ý : Nội dung chuyển khoản  SDT_Hoten_Ngày đặt"
-            android:textColor="#F10707"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/textView50"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Vui lòng chụp buil rồi gửi ở phía dưới"
-            android:textColor="#F10707"
-            android:textSize="17sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="#E91E63"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView51"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tên tài khoản :"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView52"
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Đặng Ngọc Dũng"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView53"
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Số tài khoản :"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView54"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="6666666666"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,26 +47,178 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#8E8B8B"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView24"
+            <TextView
+                android:id="@+id/textView49"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/img_dowload" />
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="Liên kết ngân hàng : " />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alignmentMode="alignMargins"
+                android:columnCount="3"
+                android:columnOrderPreserved="false"
+                android:padding="14dp"
+                android:rowCount="3">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv01"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/logo_vietcombak" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv02"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/logo_agribank" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv03"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/logo_techcombank" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv04"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/logo_vtb" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv05"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/logo_vib" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv06"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/logo_mbbank" />
+
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đã liên kết :"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cbpay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/textView55"
-                android:layout_width="match_parent"
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Click vào đây để tải ảnh lên"
-                android:textColor="#FB0808"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="#FA2F20"
+                android:text="*6789" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/logo_mbbank" />
         </LinearLayout>
 
         <TextView
@@ -177,6 +246,6 @@
         android:background="@drawable/btn_dangky"
         app:backgroundTint="#E91E63"
         android:layout_height="wrap_content"
-        android:text="NEXT" />
+        android:text="Thanh Toán" />
 
 </FrameLayout>

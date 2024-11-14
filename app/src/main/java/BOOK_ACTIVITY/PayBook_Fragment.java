@@ -1,7 +1,10 @@
 package BOOK_ACTIVITY;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,7 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.apprestaurant.R;
 
@@ -27,6 +34,13 @@ public class PayBook_Fragment extends Fragment {
     private View view;
     private LinearLayout linepay;
     private Button btnpay;
+
+    // Ngân hàng đã liên kết
+    private CheckBox cbpay;
+
+    // Khai bao cardcview ngan hang
+    private CardView cvvt , cvmb , cvvtb , cvvcb , cvarb, cvtcb;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,6 +87,7 @@ public class PayBook_Fragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_pay_book_, container, false);
         PayThanhCong();
+        Viettin();
         QuayLai();
         return view;
     }
@@ -80,17 +95,30 @@ public class PayBook_Fragment extends Fragment {
     private void PayThanhCong()
     {
         btnpay = view.findViewById(R.id.btn_pay);
-        btnpay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment newFragment = new Booksuccessfully_Fragment(); // Replace with your XuFragment class
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        cbpay = view.findViewById(R.id.cbpay);
+            btnpay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (cbpay.isChecked() == false) {
+                        AlertDialog.Builder ab = new AlertDialog.Builder(getContext());
+                        ab.setMessage("Vui lòng thanh toán");
+                        ab.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                        ab.show();
+                    } else {
+                        Fragment newFragment = new Booksuccessfully_Fragment(); // Replace with your XuFragment class
+                        FragmentManager fragmentManager = getParentFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                }
+            });
     }
 
     private void QuayLai()
@@ -110,4 +138,41 @@ public class PayBook_Fragment extends Fragment {
         });
     }
 
-}
+    private void Viettin()
+    {
+        cvvt = view.findViewById(R.id.cv04);
+        cvvt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_pay, null, false);
+
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setView(dialogView);
+                alertDialog.show();
+                final ImageView imgview = dialogView.findViewById(R.id.imageView19);
+                imgview.setImageResource(R.drawable.logo_vtb);
+
+                final EditText edtstk = dialogView.findViewById(R.id.edtstk);
+                final EditText edttentk = dialogView.findViewById(R.id.edttentk);
+                final EditText edtngaycap = dialogView.findViewById(R.id.edtngaycap);
+                final Button btnpay = dialogView.findViewById(R.id.btnpayy);
+
+                btnpay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (edtstk.getText().toString().isEmpty() || edttentk.getText().toString().isEmpty() ||
+                                edtngaycap.getText().toString().isEmpty()
+                        ) {
+                            Toast.makeText(getContext(), "Liên kết không thành công!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Liên kết thành công!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+ }

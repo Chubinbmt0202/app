@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/logo_mbbank" />
+
+    <TextView
+        android:id="@+id/textView52"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STK"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edtstk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên tài khoản"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edttentk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ngày cấp"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edtngaycap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/btnpayy"
+        android:layout_width="match_parent"
+        android:background="@drawable/btn_dangky"
+        app:backgroundTint="#E21D60"
+        android:layout_height="wrap_content"
+        android:text="OK" />
+
+</LinearLayout>
