@@ -1,0 +1,88 @@
+package Accout;
+
+import static androidx.core.content.ContextCompat.startActivity;
+
+import static java.security.AccessController.getContext;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.apprestaurant.R;
+
+import java.util.ArrayList;
+
+public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat_SumDetailHistory.ViewHolder>{
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        Class_sumdeltaihistory item = list.get(position);
+        holder.idhoadon.setText("Hóa đơn #"+String.valueOf(item.getIdhoadon()));
+        holder.textngaydat.setText(item.getNgaydat());
+        if(item.getTinhtrang() == 1)
+        {
+            holder.texttinhtrang.setText("Thành công");
+            holder.btnhuydonban.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.texttinhtrang.setText("Chờ xử lí");
+        }
+
+    }
+
+    private Context contex;
+    private ArrayList<Class_sumdeltaihistory> list;
+
+
+
+
+    public ArrayApdat_SumDetailHistory(ArrayList<Class_sumdeltaihistory> list, Context contex) {
+        this.list = list;
+        this.contex = contex;
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    @NonNull
+    @Override
+    public ArrayApdat_SumDetailHistory.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(contex).inflate(R.layout.children_activity_sum_detailhistory, parent, false);
+        return new ArrayApdat_SumDetailHistory.ViewHolder(view);
+    }
+
+
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        TextView textngaydat , texttinhtrang , idhoadon ;
+        Button btnchitiet , btnhuydonban;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            idhoadon = itemView.findViewById(R.id. idhoadon); // ID của TextView trong layout
+            texttinhtrang = itemView.findViewById(R.id.tv_tinhtrang);
+            textngaydat = itemView.findViewById(R.id.tv_ngaydat);
+            btnchitiet = itemView.findViewById(R.id.btn_detail);
+            btnhuydonban = itemView.findViewById(R.id.btn_huydon);
+            btnchitiet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent it = new Intent(contex, detailhistory_Activity.class);
+                    startActivity(contex,it,null);
+
+                }
+            });
+        }
+    }
+}

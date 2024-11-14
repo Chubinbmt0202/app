@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Apprestaurant"
+        tools:targetApi="31">
+        <activity
+            android:name="User_Restaurant.ViewUserActivity"
+            android:exported="false" />
+        <activity
+            android:name="Order.Order_CtagoryBanhCuon_Activity"
+            android:exported="false" />
+        <activity
+            android:name="Accout.Sum_detailhistory_Activity"
+            android:exported="false" />
+        <activity
+            android:name="Accout.detailhistory_Activity"
+            android:exported="false" />
+        <activity
+            android:name="BOOK_ACTIVITY.BookTable_Activity"
+            android:exported="false" />
+        <activity
+            android:name="Category.DetailCategory_Activity"
+            android:exported="false" />
+        <activity
+            android:name="User_Restaurant.Detail_RestaurantActivity"
+            android:exported="false" />
+        <activity
+            android:name="User_Restaurant.DetailUser_Activity"
+            android:exported="false" />
+        <activity
+            android:name="User_Restaurant.Layout_feedback"
+            android:exported="false" />
+        <activity
+            android:name="BOOK_ACTIVITY.Book1_Activity"
+            android:exported="false" />
+        <activity
+            android:name="HOME.Nagigationkey"
+            android:exported="false" />
+        <activity
+            android:name="Intro_register_login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name="Intro_register_login.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="Intro_register_login.Intro_Activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

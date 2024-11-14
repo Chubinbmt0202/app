@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="12"
+    android:orientation="vertical"
+    tools:context="HOME.Nagigationkey">
+
+    <!--Tạo ViewPager -->
+
+    <FrameLayout
+        android:id="@+id/ngv_viewPager"
+        android:layout_weight="10.75"
+        android:layout_width="match_parent"
+        android:contentDescription="ViewPager for navigating fragments"
+        android:layout_height="0dp">
+
+    </FrameLayout>
+
+    <!--Tạo BottomNavigationView -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/ngv_bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1.25"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/border"
+        app:menu="@menu/navigationkey"
+        app:itemIconTint="@color/changecolor_ngv"
+        app:itemTextColor="@color/changecolor_ngv"
+        >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</LinearLayout>

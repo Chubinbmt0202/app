@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context="Category.DetailCategory_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/icon_backlui" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Giới Thiệu Danh Mục"
+            android:textStyle="bold"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bún Bò"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#E91E63"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/bunbo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Bún bò là món ăn truyền thống Việt Nam, đặc biệt nổi tiếng ở Huế. Món này gồm bún sợi to, nước dùng từ xương bò và giò heo đậm đà, kết hợp với thịt bò mềm, giò heo ninh nhừ, và các loại gia vị như sả, mắm ruốc, ớt. Khi ăn, thường kèm rau sống, giá đỗ, chanh, và sa tế để tăng thêm hương vị đặc trưng và hấp dẫn."
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cá Kho Tộ"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#E91E63" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Cá kho tộ là món ăn truyền thống Việt Nam, phổ biến ở miền Nam. Món này thường dùng cá lóc hoặc cá basa, kho cùng nước mắm, đường, tiêu và nước màu trong nồi đất (tộ) để tạo hương vị đậm đà. Khi kho, cá thấm gia vị, thịt săn chắc, có vị mặn ngọt hài hòa, thường ăn kèm cơm trắng và rau sống."
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/haisanca_cakhoto" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hủ Tiếu Nam Vang"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#E91E63" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/hutieunamvang" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Hủ tiếu Nam Vang là món ăn đặc trưng của miền Nam Việt Nam, có nguồn gốc từ Campuchia nhưng được biến tấu phù hợp với khẩu vị Việt. Món này gồm sợi hủ tiếu dai, nước dùng trong, ngọt thanh từ xương heo và tôm khô, ăn kèm với tôm, thịt heo, lòng heo, gan, trứng cút và rau sống. Khi thưởng thức, người ta thường thêm chanh, ớt, giá đỗ và hẹ để tăng hương vị."
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mì Quảng"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#E91E63" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Mì Quảng là món ăn đặc sản của Quảng Nam, nổi bật với sợi mì dày, dai, được làm từ bột gạo. Nước dùng mì Quảng có độ sánh, ít và đậm đà, nấu từ xương heo hoặc gà, kết hợp với các loại topping như tôm, thịt heo, thịt gà, trứng, và bánh tráng mè nướng giòn. Món này thường ăn kèm rau sống đa dạng như rau cải, giá, hoa chuối thái nhỏ, thêm đậu phộng rang và chút ớt để dậy vị."
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/miquang" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lẩu"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#E91E63" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/lau" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Lẩu là món ăn phổ biến trong ẩm thực Việt Nam, đặc biệt phù hợp cho các buổi tụ tập. Món này có nồi nước dùng đậm đà đặt trên bếp nhỏ, được nấu sôi liên tục để nhúng các loại nguyên liệu tươi sống như thịt, hải sản, rau, và nấm. Các loại lẩu nổi tiếng gồm lẩu thái chua cay, lẩu cá, lẩu bò, và lẩu gà. Nước lẩu có thể biến tấu với nhiều hương vị, từ chua cay đến ngọt thanh, tùy thuộc vào nguyên liệu và sở thích của thực khách."
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
