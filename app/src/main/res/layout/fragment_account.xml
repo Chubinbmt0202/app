@@ -267,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableStart="@drawable/baseline_help_24"
+                        android:drawableStart="@drawable/baseline_feedback_24"
                         android:drawableEnd="@drawable/baseline_navigate_next_24"
                         android:text="Phản hồi."
                         android:textSize="20sp" />
