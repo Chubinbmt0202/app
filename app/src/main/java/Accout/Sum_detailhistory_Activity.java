@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,10 +46,21 @@ public class Sum_detailhistory_Activity extends AppCompatActivity {
         imgbackdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(Sum_detailhistory_Activity.this, AccountFragment.class);
-                startActivity(it);
+
+                // Kiểm tra nếu có fragment trong BackStack
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    // Quay lại fragment trước đó
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    // Thay thế fragment (trường hợp fragment chưa tồn tại)
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.ngv_viewPager, new AccountFragment());
+                    transaction.commit();
+                }
+
             }
         });
+
         rcv = (RecyclerView) findViewById(R.id.rcv_sumdetaiil);
         rcv.setLayoutManager(new LinearLayoutManager(Sum_detailhistory_Activity.this));
         list = new ArrayList<>();

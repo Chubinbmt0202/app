@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Lớp màu viền -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#EB2112" /> <!-- Màu nền viền -->
+        </shape>
+    </item>
+
+    <!-- Lớp màu bên trong -->
+    <item
+        android:top="2dp"
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        >
+        <shape android:shape="oval" >
+            <solid android:color="#EF1C0D" /> <!-- Màu nền bên trong -->
+        </shape>
+    </item>
+
+</layer-list>

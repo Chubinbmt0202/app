@@ -146,8 +146,7 @@ public class PayBook_Fragment extends Fragment {
             public void onClick(View view) {
 
                 View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_pay, null, false);
-
-
+                
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setView(dialogView);
                 alertDialog.show();
@@ -166,12 +165,13 @@ public class PayBook_Fragment extends Fragment {
                                 edtngaycap.getText().toString().isEmpty()
                         ) {
                             Toast.makeText(getContext(), "Liên kết không thành công!", Toast.LENGTH_SHORT).show();
+                            return;
                         } else {
                             Toast.makeText(getContext(), "Liên kết thành công!", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                     }
                 });
-
             }
         });
     }

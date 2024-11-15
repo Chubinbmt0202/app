@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.apprestaurant.R;
 
@@ -29,7 +30,7 @@ public class Detail_RestaurantActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        ReturnBack();
 
     }
     private void ReturnBack()
@@ -38,8 +39,10 @@ public class Detail_RestaurantActivity extends AppCompatActivity {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(Detail_RestaurantActivity.this, AccountFragment.class);
-                startActivity(it);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.ngv_viewPager, new AccountFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
     }

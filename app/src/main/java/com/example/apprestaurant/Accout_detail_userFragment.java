@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,22 +122,6 @@ public class Accout_detail_userFragment extends Fragment {
                 rdnu.setChecked(true);
             }
         }
-//        SharedPreferences share = getActivity().getSharedPreferences("user",MODE_PRIVATE);
-//        if(share.getInt("kt",0) == 1)
-//        {
-//            edthoten.setText(share.getString("name",""));
-//            edtphone.setText(share.getString("phone",""));
-//            edtemail.setText(share.getString("email",""));
-//            if(share.getInt("ck",0) == 1)
-//            {
-//                rdnam.setChecked(true);
-//            }
-//            else
-//            {
-//                rdnu.setChecked(true);
-//            }
-//        }
-
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,10 +161,19 @@ public class Accout_detail_userFragment extends Fragment {
                 {
                     s = share.getString("name",null);
                 }
-//                Intent it = new Intent(DetailUser_Activity.this, AccountFragment.class);
-//                it.putExtra("nameuser",s);
-//                it.putExtra("kt",1);
-//                startActivity(it);
+                // Tạo Fragment và thêm dữ liệu vào Bundle
+                Fragment newFragment = new AccountFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("nameuser", s);
+                bundle.putInt("kt", 1);
+                newFragment.setArguments(bundle); // Gắn Bundle vào Fragment
+
+               // Thay thế Fragment hiện tại bằng Fragment mới
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.commit();
+
             }
         });
     }

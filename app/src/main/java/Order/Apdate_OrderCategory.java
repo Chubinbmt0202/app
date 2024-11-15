@@ -27,7 +27,7 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
 
     private Context contex;
     private ArrayList<Class_CategoryBanhCuon> list;
-
+    boolean isFavorite = false;
     @Override
     public void onBindViewHolder(@NonNull Apdate_OrderCategory.ViewHolder holder, int position) {
 
@@ -84,7 +84,14 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
             imgtraitim.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    imgtraitim.setImageResource(R.drawable.trautimm);
+                    // Thay đổi trạng thái và cập nhật hình ảnh dựa trên trạng thái
+                    if (isFavorite) {
+                        imgtraitim.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
+                    } else {
+                        imgtraitim.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
+                    }
+                    // Thay đổi giá trị của biến boolean
+                    isFavorite = !isFavorite;
                 }
             });
 

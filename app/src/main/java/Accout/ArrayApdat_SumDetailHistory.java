@@ -30,12 +30,30 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
         if(item.getTinhtrang() == 1)
         {
             holder.texttinhtrang.setText("Thành công");
-            holder.btnhuydonban.setVisibility(View.GONE);
+            holder.tvtinhtrang.setText("Không thể hủy");
         }
         else
         {
             holder.texttinhtrang.setText("Chờ xử lí");
+            holder.tvtinhtrang.setText("Có thể hủy");
         }
+
+        holder.btnchitiet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(contex, detailhistory_Activity.class);
+                if(item.getTinhtrang() == 1)
+                {
+                    it.putExtra("ktra",1);
+                }
+               else
+                {
+                    it.putExtra("ktra",0);
+                }
+                startActivity(contex,it,null);
+
+            }
+        });
 
     }
 
@@ -66,23 +84,16 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView textngaydat , texttinhtrang , idhoadon ;
-        Button btnchitiet , btnhuydonban;
+        TextView textngaydat , texttinhtrang , idhoadon , tvtinhtrang;
+        Button btnchitiet ;
         public ViewHolder(View itemView) {
             super(itemView);
             idhoadon = itemView.findViewById(R.id. idhoadon); // ID của TextView trong layout
             texttinhtrang = itemView.findViewById(R.id.tv_tinhtrang);
             textngaydat = itemView.findViewById(R.id.tv_ngaydat);
             btnchitiet = itemView.findViewById(R.id.btn_detail);
-            btnhuydonban = itemView.findViewById(R.id.btn_huydon);
-            btnchitiet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent it = new Intent(contex, detailhistory_Activity.class);
-                    startActivity(contex,it,null);
+            tvtinhtrang = itemView.findViewById(R.id.tvtinhtrang);
 
-                }
-            });
         }
     }
 }

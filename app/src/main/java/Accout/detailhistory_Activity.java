@@ -1,11 +1,14 @@
 package Accout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,6 +24,7 @@ public class detailhistory_Activity extends AppCompatActivity {
 
     // Khai báo nút 'OK' và nút 'Hủy Đơn Hàng'
     private Button  btn_dthsok , btn_dthsback ;
+    
 
     private int img[] = {R.drawable.haisanca_cakhoto,R.drawable.img_baongubotoi,R.drawable.img_canuonghaivi};
     private int giagoc[] = {80000,45000,25000};
@@ -66,6 +70,7 @@ public class detailhistory_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent it = new Intent(detailhistory_Activity.this,Sum_detailhistory_Activity.class);
                 startActivity(it);
+                finish();
             }
         });
     }
@@ -73,13 +78,37 @@ public class detailhistory_Activity extends AppCompatActivity {
     private void buttonHuyDonHang()
     {
         btn_dthsback = (Button) findViewById(R.id.btn_detailhtrback);
-        btn_dthsback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+        Intent it = getIntent();
+        if(it != null) {
+            int a = it.getIntExtra("ktra",0);
+            if(a == 1)
+            {
+                btn_dthsback.setVisibility(View.GONE);
             }
-        });
+        }
+            btn_dthsback.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(detailhistory_Activity.this);
+                    ab.setMessage("Bạn có chăc chắn muốn hủy ?");
+                    ab.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(detailhistory_Activity.this, "Đã hủy đơn hàng thành công !", Toast.LENGTH_SHORT).show();
+                            Intent it = new Intent(detailhistory_Activity.this, Sum_detailhistory_Activity.class);
+                            startActivity(it);
+                            finish();
+                        }
+                    });
+                    ab.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    }).show();
+                }
 
+            });
     }
 
 

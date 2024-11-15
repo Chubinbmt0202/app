@@ -29,7 +29,7 @@
                 android:layout_weight="1"
                 android:text="Account"
                 android:textColor="@color/white"
-                android:textSize="50sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <FrameLayout

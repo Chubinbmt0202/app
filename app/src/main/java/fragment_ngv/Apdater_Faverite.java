@@ -19,7 +19,8 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
 
     private Context context;
     private ArrayList<Yeuthich> list;
-
+    // Định nghĩa một biến boolean để theo dõi trạng thái "yêu thích"
+    boolean isFavorite = false;
     public Apdater_Faverite(Context context, ArrayList<Yeuthich> list) {
         this.context = context;
         this.list = list;
@@ -54,12 +55,22 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
             tvyeuthich = itemView.findViewById(R.id.tvtenyeuthich);
             iconyeuthich = itemView.findViewById(R.id.iconyeuthich);
 
+
+
             iconyeuthich.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iconyeuthich.setImageResource(R.drawable.btn_2);
+                    // Thay đổi trạng thái và cập nhật hình ảnh dựa trên trạng thái
+                    if (isFavorite) {
+                        iconyeuthich.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
+                    } else {
+                        iconyeuthich.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
+                    }
+                    // Thay đổi giá trị của biến boolean
+                    isFavorite = !isFavorite;
                 }
             });
+
         }
     }
 }

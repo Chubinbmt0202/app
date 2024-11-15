@@ -29,8 +29,9 @@ public class Nagigationkey extends AppCompatActivity {
         ngv_bottomngvview = findViewById(R.id.ngv_bottomNavigation);
         flt = findViewById(R.id.ngv_viewPager);
 
-        // Đặt Fragment mặc định khi Activity được tạo
-        replaceFragment(new HomeFragment());
+        if (savedInstanceState == null) {  // Kiểm tra để tránh thay thế fragment khi xoay màn hình
+            replaceFragment(new HomeFragment());
+        }
 
         ngv_bottomngvview.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;

@@ -108,7 +108,6 @@ public class BookFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_book, container, false);
 
         cv_book = view.findViewById(R.id.carviewbookdb);
-        cv_book.setVisibility(View.GONE);
 
         rcv = (RecyclerView) view.findViewById(R.id.rcv_categorytoday);
         rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -122,24 +121,22 @@ public class BookFragment extends Fragment {
         GanKQDatBan();
         ktr();
         share = getActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        ktra = 1;
+        if(share != null) {
+            ktra = 1;
 
-        if( ktra == share.getInt("kt",0))
-        {
-            tvtang.setText(share.getString("kqtang"," "));
-            tvban.setText(share.getString("kqban"," "));
-            tvdate.setText(share.getString("kqdate"," "));
-            tvgio.setText(share.getString("kqgio"," "));
-            cv_book.setVisibility(View.VISIBLE);
-            tvbook.setText("Chỉnh sửa");
+            if (ktra == share.getInt("kt", 0)) {
+                tvtang.setText(share.getString("kqtang", " "));
+                tvban.setText(share.getString("kqban", " "));
+                tvdate.setText(share.getString("kqdate", " "));
+                tvgio.setText(share.getString("kqgio", " "));
+                tvbook.setText("Chỉnh sửa");
+            }
         }
-
         if (getArguments() != null) {
               tvtang.setText(getArguments().getString("tang"));
               tvban.setText(getArguments().getString("ban"));
               tvdate.setText(getArguments().getString("date"));
               tvgio.setText(getArguments().getString("gio"));
-              cv_book.setVisibility(View.VISIBLE);
               share = getActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
               SharedPreferences.Editor editor = share.edit();
               editor.putString("kqtang",getArguments().getString("tang") );
@@ -172,8 +169,7 @@ public class BookFragment extends Fragment {
                 startActivity(it);
             }
         });
-     //   if(tvlogin.VISIBLE == 0)
-     //   {
+
             tvbook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -185,7 +181,7 @@ public class BookFragment extends Fragment {
                     fragmentTransaction.commit();
               }
             });
-        //}
+
     }
     private void TiepTuc()
     {
@@ -213,11 +209,9 @@ public class BookFragment extends Fragment {
             sum += gh.getGia();
         }
 
-        // Format the sum with thousands separators
         NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
         String formattedSum = formatter.format(sum);
 
-// Display the formatted sum
         tvtongtien.setText("Tổng tiền: " + formattedSum + " VND");
     }
 

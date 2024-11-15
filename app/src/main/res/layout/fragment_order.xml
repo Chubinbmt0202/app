@@ -9,24 +9,25 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content">
+        android:layout_weight="3">
 
         <ImageView
-            android:scaleType="centerCrop"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/noithat" />
 
         <EditText
             android:id="@+id/edtsearch1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0.8"
-            android:layout_margin="10dp"
             android:layout_gravity="bottom"
+            android:layout_margin="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:alpha="0.8"
             android:background="@drawable/btn_timkiem"
             android:backgroundTint="@color/white"
             android:drawableLeft="@drawable/search_icon"
@@ -39,12 +40,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_weight="7"
+        android:layout_height="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cview_monantoday"
@@ -105,15 +107,17 @@
             </androidx.cardview.widget.CardView>
 
             <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:alignmentMode="alignMargins"
                 android:columnCount="2"
-                >
+                android:columnOrderPreserved="false"
+                android:rowCount="4">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_monsoi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"
@@ -124,14 +128,14 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/imgdanhmuc"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:scaleType="centerCrop"
                             android:src="@drawable/menu_monsoi" />
@@ -171,8 +175,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_banhcuon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"
@@ -183,16 +187,16 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/img_goicuonthitxaxiu" />
+                            android:src="@drawable/menu_order_banhcuon" />
 
                         <FrameLayout
                             android:layout_width="match_parent"
@@ -206,14 +210,14 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@drawable/menu_icon_banhcuon" />
+                                app:srcCompat="@drawable/menu_icon_monsoi" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="Bánh+cuốn"
+                                android:text="Bánh cuốn"
                                 android:textAlignment="center"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"
@@ -226,8 +230,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_haisanca"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"
@@ -281,8 +285,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_gaboheo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"
@@ -336,8 +340,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_cschao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"
@@ -391,8 +395,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_trangmieng"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"
@@ -446,8 +450,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_lau"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"
@@ -501,8 +505,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cview_douong"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="10dp"

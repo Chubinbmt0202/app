@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apprestaurant.R;
 
@@ -45,11 +48,51 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
         holder.tvgia.setText(a +"." +"000 vnd");
         holder.imgmonan.setImageResource(item.getImg());
 
+        holder.imgadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int solg = Integer.parseInt(holder.tvkqsolg.getText().toString());
+                solg +=1 ;
+                int sum = solg * item.getGia();
+                holder.tvkqsolg.setText(String.valueOf(solg));
+                NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+                String formattedSum = formatter.format(sum);
+                holder.tvsumkq.setText(formattedSum + " vnd");
+
+            }
+        });
+
+        holder.imgdelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int solg = item.getGia();
+                if(solg > 0) {
+                    solg -= 1;
+                    int sum =  item.getGia() / solg;
+                    holder.tvkqsolg.setText(String.valueOf(solg));
+                    NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+                    String formattedSum = formatter.format(sum);
+                    holder.tvsumkq.setText(formattedSum + " vnd");
+                }
+                else
+                {
+                    for (int i = 0 ; i < list.size() ; i++ )
+                    {
+                        GioHang gh = list.get(i);
+                        if(gh.getTenmon().equals( holder.tvtenmonan.getText().toString()))
+                        {
+                            Toast.makeText(contex,"Gỡ món thành công",Toast.LENGTH_SHORT);
+                        }
+                    }
+
+                }
+            }
+        });
+
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvtenmonan , tvgia , tvkqsolg , tvsumkq;
+        TextView tvtenmonan , tvgia , tvkqsolg , tvsumkq , tvtongtien;
         ImageView imgmonan , imgadd , imgdelete;
 
         public ViewHolder(View itemView) {
@@ -62,41 +105,6 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
             imgdelete = itemView.findViewById(R.id.imgdelete);
             tvsumkq = itemView.findViewById(R.id.tvsumdongia);
 
-            imgadd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int solg = Integer.parseInt(tvkqsolg.getText().toString());
-                    solg +=1 ;
-                    int sum = solg * Integer.parseInt(tvsumkq.getText().toString());
-                    tvsumkq.setText(String.valueOf( sum));
-                    tvkqsolg.setText(String.valueOf(solg));
-                }
-            });
-
-                imgdelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int solg = Integer.parseInt(tvkqsolg.getText().toString());
-                    if(solg > 0) {
-                        solg -= 1;
-                        int sum =  Integer.parseInt(tvsumkq.getText().toString()) / solg;
-                        tvsumkq.setText(String.valueOf(sum));
-                        tvkqsolg.setText(String.valueOf(solg));
-                    }
-                    else
-                    {
-                        for (int i = 0 ; i < list.size() ; i++ )
-                        {
-                            GioHang gh = list.get(i);
-                            if(gh.getTenmon().equals( tvtenmonan.getText().toString()))
-                            {
-                                list.remove(i);
-                            }
-                        }
-
-                    }
-                }
-            });
 
         }
     }

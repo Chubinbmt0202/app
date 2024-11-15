@@ -61,8 +61,10 @@ public class Layout_feedback extends AppCompatActivity {
         lineback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(Layout_feedback.this, AccountFragment.class);
-                startActivity(it);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.ngv_viewPager, new AccountFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
     }

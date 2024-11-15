@@ -21,6 +21,7 @@ import java.util.List;
 import HOME.ImageQuangCao;
 import HOME.PhotoApdater;
 import HOME.Searach_Fragment;
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +29,9 @@ import HOME.Searach_Fragment;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    // Khai bao cho nut quang cao
+    private CircleIndicator circleindicator;
 
     // Khai bao cho nut tim kiem san pham
 
@@ -109,8 +113,10 @@ public class HomeFragment extends Fragment {
     private void setimgquangcao()
     {
         viewpager = view.findViewById(R.id.viewpage);
+        circleindicator= view.findViewById(R.id.circleindicator);
         madapter = new PhotoApdater(getContext(),getDanhsach());
         viewpager.setAdapter(madapter);
+        circleindicator.setViewPager(viewpager);
 
     }
 
@@ -118,7 +124,7 @@ public class HomeFragment extends Fragment {
         List<ImageQuangCao> list = new ArrayList<>();
         list.add(new ImageQuangCao(R.drawable.quangcaoga));
         list.add(new ImageQuangCao(R.drawable.quangcao2));
-        list.add(new ImageQuangCao(R.drawable.bgr_danhmuc));
+        list.add(new ImageQuangCao(R.drawable.quangcao3));
         return list;
     }
 
@@ -132,8 +138,8 @@ public class HomeFragment extends Fragment {
     private List<ImageQuangCao> getDanhSachcombo() {
         List<ImageQuangCao> listcombo = new ArrayList<>();
         listcombo.add(new ImageQuangCao(R.drawable.quangcao2));
-        listcombo.add(new ImageQuangCao(R.drawable.quangcaoga));
-        listcombo.add(new ImageQuangCao(R.drawable.bgr_danhmuc));
+        listcombo.add(new ImageQuangCao(R.drawable.combo_heathy));
+        listcombo.add(new ImageQuangCao(R.drawable.combo_lau));
         return listcombo;
     }
 }
