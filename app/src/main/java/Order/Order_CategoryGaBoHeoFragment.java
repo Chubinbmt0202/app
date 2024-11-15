@@ -86,11 +86,11 @@ public class Order_CategoryGaBoHeoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_order__category_ga_bo_heo, container, false);
-        rcv = (RecyclerView) view.findViewById(R.id.rcv_categorytoday);
+        rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         list = new ArrayList<>();
         for (int i = 0; i < imganh.length; i++) {
-            list.add(new Class_CategoryBanhCuon(tenmonan[i], imganh[0], giadonvi[i]));
+            list.add(new Class_CategoryBanhCuon(tenmonan[i], imganh[i], giadonvi[i]));
         }
         apdate = new Apdate_OrderCategory(list, getActivity());
         rcv.setAdapter(apdate);

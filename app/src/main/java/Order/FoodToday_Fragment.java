@@ -110,7 +110,7 @@ public class FoodToday_Fragment extends Fragment {
 
     private void setMonAn()
     {
-        rcv = view.findViewById(R.id.rcv_categorytoday);
+        rcv = view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new GridLayoutManager(getActivity(),2));
         list = new ArrayList<>();
         for ( int i = 0 ; i < imganh.length ; i++)

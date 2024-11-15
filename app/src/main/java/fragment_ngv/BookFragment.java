@@ -4,7 +4,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.health.connect.datatypes.units.Length;
 import android.os.Bundle;
 
 
@@ -109,7 +108,7 @@ public class BookFragment extends Fragment {
 
         cv_book = view.findViewById(R.id.carviewbookdb);
 
-        rcv = (RecyclerView) view.findViewById(R.id.rcv_categorytoday);
+        rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
         list = new ArrayList<>();
         for ( int i = 0 ; i < img.length ; i++)

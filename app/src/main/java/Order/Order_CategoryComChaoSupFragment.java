@@ -21,28 +21,20 @@ import fragment_ngv.OrderFragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Order_CategoryBanhCuonFragment#newInstance} factory method to
+ * Use the {@link Order_CategoryComChaoSupFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Order_CategoryBanhCuonFragment extends Fragment {
+public class Order_CategoryComChaoSupFragment extends Fragment {
 
     private View view;
 
-    private  String tenmonan[] = {"Gỏi cuốn thịt xá xíu",
-                                  "Gỏi cuốn thịt xá xíu",
-                                  "Gỏi cuốn tôm trung muoi",
-                                  "Gỏi cuốn tôm trứng muối",
-                                   "Gỏi cuốn tôm thịt heo"};
-    private String giadonvi[] = {"85.000 vnd/3 cuốn",
-                                 "135.000 vnd/5 cuốn",
-                                 "170.000vnd/5 cuốn",
-                                 "117.000 vnd/3 cuốn",
-                                 "139.000 vnd/5 cuốn"};
-    private int imganh[] = {R.drawable.img_goicuonthitxaxiu,
-                            R.drawable.img_goicuonthitxaxiu,
-                            R.drawable.img_goicuontomthitheo,
-                            R.drawable.img_goicuontomtrungmuoi,
-                            R.drawable.img_goicuontomthitheo};
+    // Khai báo quay lại
+    private ImageView imgback;
+
+    private  String tenmonan[] = {"Cơm chiên lá é","Cơm chiên hải sản","Cơm chiên trứng","Súp hải sản","Súp thập cẩm","Cháo bò bằm","Xôi nấm hạt sen"};
+    private String giadonvi[] = {"135.000 vnd/1 phần","210.000 vnd/1 thố","155.000 vnd/1 thố","62.000 vnd/1 chén","102.000 vnd/1 thố","109.000 vnd/1 thố","138.000 vnd/1 phần"};
+    private int imganh[] = {R.drawable.img_comchiengionlae, R.drawable.img_comchienhaisan, R.drawable.img_comchientrung, R.drawable.img_suphaisan,R.drawable.img_supthapcam,R.drawable.img_chaobobam,R.drawable.img_xoinamhatsen};
+
 
     private ArrayList<Class_CategoryBanhCuon> list ;
     private Apdate_OrderCategory apdate ;
@@ -53,13 +45,11 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // Khai báo nút back
-    private ImageView imgback;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public Order_CategoryBanhCuonFragment() {
+    public Order_CategoryComChaoSupFragment() {
         // Required empty public constructor
     }
 
@@ -69,11 +59,11 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Order_CategoryBanhCuonFragment.
+     * @return A new instance of fragment Order_CategoryComChaoSupFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Order_CategoryBanhCuonFragment newInstance(String param1, String param2) {
-        Order_CategoryBanhCuonFragment fragment = new Order_CategoryBanhCuonFragment();
+    public static Order_CategoryComChaoSupFragment newInstance(String param1, String param2) {
+        Order_CategoryComChaoSupFragment fragment = new Order_CategoryComChaoSupFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -94,8 +84,8 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_order__category_banh_cuon, container, false);
-        ExitBanhCuon();
+        view = inflater.inflate(R.layout.fragment_order__category_com_chao_sup, container, false);
+
         rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new GridLayoutManager(getActivity(),2));
         list = new ArrayList<>();
@@ -105,16 +95,16 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
         }
         apdate = new Apdate_OrderCategory(list,getActivity());
         rcv.setAdapter(apdate);
+        Quailai();
         return view;
     }
-    private void ExitBanhCuon()
-    {
+    private void Quailai() {
         imgback = view.findViewById(R.id.img_backtoday);
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Để chuyển từ Order_CategoryBanhCuonFragment  về OrderFragment
-                Fragment newFragment = new OrderFragment(); // Replace with your XuFragment class
+
+                Fragment newFragment = new OrderFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
@@ -123,5 +113,4 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
             }
         });
     }
-
 }

@@ -2,13 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:weightSum="10"
-    tools:context="Order.Order_CategoryPhoFragment">
+    tools:context="Order.Order_CategoryComChaoSupFragment" >
 
     <FrameLayout
-        android:id="@+id/banhcuon_relative"
+        android:id="@+id/comchaopho_relative"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2.5">
@@ -18,15 +16,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="0dp"
+
             android:layout_marginTop="-5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/category_banhcuon" />
+            android:src="@drawable/category_comchaosup" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -40,6 +40,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:elevation="4dp"
                 android:text="Quay lại"
                 android:textColor="@color/white"
@@ -53,13 +54,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7.5"
-        >
+        android:layout_weight="7.5">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -68,4 +68,7 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
+
+
+
 </LinearLayout>

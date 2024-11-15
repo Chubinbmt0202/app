@@ -16,6 +16,7 @@ import com.example.apprestaurant.R;
 
 import Order.FoodToday_Fragment;
 import Order.Order_CategoryBanhCuonFragment;
+import Order.Order_CategoryComChaoSupFragment;
 import Order.Order_CategoryGaBoHeoFragment;
 import Order.Order_CategoryHaiSanFragment;
 import Order.Order_CategoryPhoFragment;
@@ -80,6 +81,7 @@ public class OrderFragment extends Fragment {
         Danhmucbanhcuon();
         Danhmuctoday();
         Danhmucgaboheo();
+        Danhmucccsup();
         return view;
     }
 
@@ -154,6 +156,22 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment newFragment = new Order_CategoryGaBoHeoFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    private void Danhmucccsup()
+    {
+        cvcschao = view.findViewById(R.id.cview_cschao);
+        cvcschao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment newFragment = new Order_CategoryComChaoSupFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);

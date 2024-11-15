@@ -85,7 +85,7 @@ public class Order_CategoryPhoFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_order__category_pho, container, false);
 
-        rcv = (RecyclerView) view.findViewById(R.id.rcv_categorytoday);
+        rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new GridLayoutManager(getActivity(),2));
         list = new ArrayList<>();
         for ( int i = 0 ; i < imganh.length ; i++)
