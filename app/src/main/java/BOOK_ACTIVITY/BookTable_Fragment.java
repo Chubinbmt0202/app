@@ -38,6 +38,10 @@ import fragment_ngv.BookFragment;
  * create an instance of this fragment.
  */
 public class BookTable_Fragment extends Fragment {
+    //Kiem tra cac nut
+    Boolean kt1 = false , kt2 = false , kt3 = false , kt4 = false , kt5 = false , kt6 = false , kt7 = false , kt8 = false , kt9 = false, kt10 = false ,
+            kt11 = false ,kt12 = false ;
+
     // Khai bao nut back
     private ImageView imgback;
    // Khai báo cho thứ
@@ -296,7 +300,6 @@ public class BookTable_Fragment extends Fragment {
         bts2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 bts2.setTextColor(Color.BLUE);
                 bts1.setTextColor(Color.BLACK);
                 bts3.setTextColor(Color.BLACK);
@@ -583,6 +586,8 @@ public class BookTable_Fragment extends Fragment {
             }
         });
 
+
+
         imgdate3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -627,228 +632,312 @@ public class BookTable_Fragment extends Fragment {
         imgban1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban1.getText());
-                ban1.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban5.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban1.getText().equals("Đã đặt")) {
+                    if (kt1) {
+                        kqban.setText(ban1.getText());
+                        ban1.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else if (!kt1) {
+                        ban1.setTextColor(Color.BLACK);
+                    }
+                    kt1 = !kt1;
+                }
             }
         });
 
         imgban2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban2.getText());
-                ban2.setTextColor(Color.BLUE);
-                ban1.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban5.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban2.getText().equals("Đã đặt")) {
+                    if (kt2) {
+                        kqban.setText(ban2.getText());
+                        ban2.setTextColor(Color.BLUE);
+                        ban1.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban2.setTextColor(Color.BLACK);
+                    }
+                    kt2 = !kt2;
+                }
             }
         });
 
         imgban3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban3.getText());
-                ban3.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban5.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban3.getText().equals("Đã đặt")) {
+                    if (kt3) {
+                        kqban.setText(ban3.getText());
+                        ban3.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban3.setTextColor(Color.BLACK);
+                    }
+                    kt3 = !kt3;
+                }
             }
         });
 
         imgban4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban4.getText());
-                ban4.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban5.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban4.getText().equals("Đã đặt")) {
+                    if (kt4) {
+                        kqban.setText(ban4.getText());
+                        ban4.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban4.setTextColor(Color.BLACK);
+                    }
+                    kt4 = !kt4;
+                }
             }
         });
 
         imgban5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban5.getText());
-                ban5.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban5.getText().equals("Đã đặt")) {
+                    if (kt5) {
+                        kqban.setText(ban5.getText());
+                        ban5.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban5.setTextColor(Color.BLACK);
+                    }
+                    kt5 = !kt5;
+                }
             }
         });
 
         imgban6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban6.getText());
-                ban6.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban5.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban6.getText().equals("Đã đặt")) {
+                    if (kt6) {
+                        kqban.setText(ban6.getText());
+                        ban6.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban6.setTextColor(Color.BLACK);
+                    }
+                    kt6 = !kt6;
+                }
             }
         });
 
         imgban7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban7.getText());
-                ban7.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban5.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban7.getText().equals("Đã đặt")) {
+                    if (kt7) {
+                        kqban.setText(ban7.getText());
+                        ban7.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban7.setTextColor(Color.BLACK);
+                    }
+                    kt7 = !kt7;
+                }
             }
         });
 
         imgban8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban8.getText());
-                ban8.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban8.getText().equals("Đã đặt")) {
+                    if (kt8) {
+                        kqban.setText(ban8.getText());
+                        ban8.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban8.setTextColor(Color.BLACK);
+                    }
+                    kt8 = !kt8;
+                }
             }
         });
 
         imgban9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban9.getText());
-                ban9.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban5.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban9.getText().equals("Đã đặt")) {
+                    if (kt9) {
+                        kqban.setText(ban9.getText());
+                        ban9.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban5.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban9.setTextColor(Color.BLACK);
+                    }
+                    kt9 = !kt9;
+                }
             }
         });
 
         imgban10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban10.getText());
-                ban10.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban10.getText().equals("Đã đặt")) {
+                    if (kt10) {
+                        kqban.setText(ban10.getText());
+                        ban10.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban10.setTextColor(Color.BLACK);
+                    }
+                    kt10 = !kt10;
+                }
             }
         });
 
         imgban11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban11.getText());
-                ban11.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban12.setTextColor(Color.BLACK);
+                if (!ban11.getText().equals("Đã đặt")) {
+                    if (kt11) {
+                        kqban.setText(ban11.getText());
+                        ban11.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban12.setTextColor(Color.BLACK);
+                    } else {
+                        ban11.setTextColor(Color.BLACK);
+                    }
+                    kt11 = !kt11;
+                }
             }
         });
 
         imgban12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kqban.setText(ban12.getText());
-                ban12.setTextColor(Color.BLUE);
-                ban2.setTextColor(Color.BLACK);
-                ban3.setTextColor(Color.BLACK);
-                ban4.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
-                ban6.setTextColor(Color.BLACK);
-                ban7.setTextColor(Color.BLACK);
-                ban8.setTextColor(Color.BLACK);
-                ban9.setTextColor(Color.BLACK);
-                ban10.setTextColor(Color.BLACK);
-                ban11.setTextColor(Color.BLACK);
-                ban1.setTextColor(Color.BLACK);
+                if (!ban12.getText().equals("Đã đặt")) {
+                    if (kt12) {
+                        kqban.setText(ban12.getText());
+                        ban12.setTextColor(Color.BLUE);
+                        ban2.setTextColor(Color.BLACK);
+                        ban3.setTextColor(Color.BLACK);
+                        ban4.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                        ban6.setTextColor(Color.BLACK);
+                        ban7.setTextColor(Color.BLACK);
+                        ban8.setTextColor(Color.BLACK);
+                        ban9.setTextColor(Color.BLACK);
+                        ban10.setTextColor(Color.BLACK);
+                        ban11.setTextColor(Color.BLACK);
+                        ban1.setTextColor(Color.BLACK);
+                    } else {
+                        ban12.setTextColor(Color.BLACK);
+                    }
+                    kt12 = !kt12;
+                }
             }
         });
 

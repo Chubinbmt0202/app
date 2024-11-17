@@ -9,6 +9,19 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
+
+
+    <ImageView
+        android:id="@+id/img_icondelete"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/icon_delete" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +33,7 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/cb_book"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
@@ -56,15 +69,15 @@
                     <TextView
                         android:id="@+id/textView47"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Số lượng" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
                         android:layout_weight="1"
+                        android:gravity="end"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -77,9 +90,9 @@
                             android:id="@+id/tvkqsolg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
-                            android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="1"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -109,13 +122,14 @@
                         android:id="@+id/tvsumdongia"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="#F44336"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="80.000 VND" />
+                        android:text="80.000 VND"
+                        android:textColor="#F44336" />
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>

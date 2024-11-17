@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.apprestaurant.R;
@@ -18,9 +21,14 @@ import com.example.apprestaurant.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import HOME.Addapter_Home;
+import HOME.Apdate_CategoryHome;
 import HOME.ImageQuangCao;
+import HOME.Nagigationkey;
 import HOME.PhotoApdater;
 import HOME.Searach_Fragment;
+import Order.Apdate_OrderCategory;
+import Order.Class_CategoryBanhCuon;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
@@ -32,6 +40,14 @@ public class HomeFragment extends Fragment {
 
     // Khai bao cho nut quang cao
     private CircleIndicator circleindicator;
+
+    // Khai bao tat ca
+
+    private TextView tvtatca;
+    // Khai bao recycleview
+
+    private RecyclerView rcvhome;
+    private Apdate_CategoryHome gh ;
 
     // Khai bao cho nut tim kiem san pham
 
@@ -103,7 +119,22 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        tvtatca = view.findViewById(R.id.tvtatca);
+        tvtatca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Để chuyển từ HomeFragment sang OrderFragment
+                Fragment newFragment = new OrderFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.commit();
+            }
+        });
+
         setimgquangcao();
+        Themmonan();
         Quangcaocombo();
         return view;
 
@@ -141,5 +172,28 @@ public class HomeFragment extends Fragment {
         listcombo.add(new ImageQuangCao(R.drawable.combo_heathy));
         listcombo.add(new ImageQuangCao(R.drawable.combo_lau));
         return listcombo;
+    }
+
+    private void Themmonan()
+    {
+        rcvhome = view.findViewById(R.id.gvhome);
+        gh = new Apdate_CategoryHome(getDSMonAn(),getContext());
+        rcvhome.setLayoutManager(new GridLayoutManager(getContext(),2));
+        rcvhome.setAdapter(gh);
+    }
+
+    private ArrayList<Class_CategoryBanhCuon> getDSMonAn() {
+        ArrayList<Class_CategoryBanhCuon> list = new ArrayList<>();
+        list.add(new Class_CategoryBanhCuon("Gà nướng mật ong",R.drawable.img_gadeolenmo,"440.000 vnd/1 con"));
+        list.add(new Class_CategoryBanhCuon("Gà xiên nướng lá chanh", R.drawable.img_gavienscn, "109.000 vnd/ xiên"));
+        list.add(new Class_CategoryBanhCuon("Cá kho tộ",R.drawable.haisanca_cakhoto,"225.000 vnd/1 tộ"));
+        list.add(new Class_CategoryBanhCuon("Cá mú kho tộ",R.drawable.img_camukhoto,"320.000 vnd/1 phần"));
+        list.add(new Class_CategoryBanhCuon("Ốc hương hấp xả",R.drawable.menu_category_ochuonghapxa,"366.000 vnd/1 đĩa"));
+        list.add(new Class_CategoryBanhCuon("Phở bắp",R.drawable.img_phobap,"76.000 vnd/1 tô"));
+        list.add(new Class_CategoryBanhCuon("Phở bắp gâu", R.drawable.img_phobapgau,"99.000 vnd/1 tô"));
+        list.add(new Class_CategoryBanhCuon("Hũ tiếu khô",R.drawable.menu_category_hutieukho,"82.000 vnd/1 tô"));
+        list.add(new Class_CategoryBanhCuon("Cơm chiên lá é",R.drawable.img_comchiengionlae,"135.000 vnd/1 phần"));
+        list.add(new Class_CategoryBanhCuon("Cơm chiên hải sản",R.drawable.img_comchienhaisan,"210.000 vnd/1 thố"));
+        return list;
     }
 }

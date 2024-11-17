@@ -445,7 +445,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 2"
-                                android:textColor="@color/white"
+                                android:textColor="#F44336"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -483,7 +483,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 3"
-                                android:textColor="@color/white"
+                                android:textColor="#F44336"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -521,7 +521,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 4"
-                                android:textColor="@color/white"
+                                android:textColor="#F44336"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -559,7 +559,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 5"
-                                android:textColor="@color/white"
+                                android:textColor="#F44336"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -597,7 +597,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 6"
-                                android:textColor="@color/white"
+                                android:textColor="#F44336"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 

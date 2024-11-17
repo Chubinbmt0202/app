@@ -1,9 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Viewpage"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginRight="10dp"
     android:background="@drawable/back_home"
     android:orientation="vertical"
@@ -76,7 +75,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="12.8">
+        android:layout_weight="12.8"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp">
 
@@ -282,7 +282,7 @@
 
                                         <!-- Nút thêm món ăn -->
                                         <Button
-                                            android:id="@+id/home_addmenu2"
+                                            android:id="@+id/home_addmenujome"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
@@ -468,7 +468,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/tvtatca"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.26"
@@ -478,23 +478,25 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp">
-            <androidx.viewpager.widget.ViewPager
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:id="@+id/viewpagethucdon"
-                />
-         </androidx.cardview.widget.CardView>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpagethucdon"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp" />
+            </androidx.cardview.widget.CardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="vertical" />
 
             <TextView
                 android:id="@+id/textView38"
@@ -505,573 +507,10 @@
                 android:textStyle="bold" />
 
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gvhome"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:alignmentMode="alignMargins"
-                    android:columnCount="2"
-                    android:columnOrderPreserved="false"
-                    android:padding="14dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/monsoi_pho" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Phở tái"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="76.000VND/1 tô"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/img_calockhoto" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Cá lóc kho tộ"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="170.000VND/1tộ"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/img_goicuonthitxaxiu" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Gỏi cuốn thịt xá xíu"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="85.000VND/3 cuốn"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/img_calangmuoiot" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Cá lăng muối ớt"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="350.000VND/1phần"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/img_canuonghaivi" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Cá nướng hai vị"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="310.000VND/1phần"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/img_goicuontomtrungmuoi" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Gỏi cuốn tôm trứng muối"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="116.000VND/3 cuốn"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/img_phonam" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Phở nạm"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="99.000VND/1 tô"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical"
-                            android:weightSum="9">
-
-                            <!-- Icon trái tim -->
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:src="@drawable/btn_2" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/img_phobap" />
-
-                            <!-- Hình ảnh món ăn -->
-
-                            <!-- Tên món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Phở bắp"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <!-- Giá món ăn -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="76.000VND/1 tô"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <!-- Nút thêm món ăn -->
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:backgroundTint="#EB0707"
-                                android:text="+"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </GridLayout>
-
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -1116,7 +555,6 @@
                             android:text="Nguyễn Văn A"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -1152,7 +590,6 @@
                             android:text="Nguyễn Văn A"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -1188,7 +625,6 @@
                             android:text="Nguyễn Văn A"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 

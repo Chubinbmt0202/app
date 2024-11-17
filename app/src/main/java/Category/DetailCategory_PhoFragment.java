@@ -9,7 +9,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.apprestaurant.R;
 
@@ -23,8 +25,11 @@ import fragment_ngv.OrderFragment;
  */
 public class DetailCategory_PhoFragment extends Fragment {
 
+    private ImageView imgmonan , imgyeuthich;
+    private TextView tvtenmonan , tvgia;
     private LinearLayout line;
     private View view;
+    boolean isFavorite = false;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -77,9 +82,32 @@ public class DetailCategory_PhoFragment extends Fragment {
                 Fragment newFragment = new OrderFragment(); // Replace with your XuFragment class
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
-                fragmentTransaction.addToBackStack(null);
+                fragmentManager.popBackStack();
                 fragmentTransaction.commit();
+            }
+        });
+        imgyeuthich = view.findViewById(R.id.foodyeuthich);
+        imgmonan = view.findViewById(R.id.foodImage);
+        tvtenmonan = view.findViewById(R.id.foodName);
+        tvgia = view.findViewById(R.id.foodPrice);
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            imgmonan.setImageResource(bundle.getInt("img"));
+            tvgia.setText(bundle.getString("gia"));
+            tvtenmonan.setText(bundle.getString("ten"));
+        }
+
+        imgyeuthich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Thay đổi trạng thái và cập nhật hình ảnh dựa trên trạng thái
+                if (isFavorite) {
+                    imgyeuthich.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
+                } else {
+                    imgyeuthich.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
+                }
+                // Thay đổi giá trị của biến boolean
+                isFavorite = !isFavorite;
             }
         });
         return view;

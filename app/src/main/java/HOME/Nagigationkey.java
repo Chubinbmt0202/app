@@ -60,9 +60,7 @@ public class Nagigationkey extends AppCompatActivity {
         flt.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                // Cập nhật nút dưới cùng khi FrameLayout thay đổi
-
-                ngv_bottomngvview.setVisibility(View.VISIBLE); // Hoặc bất kỳ hành động nào bạn muốn thực hiện
+                ngv_bottomngvview.setVisibility(View.VISIBLE);
             }
         });
 
@@ -75,13 +73,12 @@ public class Nagigationkey extends AppCompatActivity {
 
     // Phương thức này sẽ thay thế fragment hiện tại bằng fragment mới
     private void replaceFragment(Fragment fragment) {
-        // Thực hiện transaction để thay thế fragment
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.ngv_viewPager, fragment) // Đảm bảo fragment_container tồn tại trong layout
+                    .replace(R.id.ngv_viewPager, fragment)
                     .commit();
-            ngv_bottomngvview.setVisibility(View.VISIBLE);
         }
     }
+
 }

@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apprestaurant.R;
 
@@ -25,6 +26,7 @@ import BOOK_ACTIVITY.ArrayApdate_GioHang;
 import BOOK_ACTIVITY.BookTable_Fragment;
 import BOOK_ACTIVITY.GioHang;
 import BOOK_ACTIVITY.PayBook_Fragment;
+import BOOK_ACTIVITY.Save_Money;
 import Intro_register_login.LoginActivity;
 
 import java.text.NumberFormat;
@@ -36,14 +38,17 @@ import java.util.Locale;
  * Use the {@link BookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookFragment extends Fragment {
+public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTotalAmountChangedListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // Khai báo tổng tiền cần trả
+    // Khai báo xoá tất cả
+    private TextView tvxoatatca;
+
+    // Khai báo tính tổng tiền
     private TextView tvtongtien;
 
     // TODO: Rename and change types of parameters
@@ -108,6 +113,7 @@ public class BookFragment extends Fragment {
 
         cv_book = view.findViewById(R.id.carviewbookdb);
 
+
         rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
         list = new ArrayList<>();
@@ -115,14 +121,16 @@ public class BookFragment extends Fragment {
         {
             list.add(new GioHang(dongia[i],tenmon[i],img[i]));
         }
-        apdate = new ArrayApdate_GioHang(list,getActivity());
+        apdate = new ArrayApdate_GioHang(list,  getActivity(),  this);
         rcv.setAdapter(apdate);
+        XoaTatCa(list);
         GanKQDatBan();
+        tvtongtien = view.findViewById(R.id.tvtongtien);
+
         ktr();
         share = getActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
         if(share != null) {
             ktra = 1;
-
             if (ktra == share.getInt("kt", 0)) {
                 tvtang.setText(share.getString("kqtang", " "));
                 tvban.setText(share.getString("kqban", " "));
@@ -146,9 +154,36 @@ public class BookFragment extends Fragment {
               editor.commit();
         }
         TiepTuc();
-        TinhTongTien();
         return view;
     }
+
+    @Override
+    public void onTotalAmountChanged(int formattedSum) {
+        // Cập nhật tvtongtien trong BookFragment
+        if (tvtongtien != null) {
+            int b = formattedSum;
+            String result = tvtongtien.getText().toString().replaceAll("[^\\d]", "");
+            b += Integer.parseInt(result);
+
+            NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+            String chuyendoi = formatter.format(b);
+            tvtongtien.setText("Tổng tiền: "+chuyendoi + "vnd");
+        }
+    }
+
+   private void XoaTatCa(ArrayList<GioHang> gh)
+   {
+      if(gh!= null) {
+          tvxoatatca = view.findViewById(R.id.tvxoatatca);
+          tvxoatatca.setVisibility(View.VISIBLE);
+          tvxoatatca.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  Toast.makeText(getContext(), "Gỡ tất cả các món thành công", Toast.LENGTH_SHORT).show();
+              }
+          });
+      }
+   }
 
     private void GanKQDatBan()
     {
@@ -188,30 +223,22 @@ public class BookFragment extends Fragment {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new PayBook_Fragment(); // Replace with your XuFragment class
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                if(tvtang.getText().equals("Rỗng")) {
+                  Toast.makeText(getContext(),"Vui long chọn bàn!",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Fragment newFragment = new PayBook_Fragment(); // Replace with your XuFragment class
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
             }
         });
 
     }
-    private void TinhTongTien()
-    {
-        tvtongtien = view.findViewById(R.id.tvtongtien);
-        int sum = 0;
-        for ( int i = 0 ; i < img.length ; i++)
-        {
-            GioHang gh = list.get(i);
-            sum += gh.getGia();
-        }
 
-        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
-        String formattedSum = formatter.format(sum);
-
-        tvtongtien.setText("Tổng tiền: " + formattedSum + " VND");
-    }
 
 }

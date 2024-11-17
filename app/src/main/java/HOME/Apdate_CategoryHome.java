@@ -1,4 +1,4 @@
-package Order;
+package HOME;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,24 +19,23 @@ import com.example.apprestaurant.R;
 
 import java.util.ArrayList;
 
-import Accout.ArrayAdate_DetailHistory;
-import Accout.Class_Detail;
 import Category.DetailCategory_PhoFragment;
+import Order.Apdate_OrderCategory;
+import Order.Class_CategoryBanhCuon;
 
-public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCategory.ViewHolder>{
-
+public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHome.ViewHolder>{
     private Context contex;
     private ArrayList<Class_CategoryBanhCuon> list;
     boolean isFavorite = false;
     @Override
-    public void onBindViewHolder(@NonNull Apdate_OrderCategory.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Apdate_CategoryHome.ViewHolder holder, int position) {
 
-            Class_CategoryBanhCuon item = list.get(position);
-            holder.tvtenmonan.setText(String.valueOf(item.getTenmonan()));
-            holder.tvtggia.setText(String.valueOf(item.getGiadonvi()));
-            holder.imgmonan.setImageResource(item.getImgmonan());
+        Class_CategoryBanhCuon item = list.get(position);
+        holder.tvtenmonan.setText(String.valueOf(item.getTenmonan()));
+        holder.tvtggia.setText(String.valueOf(item.getGiadonvi()));
+        holder.imgmonan.setImageResource(item.getImgmonan());
 
-            holder.imgmonan.setOnClickListener(new View.OnClickListener() {
+        holder.imgmonan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment newFragment = new DetailCategory_PhoFragment();
@@ -60,8 +59,7 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
 
 
 
-
-    public Apdate_OrderCategory(ArrayList<Class_CategoryBanhCuon> list, Context contex) {
+    public Apdate_CategoryHome(ArrayList<Class_CategoryBanhCuon> list, Context contex) {
         this.list = list;
         this.contex = contex;
     }
@@ -73,9 +71,9 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
 
     @NonNull
     @Override
-    public Apdate_OrderCategory.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(contex).inflate(R.layout.list_categorycanhcuon, parent, false);
-        return new Apdate_OrderCategory.ViewHolder(view);
+    public Apdate_CategoryHome.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(contex).inflate(R.layout.layout_categoryhome, parent, false);
+        return new Apdate_CategoryHome.ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -84,10 +82,10 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvtenmonan = itemView.findViewById(R.id.tv_monan); // ID của TextView trong layout
-            tvtggia = itemView.findViewById(R.id.tv_giadonvi);
-            imgmonan = itemView.findViewById(R.id.imgmonan);
-            imgtraitim = itemView.findViewById(R.id.imgtraitim);
+            tvtenmonan = itemView.findViewById(R.id.tv_monanhome); // ID của TextView trong layout
+            tvtggia = itemView.findViewById(R.id.tv_giadonvihome);
+            imgmonan = itemView.findViewById(R.id.imgmonanhome);
+            imgtraitim = itemView.findViewById(R.id.imgtraitimhome);
 
 
 
@@ -108,5 +106,4 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
 
         }
     }
-
 }
