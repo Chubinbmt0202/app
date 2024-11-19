@@ -24,10 +24,10 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_weight="1"
-                android:text="Account"
+                android:text="Thông Tin"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -39,8 +39,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="end"
                     android:src="@drawable/ngv_account" />
             </FrameLayout>
@@ -140,7 +140,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Đặt Bàn"
+                                android:text="Hóa Đơn"
                                 android:textSize="16sp"
 
                                 android:textStyle="bold" />
@@ -230,7 +230,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Thông Tin Danh Mục"
+                                android:text="Hóa Đơn Đã Hủy"
                                 android:textSize="16sp"
 
                                 android:textStyle="bold" />
@@ -249,6 +249,27 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/line_acdanhmuc"
+                    android:background="#E4E3E3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ngv_book"
+                        android:drawableEnd="@drawable/baseline_navigate_next_24"
+                        android:text="Giới thiệu danh mục"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -292,6 +313,7 @@
                         android:textSize="20sp" />
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -303,6 +325,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                         android:textColor="#F21E0F"
                         android:text="Đăng Nhập."
                         android:textSize="20sp" />
                 </LinearLayout>

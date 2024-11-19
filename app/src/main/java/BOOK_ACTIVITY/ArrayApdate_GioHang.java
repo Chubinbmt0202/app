@@ -1,6 +1,7 @@
 package BOOK_ACTIVITY;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +26,14 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
     private Context contex;
     private ArrayList<GioHang> list;
     private OnTotalAmountChangedListener listener;
+    private Database_GioHang data;
+    private Load load;
 
-    public ArrayApdate_GioHang(ArrayList<GioHang> list, Context contex, OnTotalAmountChangedListener listener) {
+    public ArrayApdate_GioHang(ArrayList<GioHang> list, Context contex, OnTotalAmountChangedListener listener,Load l) {
         this.list = list;
         this.contex = contex;
         this.listener = listener;
+        this.load = l;
     }
 
 
@@ -53,6 +57,41 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
         int a = item.getGia()/1000;
         holder.tvsumkq.setText(a +"." +"000 vnd");
         holder.imgmonan.setImageResource(item.getImg());
+
+        holder.img_icondelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data = new Database_GioHang(contex);
+                int giaca = 0;
+                int sosanh = 0;
+                String ktgia ="";
+                if(data!= null) {
+                    Cursor cs = data.getTenmonan();
+                    cs.moveToFirst();
+                    while (cs.isAfterLast() == false) {
+                        String result = cs.getString(1).replaceAll("[^\\d]", "");  // Clean the result string
+                        String rl1 = result.substring(0, result.length() - 1);
+
+                        int gia = Integer.parseInt(rl1);
+                        int ktsl = Integer.parseInt(holder.tvkqsolg.getText().toString());
+                        giaca= Integer.parseInt(holder.tvsumkq.getText().toString().replaceAll("[^\\d]", ""));
+                        sosanh = giaca / ktsl;
+                        if (gia == sosanh) {
+                           ktgia = cs.getString(1);
+                            if (listener != null) {
+                                listener.onTotalAmountChanged(- giaca);
+                            }
+                            break;
+                        }
+                        cs.moveToNext();
+                    }
+                    if (ktgia != "") {
+                        int i = data.XoaSanPham(holder.tvtenmonan.getText().toString(), ktgia);
+                        load.Loaddata(holder.tvtenmonan.getText().toString(), sosanh);
+                  }
+                }
+            }
+        });
 
         holder.cb_book.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,14 +126,6 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
             }
         });
 
-
-
-        holder.img_icondelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(contex,"Đã xóa món "+  item.getTenmon() +" thành công",Toast.LENGTH_SHORT).show();
-            }
-        });
 
         holder.imgadd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +198,10 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
             }
         });
 
+    }
+
+    public interface Load {
+        void Loaddata(String tenmonan , int gia);
     }
 
     public interface OnTotalAmountChangedListener {

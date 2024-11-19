@@ -31,6 +31,7 @@ public class Nagigationkey extends AppCompatActivity {
 
         if (savedInstanceState == null) {  // Kiểm tra để tránh thay thế fragment khi xoay màn hình
             replaceFragment(new HomeFragment());
+            ngv_bottomngvview.setVisibility(View.VISIBLE);
         }
 
         ngv_bottomngvview.setOnItemSelectedListener(item -> {
@@ -70,6 +71,32 @@ public class Nagigationkey extends AppCompatActivity {
             return insets;
         });
     }
+    // Phương thức này sẽ thay thế fragment hiện tại bằng fragment mới
+    public void Nagigome() {
+        ngv_bottomngvview.setVisibility(View.GONE);
+    }
+    // Phương thức để chuyển đổi Fragment và cập nhật trạng thái BottomNavigationView
+    public void navigateToFragment(int menuItemId) {
+        Fragment selectedFragment = null;
+
+        if (menuItemId == R.id.home) {
+            selectedFragment = new HomeFragment();
+        } else if (menuItemId == R.id.order) {
+            selectedFragment = new OrderFragment();
+        } else if (menuItemId == R.id.book) {
+            selectedFragment = new BookFragment();
+        } else if (menuItemId == R.id.favourite) {
+            selectedFragment = new FavouriteFragment();
+        } else if (menuItemId == R.id.account) {
+            selectedFragment = new AccountFragment();
+        }
+
+        if (selectedFragment != null) {
+            replaceFragment(selectedFragment);
+            ngv_bottomngvview.setSelectedItemId(menuItemId); // Đồng bộ trạng thái
+        }
+    }
+
 
     // Phương thức này sẽ thay thế fragment hiện tại bằng fragment mới
     private void replaceFragment(Fragment fragment) {
@@ -80,5 +107,7 @@ public class Nagigationkey extends AppCompatActivity {
                     .commit();
         }
     }
+
+
 
 }

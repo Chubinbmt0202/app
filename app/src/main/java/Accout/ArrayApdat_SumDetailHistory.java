@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,19 +24,28 @@ import java.util.ArrayList;
 public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat_SumDetailHistory.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Class_sumdeltaihistory item = list.get(position);
         holder.idhoadon.setText("Hóa đơn #"+String.valueOf(item.getIdhoadon()));
         holder.textngaydat.setText(item.getNgaydat());
-        if(item.getTinhtrang() == 1)
+        if(item.getTinhtrang() == 2)
         {
             holder.texttinhtrang.setText("Thành công");
             holder.tvtinhtrang.setText("Không thể hủy");
         }
-        else
+        else if(item.getTinhtrang() == 3)
+        {
+            holder.texttinhtrang.setText("Đã hủy");
+            holder.tvtinhtrang.setText("Hủy thành công");
+            holder.btnchitiet.setText("Đặt Lại");
+        }
+        else if (item.getTinhtrang() == 1)
         {
             holder.texttinhtrang.setText("Chờ xử lí");
             holder.tvtinhtrang.setText("Có thể hủy");
+        }
+        else {
+            holder.texttinhtrang.setText("Thành công");
+            holder.tvtinhtrang.setText("Phản hồi");
         }
 
         holder.btnchitiet.setOnClickListener(new View.OnClickListener() {
@@ -46,12 +56,21 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
                 {
                     it.putExtra("ktra",1);
                 }
-               else
+
+                else if(item.getTinhtrang() == 3)
                 {
-                    it.putExtra("ktra",0);
+                    it.putExtra("ktra",3);
+                    it.putExtra("id",item.getIdhoadon());
+                }
+                else if(item.getTinhtrang() == 2)
+                {
+                    it.putExtra("ktra",2);
+                }
+                else if(item.getTinhtrang() == 4)
+                {
+                    it.putExtra("ktra",4);
                 }
                 startActivity(contex,it,null);
-
             }
         });
 
@@ -59,8 +78,6 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
 
     private Context contex;
     private ArrayList<Class_sumdeltaihistory> list;
-
-
 
 
     public ArrayApdat_SumDetailHistory(ArrayList<Class_sumdeltaihistory> list, Context contex) {
@@ -80,9 +97,6 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
         return new ArrayApdat_SumDetailHistory.ViewHolder(view);
     }
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView textngaydat , texttinhtrang , idhoadon , tvtinhtrang;
         Button btnchitiet ;
@@ -93,7 +107,6 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
             textngaydat = itemView.findViewById(R.id.tv_ngaydat);
             btnchitiet = itemView.findViewById(R.id.btn_detail);
             tvtinhtrang = itemView.findViewById(R.id.tvtinhtrang);
-
         }
     }
 }

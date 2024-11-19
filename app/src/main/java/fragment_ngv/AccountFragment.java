@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -19,11 +18,11 @@ import android.widget.TextView;
 import com.example.apprestaurant.Accout_detail_userFragment;
 import com.example.apprestaurant.R;
 
-import Accout.Sum_detailhistory_Activity;
-import BOOK_ACTIVITY.BookTable_Fragment;
+import Accout.Cancel_DetaildetailhistoryFragment;
+import Accout.Sum_detailhostoryFragment;
 import Category.DetailCategory_Activity;
+import HOME.Nagigationkey;
 import Intro_register_login.LoginActivity;
-import User_Restaurant.DetailUser_Activity;
 import User_Restaurant.Detail_RestaurantActivity;
 import User_Restaurant.Layout_feedback;
 
@@ -41,7 +40,7 @@ public class AccountFragment extends Fragment {
     private CardView cvUser, cvRestaurant, cvDetailCategory, cvBookHistory;
     private View view;
     private TextView tvUser;
-    private LinearLayout lineFeedback;
+    private LinearLayout lineFeedback , linegtdm;
     private TextView tx_action;
     public AccountFragment() {
         // Required empty public constructor
@@ -113,6 +112,15 @@ public class AccountFragment extends Fragment {
         cvDetailCategory = view.findViewById(R.id.carddanhmuc);
         cvBookHistory = view.findViewById(R.id.cardviewbook);
 
+        linegtdm = view.findViewById(R.id.line_acdanhmuc);
+
+
+        linegtdm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), DetailCategory_Activity.class));
+            }
+        });
         cvUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,15 +141,20 @@ public class AccountFragment extends Fragment {
         cvDetailCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), DetailCategory_Activity.class));
+                Fragment newFragment = new Cancel_DetaildetailhistoryFragment();
+                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.commit();
             }
         });
 
         cvBookHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getActivity(), Sum_detailhistory_Activity.class);
-                startActivity(it);
+                Fragment newFragment = new Sum_detailhostoryFragment();
+                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.commit();
             }
         });
     }

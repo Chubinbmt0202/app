@@ -98,6 +98,7 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
         Quailai();
         return view;
     }
+
     private void Quailai() {
         imgback = view.findViewById(R.id.img_backtoday);
         imgback.setOnClickListener(new View.OnClickListener() {

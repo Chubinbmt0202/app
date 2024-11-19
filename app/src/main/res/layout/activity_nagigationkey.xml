@@ -24,15 +24,15 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/ngv_bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_weight="1.25"
         android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
+        android:layout_weight="1.25"
         android:background="@drawable/border"
-        app:menu="@menu/navigationkey"
+        android:visibility="visible"
         app:itemIconTint="@color/changecolor_ngv"
         app:itemTextColor="@color/changecolor_ngv"
-        >
+        app:menu="@menu/navigationkey">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

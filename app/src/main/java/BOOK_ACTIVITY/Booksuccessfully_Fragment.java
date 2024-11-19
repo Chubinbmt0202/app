@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.example.apprestaurant.R;
 
-import fragment_ngv.HomeFragment;
+import Accout.Sum_detailhostoryFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,11 +69,11 @@ public class Booksuccessfully_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_booksuccessfully_, container, false);
-        btnback = view.findViewById(R.id.btn_backhome);
+        btnback = (Button) view.findViewById(R.id.btn_backhome);
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new HomeFragment(); // Replace with your XuFragment class
+                Fragment newFragment = new Sum_detailhostoryFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);

@@ -47,8 +47,6 @@ public class ArrayAdate_DetailHistory extends RecyclerView.Adapter<ArrayAdate_De
     }
 
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvtenmonan , tvtggia , tvgiagoc , solg;
         ImageView imgmonan;

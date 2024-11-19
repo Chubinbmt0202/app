@@ -149,7 +149,10 @@ public class PayBook_Fragment extends Fragment {
                 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setView(dialogView);
-                alertDialog.show();
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+
                 final ImageView imgview = dialogView.findViewById(R.id.imageView19);
                 imgview.setImageResource(R.drawable.logo_vtb);
 
@@ -165,11 +168,12 @@ public class PayBook_Fragment extends Fragment {
                                 edtngaycap.getText().toString().isEmpty()
                         ) {
                             Toast.makeText(getContext(), "Liên kết không thành công!", Toast.LENGTH_SHORT).show();
-                            return;
+                            dialog.cancel();
                         } else {
                             Toast.makeText(getContext(), "Liên kết thành công!", Toast.LENGTH_SHORT).show();
-                            return;
+                            dialog.dismiss();
                         }
+
                     }
                 });
             }

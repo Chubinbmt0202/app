@@ -13,20 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apprestaurant"
         tools:targetApi="31">
-        <activity
-            android:name="User_Restaurant.ViewUserActivity"
-            android:exported="false" />
-        <activity
-            android:name="Order.Order_CtagoryBanhCuon_Activity"
-            android:exported="false" />
-        <activity
-            android:name="Accout.Sum_detailhistory_Activity"
-            android:exported="false" />
+
+
         <activity
             android:name="Accout.detailhistory_Activity"
-            android:exported="false" />
-        <activity
-            android:name="BOOK_ACTIVITY.BookTable_Activity"
             android:exported="false" />
         <activity
             android:name="Category.DetailCategory_Activity"
@@ -39,9 +29,6 @@
             android:exported="false" />
         <activity
             android:name="User_Restaurant.Layout_feedback"
-            android:exported="false" />
-        <activity
-            android:name="BOOK_ACTIVITY.Book1_Activity"
             android:exported="false" />
         <activity
             android:name="HOME.Nagigationkey"

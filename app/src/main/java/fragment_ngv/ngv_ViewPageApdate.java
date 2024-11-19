@@ -31,7 +31,10 @@ public class ngv_ViewPageApdate extends FragmentStatePagerAdapter {
         }
     }
 
-    @Override
+
+
+
+        @Override
     public int getCount() {
         return 5;
     }

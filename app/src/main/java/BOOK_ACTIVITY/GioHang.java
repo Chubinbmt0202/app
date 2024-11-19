@@ -5,10 +5,10 @@ public class GioHang {
     private int gia  ;
     private String tenmon;
 
-    public GioHang(int gia, String tenmon, int img) {
+    public GioHang(int gia, int img, String tenmon) {
         this.gia = gia;
-        this.tenmon = tenmon;
         this.img = img;
+        this.tenmon = tenmon;
     }
 
     public int getGia() {
@@ -19,19 +19,19 @@ public class GioHang {
         this.gia = gia;
     }
 
-    public String getTenmon() {
-        return tenmon;
-    }
-
-    public void setTenmon(String tenmon) {
-        this.tenmon = tenmon;
-    }
-
     public int getImg() {
         return img;
     }
 
     public void setImg(int img) {
         this.img = img;
+    }
+
+    public String getTenmon() {
+        return tenmon;
+    }
+
+    public void setTenmon(String tenmon) {
+        this.tenmon = tenmon;
     }
 }

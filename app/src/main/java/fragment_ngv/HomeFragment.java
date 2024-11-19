@@ -125,6 +125,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Để chuyển từ HomeFragment sang OrderFragment
+                ((Nagigationkey) getActivity()).navigateToFragment(R.id.order); // Chuyển đến BookFragment
                 Fragment newFragment = new OrderFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

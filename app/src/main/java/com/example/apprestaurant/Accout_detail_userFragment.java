@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import HOME.Nagigationkey;
 import User_Restaurant.DetailUser_Activity;
 import fragment_ngv.AccountFragment;
+import fragment_ngv.BookFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -156,24 +157,47 @@ public class Accout_detail_userFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String s = " " ;
+
                 SharedPreferences share = getActivity().getSharedPreferences("user",MODE_PRIVATE);
                 if(share.getInt("kt",0) == 1)
                 {
                     s = share.getString("name",null);
                 }
-                // Tạo Fragment và thêm dữ liệu vào Bundle
-                Fragment newFragment = new AccountFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("nameuser", s);
-                bundle.putInt("kt", 1);
-                newFragment.setArguments(bundle); // Gắn Bundle vào Fragment
+                Bundle bl = getArguments();
+                if(bl!= null)
+                {
+                    int k = bl.getInt("bk",0);
+                    if(k != 0)
+                    {
+                        ((Nagigationkey) getActivity()).navigateToFragment(R.id.book); // Chuyển đến BookFragment
+                        // Tạo Fragment và thêm dữ liệu vào Bundle
+                        Fragment newFragment = new BookFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("nameuser", s);
+                        bundle.putInt("kt", 1);
+                        newFragment.setArguments(bundle); // Gắn Bundle vào Fragment
 
-               // Thay thế Fragment hiện tại bằng Fragment mới
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
-                fragmentTransaction.commit();
+                        // Thay thế Fragment hiện tại bằng Fragment mới
+                        FragmentManager fragmentManager = getParentFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                        fragmentTransaction.commit();
+                    }
+                }
+                else {
+                    // Tạo Fragment và thêm dữ liệu vào Bundle
+                    Fragment newFragment = new AccountFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("nameuser", s);
+                    bundle.putInt("kt", 1);
+                    newFragment.setArguments(bundle); // Gắn Bundle vào Fragment
 
+                    // Thay thế Fragment hiện tại bằng Fragment mới
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                    fragmentTransaction.commit();
+                }
             }
         });
     }
