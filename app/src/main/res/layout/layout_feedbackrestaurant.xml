@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:id="@+id/linebackphanhoi"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -20,18 +21,16 @@
             android:id="@+id/imageView10"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             app:srcCompat="@drawable/icon_backlui" />
 
         <TextView
             android:id="@+id/textView58"
-            android:layout_marginRight="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
+            android:layout_marginRight="7dp"
+            android:text="Đánh giá và phản hổi"
             android:textSize="20sp"
-            android:text="Đánh giá và phản hổi" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout

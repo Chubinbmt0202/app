@@ -165,8 +165,9 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
             public void onClick(View view) {
                      int a = item.getGia();
                     int solg = Integer.parseInt(holder.tvkqsolg.getText().toString());
-                    if(solg > 0) {
-                     solg -= 1;
+                    solg -= 1;
+                    if(solg > 0)
+                    {
                     int sum =  item.getGia() / solg;
                     holder.tvkqsolg.setText(String.valueOf(solg));
                     NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
@@ -193,7 +194,35 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
                 }
                 else
                 {
-                    Toast.makeText(contex,"Đã xóa món "+  item.getTenmon() +" thành công",Toast.LENGTH_SHORT).show();
+                    data = new Database_GioHang(contex);
+                    int giaca = 0;
+                    int sosanh = 0;
+                    String ktgia ="";
+                    if(data!= null) {
+                        Cursor cs = data.getTenmonan();
+                        cs.moveToFirst();
+                        while (cs.isAfterLast() == false) {
+                            String result = cs.getString(1).replaceAll("[^\\d]", "");  // Clean the result string
+                            String rl1 = result.substring(0, result.length() - 1);
+
+                            int gia = Integer.parseInt(rl1);
+                            int ktsl = Integer.parseInt(holder.tvkqsolg.getText().toString());
+                            giaca= Integer.parseInt(holder.tvsumkq.getText().toString().replaceAll("[^\\d]", ""));
+                            sosanh = giaca / ktsl;
+                            if (gia == sosanh) {
+                                ktgia = cs.getString(1);
+                                if (listener != null) {
+                                    listener.onTotalAmountChanged(- giaca);
+                                }
+                                break;
+                            }
+                            cs.moveToNext();
+                        }
+                        if (ktgia != "") {
+                            int i = data.XoaSanPham(holder.tvtenmonan.getText().toString(), ktgia);
+                            load.Loaddata(holder.tvtenmonan.getText().toString(), sosanh);
+                        }
+                    }
                 }
             }
         });
