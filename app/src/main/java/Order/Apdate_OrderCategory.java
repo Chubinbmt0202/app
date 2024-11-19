@@ -79,8 +79,6 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                         if (cs.getCount() != 0) {
                             cs.moveToFirst();
                                 while(cs.isAfterLast() == false) {
-
-
                                    if (item.getTenmonan().equals(cs.getString(0)) && item.getGiadonvi().equals(cs.getString(1))) {
                                         kt = true;
                                         return;
@@ -90,10 +88,12 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
 
                             if (kt== false) {
                                 data.Themsanpham(item.getTenmonan(), item.getGiadonvi(), item.getImgmonan());
+                                Toast.makeText(contex,"Thêm món ăn thành công.",Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {
                             data.Themsanpham(item.getTenmonan(), item.getGiadonvi(), item.getImgmonan());
+                            Toast.makeText(contex,"Thêm món ăn thành công.",Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -144,7 +144,7 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                     if (isFavorite) {
                         imgtraitim.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
                     } else {
-                        imgtraitim.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
+                        imgtraitim.setImageResource(R.drawable.iconn_ttraitim); // Đặt về biểu tượng "không yêu thích"
                     }
                     // Thay đổi giá trị của biến boolean
                     isFavorite = !isFavorite;
