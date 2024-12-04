@@ -11,10 +11,10 @@
     tools:context="User_Restaurant.Layout_feedback">
 
     <LinearLayout
-        android:layout_width="wrap_content"
         android:id="@+id/linebackphanhoi"
-        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -25,11 +25,13 @@
 
         <TextView
             android:id="@+id/textView58"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
+            android:gravity="center"
             android:text="Đánh giá và phản hổi"
-            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 

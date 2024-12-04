@@ -26,7 +26,6 @@ public class Class_CategoryBanhCuon {
         this.tenmonan = tenmonan;
     }
 
-
     public int getImgmonan() {
         return imgmonan;
     }

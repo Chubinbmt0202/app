@@ -11,15 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.apprestaurant.R;
 
+import HOME.Searach_Fragment;
 import Order.FoodToday_Fragment;
 import Order.Order_CategoryBanhCuonFragment;
 import Order.Order_CategoryComChaoSupFragment;
+import Order.Order_CategoryDrinkFragment;
 import Order.Order_CategoryGaBoHeoFragment;
 import Order.Order_CategoryHaiSanFragment;
+import Order.Order_CategoryHotpogFragment;
 import Order.Order_CategoryPhoFragment;
+import Order.Order_CategorydessertFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +34,7 @@ import Order.Order_CategoryPhoFragment;
 public class OrderFragment extends Fragment {
 
     private View view;
-
+    private TextView edtsearch1;
     private CardView cvmonsoi , cvbanhcuon  , cvhaisanca , cvgaboheo , cvcschao , cvtrangmieng , cvlau , cvdouong , cvtoday;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,12 +81,30 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_order, container, false);
+
+        edtsearch1 = view.findViewById(R.id.edtsearch1);
+        edtsearch1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Để chuyển từ OrderFragment sang Search_Fragment
+                Fragment newFragment = new Searach_Fragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         Danhmucmonsoi();
         Danhmuchaisanca();
         Danhmucbanhcuon();
         Danhmuctoday();
         Danhmucgaboheo();
         Danhmucccsup();
+        Danhmucctrangmieng();
+        Danhmucclau();
+        Danhmucnuocuong();
         return view;
     }
 
@@ -180,5 +203,52 @@ public class OrderFragment extends Fragment {
             }
         });
     }
+
+    private void Danhmucctrangmieng()
+    {
+        cvtrangmieng = view.findViewById(R.id.cview_trangmieng);
+        cvtrangmieng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment newFragment = new Order_CategorydessertFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    private void Danhmucclau() {
+        cvlau = view.findViewById(R.id.cview_lau);
+        cvlau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment newFragment = new Order_CategoryHotpogFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+        private void Danhmucnuocuong()
+        {
+            cvdouong = view.findViewById(R.id.cview_douong);
+            cvdouong.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment newFragment = new Order_CategoryDrinkFragment();
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            });
+    }
+
 
 }

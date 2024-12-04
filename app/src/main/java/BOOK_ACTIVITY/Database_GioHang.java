@@ -24,8 +24,8 @@ public class Database_GioHang extends SQLiteOpenHelper {
     private final String img = "IMG";
     private SQLiteDatabase sqlite;
     private Apdate_OrderCategory order ;
-    public final String creatable = "CREATE TABLE " + table +"(" + id  +" INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + Tenmonan +" TEXT ," + Gia + " TEXT ," + img +" INTEGER )" ;
+    public final String creatable = "CREATE TABLE " + table +"( " + id  +" INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + Tenmonan +" TEXT ," + Gia + " TEXT ," + img +" INTEGER )";
 
 
     public Database_GioHang( Context context) {
@@ -35,7 +35,9 @@ public class Database_GioHang extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
         sqLiteDatabase.execSQL(creatable);
+
     }
 
     @Override
@@ -65,21 +67,18 @@ public class Database_GioHang extends SQLiteOpenHelper {
     }
 
     public int XoaSanPham(String tenmonan, String dongia) {
-        // Open the database
         int rowsDeleted = 0;
         if (sqlite == null || !sqlite.isOpen()) {
             throw new IllegalStateException("Database is not open!");
         }
 
         try {
-            // Delete the row(s) that match the conditions
             rowsDeleted = sqlite.delete(
                     table,
                     Tenmonan + " = ? AND " + Gia + " = ?",
                     new String[]{tenmonan, dongia}
             );
         } finally {
-            // Close the database
             sqlite.close();
         }
         return rowsDeleted;

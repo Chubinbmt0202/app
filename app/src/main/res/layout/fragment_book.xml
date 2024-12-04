@@ -17,227 +17,191 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Đặt bàn"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:text="Thông tin đặt bàn của quý khách "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/kt_booktb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#E91E63"
+                    android:text="Đặt bàn" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_dangky"
-                    android:backgroundTint="#00BFFF"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:text="Thông Tin Cá Nhân"
-                        android:textColor="#E61E62"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/kt_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Chỉnh sửa"
-                        android:textColor="#3F51B5"
-                        android:textSize="14sp" />
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="2"
+                    android:columnOrderPreserved="false"
+                    android:padding="8dp"
+                    android:rowCount="2">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/carviewtt"
-                        android:layout_width="150dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp"
                         app:cardElevation="8dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:text="Họ tên : Đặng Ngọc Dũng"
+                                android:drawableLeft="@drawable/baseline_supervisor_account_24"
+                                android:text="Số người: "
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/tv_sdt"
+                                android:id="@+id/tv_kqpeople"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:text="SDT : 0123456789"
+                                android:layout_gravity="center"
+                                android:text="Rỗng"
                                 android:textStyle="bold" />
-
-
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_dangky"
-                    android:backgroundTint="#00BFFF"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView34"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:text="Thông Tin Đặt Bàn"
-                        android:textColor="#E22163"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/kt_booktb"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Đặt Bàn"
-                        android:textColor="#3F51B5"
-                        android:textSize="14sp" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/carviewbookdb"
-                        android:layout_width="150dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp"
                         app:cardElevation="8dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:orientation="horizontal">
+                                android:drawableLeft="@drawable/baseline_table_bar_24"
+                                android:text="Bàn: "
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Tầng :"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/tv_tangkq"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Rỗng"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/tv_bankqbk"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bàn :"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/tv_bankq"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Rỗng"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/textView42"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Ngày :"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/tv_datekq"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Rỗng"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Giờ:"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/tv_timekq"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Rỗng"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
+                                android:layout_gravity="center"
+                                android:text="Rỗng"
+                                android:textStyle="bold" />
                         </LinearLayout>
-
                     </androidx.cardview.widget.CardView>
-                </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_margin="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/baseline_date_range_24"
+                                android:text="Ngày: "
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_datekqbk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Rỗng"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_margin="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/baseline_access_time_25"
+                                android:text="Giờ: "
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_giokqbk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Rỗng"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </GridLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -252,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="Thực đơn đã chọn"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -264,7 +228,7 @@
                 android:gravity="end"
                 android:text="Xóa tất cả"
                 android:textColor="#E60C0C"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:visibility="invisible" />
         </LinearLayout>
@@ -285,31 +249,60 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="#1F94F1"
+                    android:layout_height="50dp"
                     android:background="@drawable/btn_cobann"
+                    android:backgroundTint="#E91E63"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvtongtien"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="7dp"
-                        android:textColor="@color/white"
-                        android:text="Tổng tiền : 0 vnd"
-                        />
+                        android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/btn_datban"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginRight="5dp"
+                            android:text="Tổng tiền :"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvtongtien"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="5dp"
+                            android:text=" 0 vnd"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/btn_dangky"
-                        android:text="Đặt Bàn"
-                        app:backgroundTint="#E91E63" />
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/btn_datban"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/btn_dangky"
+                            android:text="Đặt Bàn"
+                            android:textColor="@color/black"
+                            app:backgroundTint="@color/white" />
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
             </LinearLayout>

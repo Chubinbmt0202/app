@@ -7,6 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="10"
+    android:layout_margin="5dp"
     tools:context="BOOK_ACTIVITY.BookTable_Fragment">
 
     <LinearLayout
@@ -16,17 +17,18 @@
 
         <ImageView
             android:id="@+id/imgvback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40sp"
+            android:layout_height="30sp"
             android:src="@drawable/icon_backlui" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Đặt bàn :"
-            android:textColor="#E91E63"
+            android:textAlignment="center"
+            android:text="Đặt Bàn"
+            android:gravity="center"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -48,378 +50,34 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/textView37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Chọn Tầng : "
-                        android:textSize="20sp"
+                        android:layout_marginRight="10dp"
+                        android:drawableLeft="@drawable/baseline_supervisor_account_24"
+                        android:text="Số người: "
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <RadioGroup
-                        android:id="@+id/rdgroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_weight="1"
-                            android:text="Tầng 1"
-                            android:textStyle="bold" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textSize="18sp"
-                            android:text="Tầng 2"
-                            android:textStyle="bold" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textSize="18sp"
-                            android:text="Tầng 3"
-                            android:textStyle="bold" />
-                    </RadioGroup>
-
+                    <Spinner
+                        android:id="@+id/cbbpeople"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent" />
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Chọn Bàn :"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_height="wrap_content">
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban01"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban01"
-                                android:textStyle="bold"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Bàn 01"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban02"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/icon_bang02" />
-
-                            <TextView
-                                android:id="@+id/textban02"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Đã đặt"
-                                android:textColor="#EB4135"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban03"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban03"
-                                android:textStyle="bold"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Bàn 03"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban04"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban04"
-                                android:textStyle="bold"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Bàn 04"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban05"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban05"
-                                android:textStyle="bold"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Bàn 05"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban06"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban06"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Bàn 06"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban07"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/icon_bang02" />
-
-                            <TextView
-                                android:id="@+id/textban07"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Đã đặt"
-                                android:textColor="#EB4135"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban08"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban08"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textStyle="bold"
-                                android:text="Bàn 08"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban09"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/icon_bang02" />
-
-                            <TextView
-                                android:id="@+id/textban09"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Đã đặt"
-                                android:textColor="#EB4135"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban010"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban010"
-                                android:textStyle="bold"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Bàn 10"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban011"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban011"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Bàn 11"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgban012"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/img_banan" />
-
-                            <TextView
-                                android:id="@+id/textban012"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textStyle="bold"
-                                android:text="Bàn 12"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                    </TableRow>
-
-                </TableLayout>
 
                 <TextView
                     android:id="@+id/textView23"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/baseline_date_range_24"
                     android:text="Chọn Ngày :"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <HorizontalScrollView
@@ -432,11 +90,11 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="130dp"
+                            android:layout_height="120dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/btn_dangky"
-                            android:backgroundTint="#00BFFF"
+                            android:backgroundTint="#E91E63"
                             android:orientation="vertical">
 
                             <TextView
@@ -445,8 +103,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 2"
-                                android:textColor="#F44336"
-                                android:textSize="20sp"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -454,27 +112,27 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:textColor="@color/black"
                                 android:text="21/10"
-                                android:textSize="30sp"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
                                 android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/cl_date01"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="5dp"
                                 android:src="@drawable/add" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="130dp"
+                            android:layout_height="120dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/btn_dangky"
-                            android:backgroundTint="#00BFFF"
+                            android:backgroundTint="#E91E63"
                             android:orientation="vertical">
 
                             <TextView
@@ -483,8 +141,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 3"
-                                android:textColor="#F44336"
-                                android:textSize="20sp"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -494,13 +152,13 @@
                                 android:gravity="center"
                                 android:text="22/10"
                                 android:textColor="@color/black"
-                                android:textSize="30sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/cl_date02"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/add" />
@@ -509,10 +167,10 @@
 
                         <LinearLayout
                             android:layout_width="150dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="120dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/btn_dangky"
-                            android:backgroundTint="#00BFFF"
+                            android:backgroundTint="#E91E63"
                             android:orientation="vertical">
 
                             <TextView
@@ -521,8 +179,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 4"
-                                android:textColor="#F44336"
-                                android:textSize="20sp"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -532,13 +190,13 @@
                                 android:gravity="center"
                                 android:text="23/10"
                                 android:textColor="@color/black"
-                                android:textSize="30sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/cl_date03"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/add" />
@@ -547,10 +205,10 @@
 
                         <LinearLayout
                             android:layout_width="150dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="120dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/btn_dangky"
-                            android:backgroundTint="#00BFFF"
+                            android:backgroundTint="#E91E63"
                             android:orientation="vertical">
 
                             <TextView
@@ -559,8 +217,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 5"
-                                android:textColor="#F44336"
-                                android:textSize="20sp"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -570,13 +228,13 @@
                                 android:gravity="center"
                                 android:text="24/10"
                                 android:textColor="@color/black"
-                                android:textSize="30sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/cl_date04"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/add" />
@@ -585,10 +243,10 @@
 
                         <LinearLayout
                             android:layout_width="150dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="120dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/btn_dangky"
-                            android:backgroundTint="#00BFFF"
+                            android:backgroundTint="#E91E63"
                             android:orientation="vertical">
 
                             <TextView
@@ -597,8 +255,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Thứ 6"
-                                android:textColor="#F44336"
-                                android:textSize="20sp"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -608,13 +266,13 @@
                                 android:gravity="center"
                                 android:text="25/10"
                                 android:textColor="@color/black"
-                                android:textSize="30sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/cl_date05"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
                                 android:src="@drawable/add" />
@@ -624,51 +282,68 @@
                     </LinearLayout>
                 </HorizontalScrollView>
 
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView18"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Chọn Tầng : "-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <RadioGroup-->
+<!--                        android:id="@+id/rdgroup"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <RadioButton-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Tầng 1"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <RadioButton-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Tầng 2"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <RadioButton-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Tầng 3"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold" />-->
+<!--                    </RadioGroup>-->
+
+<!--                </LinearLayout>-->
+
                 <TextView
                     android:id="@+id/textView25"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/baseline_access_time_25"
                     android:text="Chọn Giờ :"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Sáng"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textView21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Trưa"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textView24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Tối"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-                    </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -683,29 +358,29 @@
                             android:background="@drawable/btn_dangky"
                             android:text="8:00"
                             android:textColor="@color/black"
-                            app:backgroundTint="#00BFFF" />
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button17"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:background="@drawable/btn_dangky"
                             android:text="12:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:textColor="@color/black"
                             android:layout_weight="1"
                             android:background="@drawable/btn_dangky"
                             android:text="17:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
                     </TableRow>
 
                     <TableRow
@@ -718,10 +393,10 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:textColor="@color/black"
                             android:background="@drawable/btn_dangky"
                             android:text="9:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button8"
@@ -729,21 +404,21 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:textColor="@color/black"
                             android:background="@drawable/btn_dangky"
                             android:text="14:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button9"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
-                            android:textColor="@color/black"
                             android:layout_weight="1"
                             android:background="@drawable/btn_dangky"
                             android:text="18:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
                     </TableRow>
 
                     <TableRow
@@ -759,18 +434,18 @@
                             android:background="@drawable/btn_dangky"
                             android:text="10:00"
                             android:textColor="@color/black"
-                            app:backgroundTint="#00BFFF" />
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:textColor="@color/black"
                             android:layout_weight="1"
                             android:background="@drawable/btn_dangky"
                             android:text="15:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button12"
@@ -781,7 +456,7 @@
                             android:background="@drawable/btn_dangky"
                             android:text="19:00"
                             android:textColor="@color/black"
-                            app:backgroundTint="#00BFFF" />
+                            app:backgroundTint="#E91E63" />
 
                     </TableRow>
 
@@ -794,22 +469,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:textColor="@color/black"
                             android:layout_weight="1"
                             android:background="@drawable/btn_dangky"
                             android:text="11:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:textColor="@color/black"
                             android:layout_weight="1"
                             android:background="@drawable/btn_dangky"
                             android:text="16:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
 
                         <Button
                             android:id="@+id/button13"
@@ -817,26 +492,381 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:textColor="@color/black"
                             android:background="@drawable/btn_dangky"
                             android:text="20:00"
-                            app:backgroundTint="#00BFFF" />
+                            android:textColor="@color/black"
+                            app:backgroundTint="#E91E63" />
                     </TableRow>
                 </TableLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/baseline_table_bar_24"
+                    android:text="Chọn Bàn :"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban01"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban01"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 01"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban02"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_margin="15dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban02"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Đã đặt"
+                                android:textColor="#EB4135"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban03"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban03"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 03"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban04"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_margin="15dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban04"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 04"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban05"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban05"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 05"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban06"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban06"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 06"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban07"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban07"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Đã đặt"
+                                android:textColor="#EB4135"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban08"
+                                android:layout_width="50dp"
+                                android:layout_gravity="center"
+                                android:layout_height="50dp"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban08"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 08"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban09"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_banan" />
+
+                            <TextView
+                                android:id="@+id/textban09"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Đã đặt"
+                                android:textColor="#EB4135"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban010"
+                                android:layout_width="50dp"
+                                android:layout_gravity="center"
+                                android:layout_height="50dp"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_bandoi" />
+
+                            <TextView
+                                android:id="@+id/textban010"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 10"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban011"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_bandoi" />
+
+                            <TextView
+                                android:id="@+id/textban011"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 11"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imgban012"
+                                android:layout_width="50dp"
+                                android:layout_gravity="center"
+                                android:layout_height="50dp"
+                                android:layout_margin="15dp"
+                                android:src="@drawable/img_bandoi" />
+
+                            <TextView
+                                android:id="@+id/textban012"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Bàn 12"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </TableRow>
+
+                </TableLayout>
+
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Thông tin đặt bàn"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:alpha="0.7"
-                    android:background="#00BFFF"
-                    android:orientation="vertical">
+                    android:background="@drawable/btn_dangky"
+                    android:orientation="vertical"
+                    app:backgroundTint="#E91E63">
 
                     <TableLayout
                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_height="match_parent">
+                        android:layout_marginRight="5dp">
 
                         <TableRow
                             android:layout_width="match_parent"
@@ -844,49 +874,24 @@
 
                             <TextView
                                 android:id="@+id/textView26"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Tầng : "
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:text="Số người: "
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/kqtang"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/kqpeople"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Không có gì"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:id="@+id/textView27"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Bàn : "
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/kqban"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Không có gì"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
                         </TableRow>
 
                         <TableRow
@@ -895,22 +900,22 @@
 
                             <TextView
                                 android:id="@+id/textView28"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Ngày đặt : "
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:text="Bàn: "
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/kqngaydat"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/kqban"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Không có gì"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </TableRow>
 
@@ -920,22 +925,46 @@
 
                             <TextView
                                 android:id="@+id/textView29"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Giờ : "
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:text="Ngày : "
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/kqdate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Không có gì"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Giờ: "
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/kqgio"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Không có gì"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </TableRow>
                     </TableLayout>
@@ -950,7 +979,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/btn_dangky"
                     android:text="Next"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:backgroundTint="#E91E63" />
 
             </LinearLayout>

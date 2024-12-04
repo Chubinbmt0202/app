@@ -16,13 +16,14 @@
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:srcCompat="@drawable/icon_backlui" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_marginLeft="10dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:text="Giới Thiệu Danh Mục"
             android:textStyle="bold"

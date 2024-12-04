@@ -96,7 +96,6 @@ public class Cancel_DetaildetailhistoryFragment extends Fragment  {
         Bundle bl = getArguments();
         if (bl != null) {
             ktid = bl.getString("iddonhang", "");
-            Toast.makeText(getContext(), ktid + " kokoko", Toast.LENGTH_SHORT).show();
 
             if (!ktid.isEmpty()) { // Kiểm tra chuỗi không rỗng
                 for (int i = 0; i < list.size(); i++) { // Lặp qua danh sách

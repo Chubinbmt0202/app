@@ -29,20 +29,22 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
     private View view;
 
     private  String tenmonan[] = {"Gỏi cuốn thịt xá xíu",
-                                  "Gỏi cuốn thịt xá xíu",
-                                  "Gỏi cuốn tôm trung muoi",
-                                  "Gỏi cuốn tôm trứng muối",
-                                   "Gỏi cuốn tôm thịt heo"};
-    private String giadonvi[] = {"85.000 vnd/3 cuốn",
-                                 "135.000 vnd/5 cuốn",
-                                 "170.000vnd/5 cuốn",
-                                 "117.000 vnd/3 cuốn",
-                                 "139.000 vnd/5 cuốn"};
-    private int imganh[] = {R.drawable.img_goicuonthitxaxiu,
-                            R.drawable.img_goicuonthitxaxiu,
-                            R.drawable.img_goicuontomthitheo,
-                            R.drawable.img_goicuontomtrungmuoi,
-                            R.drawable.img_goicuontomthitheo};
+                                  "Gỏi cuốn bắp bò cuốn",
+                                  "Gỏi cuốn cá hồi",
+                                  "Gỏi cuốn cá ngừ",
+                                   "Gỏi cuốn bò bía"};
+    private String giadonvi[] = {"15.000 vnd/cuốn",
+                                 "20.000 vnd/cuốn",
+                                 "17.000vnd/cuốn",
+                                 "22.000 vnd/cuốn",
+                                 "13.000 vnd/cuốn"};
+    private int imganh[] = {
+            R.drawable.img_goicuonthitxaxiu,
+            R.drawable.img_goicuonthitxaxiu,
+            R.drawable.img_goicuoncahoi,
+            R.drawable.img_goicuoncangu,
+            R.drawable.img_bobia
+    };
 
     private ArrayList<Class_CategoryBanhCuon> list ;
     private Apdate_OrderCategory apdate ;

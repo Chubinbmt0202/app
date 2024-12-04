@@ -10,9 +10,10 @@
 
     <ImageView
         android:id="@+id/img_back"
-        android:layout_width="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
-        android:layout_height="50dp"
         app:srcCompat="@drawable/icon_backlui" />
 
     <LinearLayout
@@ -45,7 +46,7 @@
             android:drawableEnd="@drawable/icon_chinhsua"
             android:text="Chỉnh sửa ảnh"
             android:textColor="#072BF1"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -66,7 +67,7 @@
             android:ems="10"
             android:hint="Tên khách hàng"
             android:inputType="text"
-            android:padding="20dp" />
+            android:padding="10dp" />
 
         <RadioGroup
             android:id="@+id/rdg_sex"
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Nam"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <RadioButton
@@ -90,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Nữ"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </RadioGroup>
 
@@ -103,7 +104,7 @@
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:padding="20dp" />
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/edtphone"
@@ -114,7 +115,7 @@
             android:ems="10"
             android:hint="SDT"
             android:inputType="phone"
-            android:padding="20dp" />
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/btn_capnhat"
@@ -123,7 +124,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_dangky"
             android:text="Cập Nhật"
-            android:textSize="30sp"
+            android:textSize="20sp"
             app:backgroundTint="#E91E63" />
 
     </LinearLayout>

@@ -31,7 +31,6 @@ public class Nagigationkey extends AppCompatActivity {
 
         if (savedInstanceState == null) {  // Kiểm tra để tránh thay thế fragment khi xoay màn hình
             replaceFragment(new HomeFragment());
-            ngv_bottomngvview.setVisibility(View.VISIBLE);
         }
 
         ngv_bottomngvview.setOnItemSelectedListener(item -> {

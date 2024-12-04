@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -46,7 +47,7 @@ public class HomeFragment extends Fragment {
     private TextView tvtatca;
     // Khai bao recycleview
 
-    private RecyclerView rcvhome;
+    private RecyclerView rcvhome , rcvhome1;
     private Apdate_CategoryHome gh ;
 
     // Khai bao cho nut tim kiem san pham
@@ -136,6 +137,7 @@ public class HomeFragment extends Fragment {
 
         setimgquangcao();
         Themmonan();
+        Themmonanchay();
         Quangcaocombo();
         return view;
 
@@ -183,18 +185,42 @@ public class HomeFragment extends Fragment {
         rcvhome.setAdapter(gh);
     }
 
+    private void Themmonanchay()
+    {
+        rcvhome1 = view.findViewById(R.id.rcvhome1);
+
+        // Thiết lập LayoutManager theo chiều ngang
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcvhome1.setLayoutManager(layoutManager);
+
+
+        gh = new Apdate_CategoryHome(getDSMonAn1(),getContext());
+//        rcvhome1.setLayoutManager(new GridLayoutManager(getContext(),1));
+        rcvhome1.setAdapter(gh);
+    }
+
+
     private ArrayList<Class_CategoryBanhCuon> getDSMonAn() {
         ArrayList<Class_CategoryBanhCuon> list = new ArrayList<>();
-        list.add(new Class_CategoryBanhCuon("Gà nướng mật ong",R.drawable.img_gadeolenmo,"440.000 vnd/1 con"));
+        list.add(new Class_CategoryBanhCuon("Gà nướng mật ong",R.drawable.img_gadeolenmo,"440.000 vnd/con"));
         list.add(new Class_CategoryBanhCuon("Gà xiên nướng lá chanh", R.drawable.img_gavienscn, "109.000 vnd/ xiên"));
-        list.add(new Class_CategoryBanhCuon("Cá kho tộ",R.drawable.haisanca_cakhoto,"225.000 vnd/1 tộ"));
-        list.add(new Class_CategoryBanhCuon("Cá mú kho tộ",R.drawable.img_camukhoto,"320.000 vnd/1 phần"));
-        list.add(new Class_CategoryBanhCuon("Ốc hương hấp xả",R.drawable.menu_category_ochuonghapxa,"366.000 vnd/1 đĩa"));
-        list.add(new Class_CategoryBanhCuon("Phở bắp",R.drawable.img_phobap,"76.000 vnd/1 tô"));
-        list.add(new Class_CategoryBanhCuon("Phở bắp gâu", R.drawable.img_phobapgau,"99.000 vnd/1 tô"));
-        list.add(new Class_CategoryBanhCuon("Hũ tiếu khô",R.drawable.menu_category_hutieukho,"82.000 vnd/1 tô"));
-        list.add(new Class_CategoryBanhCuon("Cơm chiên lá é",R.drawable.img_comchiengionlae,"135.000 vnd/1 phần"));
-        list.add(new Class_CategoryBanhCuon("Cơm chiên hải sản",R.drawable.img_comchienhaisan,"210.000 vnd/1 thố"));
+        list.add(new Class_CategoryBanhCuon("Cá kho tộ",R.drawable.haisanca_cakhoto,"225.000 vnd/tộ"));
+        list.add(new Class_CategoryBanhCuon("Cá mú kho tộ",R.drawable.img_camukhoto,"320.000 vnd/phần"));
+        list.add(new Class_CategoryBanhCuon("Ốc hương hấp xả",R.drawable.menu_category_ochuonghapxa,"366.000 vnd/đĩa"));
+        list.add(new Class_CategoryBanhCuon("Phở bắp",R.drawable.img_phobap,"76.000 vnd/tô"));
+        list.add(new Class_CategoryBanhCuon("Phở bắp gâu", R.drawable.img_phobapgau,"99.000 vnd/tô"));
+        list.add(new Class_CategoryBanhCuon("Hũ tiếu khô",R.drawable.menu_category_hutieukho,"82.000 vnd/tô"));
+        list.add(new Class_CategoryBanhCuon("Cơm chiên lá é",R.drawable.img_comchiengionlae,"135.000 vnd/phần"));
+        list.add(new Class_CategoryBanhCuon("Cơm chiên hải sản",R.drawable.img_comchienhaisan,"210.000 vnd/thố"));
         return list;
+    }
+
+    private ArrayList<Class_CategoryBanhCuon> getDSMonAn1() {
+        ArrayList<Class_CategoryBanhCuon> list = new ArrayList<>();
+        list.add(new Class_CategoryBanhCuon("Gà nướng mật ong",R.drawable.img_gadeolenmo,"440.000 vnd/con"));
+        list.add(new Class_CategoryBanhCuon("Gà xiên nướng lá chanh", R.drawable.img_gavienscn, "109.000 vnd/xiên"));
+        list.add(new Class_CategoryBanhCuon("Cá kho tộ",R.drawable.haisanca_cakhoto,"225.000 vnd/tộ"));
+        list.add(new Class_CategoryBanhCuon("Cá mú kho tộ",R.drawable.img_camukhoto,"320.000 vnd/phần"));
+          return list;
     }
 }

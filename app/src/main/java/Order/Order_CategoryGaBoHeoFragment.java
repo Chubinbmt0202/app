@@ -36,10 +36,15 @@ public class Order_CategoryGaBoHeoFragment extends Fragment implements Apdate_Or
     private ImageView imgback;
 
     private String tenmonan[] = {"Gà nướng mật ong", "Gà nướng mật ong", "Gà xiên nướng lá chanh", "Gà xiên nướng lá chanh", "Gà viên chua ngọt", "Gà viên chua ngọt"};
-    private String giadonvi[] = {"440.000 vnd/1 con", "245.000 vnd/1 nửa con", "109.000 vnd/ xiên", "510.000 vnd/5 xiên", "190.000 vnd/1 phần", "320.000 vnd/3 phần"};
-    private int imganh[] = {R.drawable.img_gadeolenmo, R.drawable.img_gadeolenmo, R.drawable.img_gavienscn, R.drawable.img_gavienscn, R.drawable.img_gaxiennuonglc, R.drawable.img_gaxiennuonglc};
-
-
+    private String giadonvi[] = {"440.000 vnd/con", "245.000 vnd/nửa con", "109.000 vnd/xiên", "510.000 vnd/5 xiên", "190.000 vnd/phần", "320.000 vnd/3 phần"};
+    private int imganh[] = {
+            R.drawable.img_gadeolenmo,
+            R.drawable.img_gadeolenmo,
+            R.drawable.img_gavienscn,
+            R.drawable.img_gavienscn,
+            R.drawable.img_gaxiennuonglc,
+            R.drawable.img_gaxiennuonglc
+    };
     private ArrayList<Class_CategoryBanhCuon> list;
     private Apdate_OrderCategory apdate;
     private RecyclerView rcv;

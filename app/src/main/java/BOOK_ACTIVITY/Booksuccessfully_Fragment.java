@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.apprestaurant.R;
 
 import Accout.Sum_detailhostoryFragment;
+import fragment_ngv.HomeFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,7 +74,7 @@ public class Booksuccessfully_Fragment extends Fragment {
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new Sum_detailhostoryFragment();
+                Fragment newFragment = new HomeFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);

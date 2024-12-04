@@ -1,12 +1,12 @@
-import com.android.tools.r8.internal.me
-
 plugins {
-    alias(libs.plugins.android.application)
+//    alias(libs.plugins.android.application)
+    id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.apprestaurant"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.apprestaurant"
@@ -28,7 +28,7 @@ android {
         }
     }
     compileOptions {
-
+//        JavaVersion
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     buildFeatures {
@@ -38,7 +38,7 @@ android {
         includeInApk = true
         includeInBundle = true
     }
-    buildToolsVersion = "34.0.0"
+    buildToolsVersion = "35.0.0"
 }
 
 dependencies {
@@ -47,10 +47,13 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.viewpager)
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("me.relex:circleindicator:2.1.6")
-
+    implementation ("com.google.android.material:material:1.9.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
 }

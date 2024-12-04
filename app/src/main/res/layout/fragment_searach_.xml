@@ -23,18 +23,20 @@
 
         <TextView
             android:id="@+id/textView60"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:gravity="center_horizontal"
             android:layout_weight="1"
+            android:text="Tìm Kiếm"
             android:textSize="20sp"
-            android:text="Tìm kiếm" />
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <EditText
         android:id="@+id/edtsearch1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@drawable/btn_timkiem"
         android:backgroundTint="@null"
         android:drawableLeft="@drawable/search_icon"
@@ -48,13 +50,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_weight="3.3"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <ListView
             android:id="@+id/lvhistory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout

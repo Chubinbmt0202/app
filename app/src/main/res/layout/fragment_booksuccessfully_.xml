@@ -13,8 +13,8 @@
         android:layout_gravity="bottom"
         android:background="@drawable/btn_dangky"
         android:text="OK"
-        android:textSize="20sp"
-        app:backgroundTint="#4CAF50" />
+        android:textSize="25sp"
+        app:backgroundTint="#E91E63" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,26 +27,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/img_successfully" />
+            android:src="@drawable/img_thanhtoanthanhcong" />
 
         <TextView
             android:id="@+id/textView45"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="YEAH !"
+            android:text="Bạn Đã Đặt Bàn Thành Công!"
             android:gravity="center"
-            android:textSize="50sp"
-            android:textColor="#4CAF50"
+            android:textSize="30sp"
+            android:textColor="#E91E63"
             />
 
         <TextView
             android:id="@+id/textView46"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bạn Đã Đặt Hàng Thành Công !"
+            android:text="Cảm ơn bạn đã tin tưởng nhà hàng."
             android:gravity="center"
-            android:textSize="30sp"
-            android:textColor="#4CAF50"
+            android:textSize="20sp"
+            android:textColor="#E91E63"
             />
     </LinearLayout>
 

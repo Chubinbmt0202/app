@@ -18,10 +18,8 @@ import android.widget.TextView;
 import com.example.apprestaurant.Accout_detail_userFragment;
 import com.example.apprestaurant.R;
 
-import Accout.Cancel_DetaildetailhistoryFragment;
-import Accout.Sum_detailhostoryFragment;
+import Accout.orderdetails_Fragment;
 import Category.DetailCategory_Activity;
-import HOME.Nagigationkey;
 import Intro_register_login.LoginActivity;
 import User_Restaurant.Detail_RestaurantActivity;
 import User_Restaurant.Layout_feedback;
@@ -141,9 +139,14 @@ public class AccountFragment extends Fragment {
         cvDetailCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new Cancel_DetaildetailhistoryFragment();
+                Fragment newFragment = new orderdetails_Fragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("key", 1); // Add your data here
+                newFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.addToBackStack(null); // Thêm vào back stack
                 fragmentTransaction.commit();
             }
         });
@@ -151,9 +154,10 @@ public class AccountFragment extends Fragment {
         cvBookHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new Sum_detailhostoryFragment();
+                Fragment newFragment = new orderdetails_Fragment();
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.addToBackStack(null); // Thêm vào back stack
                 fragmentTransaction.commit();
             }
         });

@@ -39,12 +39,13 @@ public class FoodToday_Fragment extends Fragment {
             "Gỏi cuốn tôm trung muoi",
             "Gỏi cuốn tôm trứng muối",
             "Gỏi cuốn tôm thịt heo"};
-    private String giadonvi[] = {"225.000 vnd/1 tộ","170.000 vnd/1 đĩa","320.000 vnd/1 phần",
+    private String giadonvi[] = {"225.000 vnd/tộ","170.000 vnd/đĩa","320.000 vnd/phần",
             "85.000 vnd/3 cuốn",
             "135.000 vnd/5 cuốn",
             "170.000vnd/5 cuốn",
             "117.000 vnd/3 cuốn",
             "139.000 vnd/5 cuốn"};
+
     private int imganh[] = {R.drawable.haisanca_cakhoto,
             R.drawable.img_calockhoto,
             R.drawable.img_camukhoto,
@@ -129,8 +130,7 @@ public class FoodToday_Fragment extends Fragment {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Để chuyển từ Order_CategoryBanhCuonFragment  về OrderFragment
-                Fragment newFragment = new OrderFragment(); // Replace with your XuFragment class
+                Fragment newFragment = new OrderFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);

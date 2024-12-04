@@ -2,6 +2,7 @@ package Order;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
             holder.tvtggia.setText(String.valueOf(item.getGiadonvi()));
             holder.imgmonan.setImageResource(item.getImgmonan());
 
+
             holder.imgmonan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +89,7 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                                 }
 
                             if (kt== false) {
+
                                 data.Themsanpham(item.getTenmonan(), item.getGiadonvi(), item.getImgmonan());
                                 Toast.makeText(contex,"Thêm món ăn thành công.",Toast.LENGTH_SHORT).show();
                             }
@@ -126,8 +129,8 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvtenmonan , tvtggia  ;
-        ImageView imgmonan , imgtraitim ;
-        Button home_addmenubanhcuon;
+        ImageView imgmonan , imgtraitim ,home_addmenubanhcuon ;
+//        Button home_addmenubanhcuon;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -150,7 +153,6 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                     isFavorite = !isFavorite;
                 }
             });
-
         }
     }
 

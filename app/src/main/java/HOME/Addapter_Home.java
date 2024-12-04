@@ -2,6 +2,7 @@ package HOME;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,6 @@ import Order.Class_CategoryBanhCuon;
 public class Addapter_Home extends BaseAdapter {
     private Activity context;
     private ArrayList<Class_CategoryBanhCuon> list;
-
     boolean isFavorite = false;
 
     public Addapter_Home(Activity context, ArrayList<Class_CategoryBanhCuon> list) {
@@ -79,13 +79,11 @@ public class Addapter_Home extends BaseAdapter {
                 imgtraitim.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // Thay đổi trạng thái và cập nhật hình ảnh dựa trên trạng thái
                         if (isFavorite) {
-                            imgtraitim.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
+                            imgtraitim.setImageResource(R.drawable.btn_2);
                         } else {
-                            imgtraitim.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
+                            imgtraitim.setImageResource(R.drawable.img_yeuthich);
                         }
-                        // Thay đổi giá trị của biến boolean
                         isFavorite = !isFavorite;
                     }
                 });
@@ -97,8 +95,6 @@ public class Addapter_Home extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Fragment newFragment = new DetailCategory_PhoFragment();
-
-                // Tạo Bundle và truyền dữ liệu
                 Bundle bundle = new Bundle();
                 bundle.putInt("img", home.getImgmonan());
                 bundle.putString("gia", home.getGiadonvi());

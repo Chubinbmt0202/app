@@ -32,10 +32,16 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
     private ImageView imgback;
 
     private  String tenmonan[] = {"Cơm chiên lá é","Cơm chiên hải sản","Cơm chiên trứng","Súp hải sản","Súp thập cẩm","Cháo bò bằm","Xôi nấm hạt sen"};
-    private String giadonvi[] = {"135.000 vnd/1 phần","210.000 vnd/1 thố","155.000 vnd/1 thố","62.000 vnd/1 chén","102.000 vnd/1 thố","109.000 vnd/1 thố","138.000 vnd/1 phần"};
-    private int imganh[] = {R.drawable.img_comchiengionlae, R.drawable.img_comchienhaisan, R.drawable.img_comchientrung, R.drawable.img_suphaisan,R.drawable.img_supthapcam,R.drawable.img_chaobobam,R.drawable.img_xoinamhatsen};
-
-
+    private String giadonvi[] = {"135.000 vnd/phần","210.000 vnd/thố","155.000 vnd/thố","62.000 vnd/chén","102.000 vnd/thố","109.000 vnd/thố","138.000 vnd/phần"};
+    private int imganh[] = {
+            R.drawable.img_comchiengionlae,
+            R.drawable.img_comchienhaisan,
+            R.drawable.img_comchientrung,
+            R.drawable.img_suphaisan,
+            R.drawable.img_supthapcam,
+            R.drawable.img_chaobobam,
+            R.drawable.img_xoinamhatsen
+    };
     private ArrayList<Class_CategoryBanhCuon> list ;
     private Apdate_OrderCategory apdate ;
     private RecyclerView rcv;

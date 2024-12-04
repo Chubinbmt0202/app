@@ -32,10 +32,16 @@ public class Order_CategoryHaiSanFragment extends Fragment {
     private ImageView imgback;
 
     private  String tenmonan[] = {"Cá kho tộ","Cá lóc kho tộ","Cá mú kho tộ","Cá nướng hai vị","Ốc hương hấp xả","Nghêu nướng mỡ hành","Ốc hương hấp xả"};
-    private String giadonvi[] = {"225.000 vnd/1 tộ","170.000 vnd/1 đĩa","320.000 vnd/1 phần","310.000 vnd/1 phần","366.000 vnd/1 đĩa","235.000 vnd/1 đĩa","366.000 vnd/1 thố"};
-    private int imganh[] = {R.drawable.haisanca_cakhoto, R.drawable.img_calockhoto, R.drawable.img_camukhoto, R.drawable.img_canuonghaivi,R.drawable.menu_category_ochuonghapxa,R.drawable.menu_category_nghuenuongmohanh,R.drawable.menu_category_ochuonghapxa};
-
-
+    private String giadonvi[] = {"225.000 vnd/tộ","170.000 vnd/đĩa","320.000 vnd/phần","310.000 vnd/phần","366.000 vnd/đĩa","235.000 vnd/đĩa","366.000 vnd/thố"};
+    private int imganh[] = {
+            R.drawable.haisanca_cakhoto,
+            R.drawable.img_calockhoto,
+            R.drawable.img_camukhoto,
+            R.drawable.img_canuonghaivi,
+            R.drawable.menu_category_ochuonghapxa,
+            R.drawable.menu_category_nghuenuongmohanh,
+            R.drawable.menu_category_ochuonghapxa  // Duplicate entry
+    };
     private ArrayList<Class_CategoryBanhCuon> list ;
     private Apdate_OrderCategory apdate ;
     private RecyclerView rcv;

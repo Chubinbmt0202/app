@@ -17,8 +17,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apprestaurant.Accout_detail_userFragment;
 import com.example.apprestaurant.R;
 
 import fragment_ngv.BookFragment;
@@ -37,10 +39,11 @@ public class PayBook_Fragment extends Fragment {
 
     // Ngân hàng đã liên kết
     private CheckBox cbpay;
-
+    private LinearLayout line;
     // Khai bao cardcview ngan hang
     private CardView cvvt , cvmb , cvvtb , cvvcb , cvarb, cvtcb;
 
+    private TextView tvtongtienpay;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -86,6 +89,31 @@ public class PayBook_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_pay_book_, container, false);
+        tvtongtienpay = view.findViewById(R.id.tvtongtienpay);
+        if(getArguments()!= null)
+        {
+            Bundle bl = getArguments();
+            tvtongtienpay.setText(bl.getString("sum"));
+        }
+        else
+        {
+            tvtongtienpay.setText("0 vnd");
+        }
+        line = view.findViewById(R.id.kt_login);
+        line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new Accout_detail_userFragment(); // Replace with your XuFragment class
+                Bundle  bl = new Bundle();
+                bl.putInt("bk",1);
+                newFragment.setArguments(bl);
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         PayThanhCong();
         Viettin();
         QuayLai();

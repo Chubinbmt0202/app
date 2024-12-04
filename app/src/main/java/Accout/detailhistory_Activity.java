@@ -80,6 +80,10 @@ public class detailhistory_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 if (ktra) {
                     ngoisao1.setImageResource(R.drawable.ngoisoi_2);
+                    ngoisao5.setImageResource(R.drawable.ngoisao_0);
+                    ngoisao2.setImageResource(R.drawable.ngoisao_0);
+                    ngoisao3.setImageResource(R.drawable.ngoisao_0);
+                    ngoisao4.setImageResource(R.drawable.ngoisao_0);
                     sao =1;
                 } else {
                     ngoisao1.setImageResource(R.drawable.ngoisao_0);
@@ -95,6 +99,9 @@ public class detailhistory_Activity extends AppCompatActivity {
                 if (ktra) {
                     ngoisao1.setImageResource(R.drawable.ngoisoi_2);
                     ngoisao2.setImageResource(R.drawable.ngoisoi_2);
+                    ngoisao3.setImageResource(R.drawable.ngoisao_0);
+                    ngoisao4.setImageResource(R.drawable.ngoisao_0);
+                    ngoisao5.setImageResource(R.drawable.ngoisao_0);
                     sao = 1;
                 } else {
                     ngoisao1.setImageResource(R.drawable.ngoisao_0);
@@ -112,6 +119,8 @@ public class detailhistory_Activity extends AppCompatActivity {
                     ngoisao1.setImageResource(R.drawable.ngoisoi_2);
                     ngoisao2.setImageResource(R.drawable.ngoisoi_2);
                     ngoisao3.setImageResource(R.drawable.ngoisoi_2);
+                    ngoisao4.setImageResource(R.drawable.ngoisao_0);
+                    ngoisao5.setImageResource(R.drawable.ngoisao_0);
                     sao = 1;
                 } else {
                     ngoisao1.setImageResource(R.drawable.ngoisao_0);
@@ -131,6 +140,7 @@ public class detailhistory_Activity extends AppCompatActivity {
                     ngoisao2.setImageResource(R.drawable.ngoisoi_2);
                     ngoisao3.setImageResource(R.drawable.ngoisoi_2);
                     ngoisao4.setImageResource(R.drawable.ngoisoi_2);
+                    ngoisao5.setImageResource(R.drawable.ngoisao_0);
                     sao =1;
                 } else {
                     ngoisao1.setImageResource(R.drawable.ngoisao_0);

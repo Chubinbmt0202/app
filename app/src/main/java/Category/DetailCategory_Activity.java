@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.apprestaurant.R;
 
@@ -32,8 +33,10 @@ public class DetailCategory_Activity extends AppCompatActivity {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(DetailCategory_Activity.this, AccountFragment.class);
-                startActivity(it);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.ngv_viewPager, new AccountFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
     }

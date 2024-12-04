@@ -4,7 +4,6 @@ import static android.app.ProgressDialog.show;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,16 +16,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apprestaurant.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,6 +44,9 @@ public class BookTable_Fragment extends Fragment {
     //Kiem tra cac nut
     Boolean kt1 = false , kt2 = false , kt3 = false , kt4 = false , kt5 = false , kt6 = false , kt7 = false , kt8 = false , kt9 = false, kt10 = false ,
             kt11 = false ,kt12 = false ;
+
+    // Khai báo cho combobox số người
+    private Spinner cbbpeople;
 
     // Khai bao nut back
     private ImageView imgback;
@@ -65,7 +71,7 @@ public class BookTable_Fragment extends Fragment {
     private TextView ban1 , ban2 , ban3 , ban4 , ban5 , ban6 , ban7 , ban8 , ban9 , ban10 , ban11 , ban12;
 
     // Khai báo kết quả
-    private TextView kqtang , kqban , kqngay , kqgio ;
+    private TextView kqpeople , kqban , kqdate , kqgio ;
 
     // Khai báo giờ
     private Button bts1 , bts2 ,bts3 , bts4 , btt5 , btt6 , btt7  , btt8 , btc9 , btc10 , btc11 , btc12 ;
@@ -118,11 +124,15 @@ public class BookTable_Fragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_book_table_, container, false);
+        // Khai báo biến cho kết quả
+        kqpeople = (TextView) view.findViewById(R.id.kqpeople);
+        kqban = (TextView) view.findViewById(R.id.kqban);
+        kqdate = (TextView) view.findViewById(R.id.kqdate);
+        kqgio = (TextView) view.findViewById(R.id.kqgio);
+
         BackTableFarme();
         NextFame();
-
-
-
+        datacombobox();
 
         // Khai báo nút buttonimageview cho ngay
         imgdate1 = (ImageView) view.findViewById(R.id.cl_date01);
@@ -147,7 +157,7 @@ public class BookTable_Fragment extends Fragment {
         Calendar cd = Calendar.getInstance();
         Date today  = cd.getTime();
 
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM");
+        SimpleDateFormat sd = new SimpleDateFormat("dd-MM");
         String hnay = sd.format(today);
         int thu = cd.get(Calendar.DAY_OF_WEEK);
 
@@ -237,11 +247,6 @@ public class BookTable_Fragment extends Fragment {
         ban11 = (TextView) view.findViewById(R.id.textban011);
         ban12 = (TextView) view.findViewById(R.id.textban012);
 
-// Khai báo biến cho kết quả
-        kqtang = (TextView) view.findViewById(R.id.kqtang);
-        kqngay = (TextView) view.findViewById(R.id.kqngaydat);
-        kqban = (TextView) view.findViewById(R.id.kqban);
-        kqgio = (TextView) view.findViewById(R.id.kqgio);
 
 // Khai báo imgview cho bàn
         imgban1 = (ImageView) view.findViewById(R.id.imgban01);
@@ -278,113 +283,140 @@ public class BookTable_Fragment extends Fragment {
         bts1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bts1.setTextColor(Color.BLUE);
-                bts2.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    bts1.setTextColor(Color.BLUE);
+                    bts2.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                kqgio.setText(bts1.getText());
+                    kqgio.setText(bts1.getText());
+                }
             }
         });
 
         bts2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bts2.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    bts2.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                kqgio.setText(bts2.getText());
+                    kqgio.setText(bts2.getText());
+                }
             }
         });
 
         bts3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    bts3.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                bts3.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts2.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(bts3.getText());
+                    kqgio.setText(bts3.getText());
+                }
             }
         });
 
         bts4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    bts4.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
 
-                bts4.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts2.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(bts4.getText());
+                    kqgio.setText(bts4.getText());
+                }
             }
         });
 
         btt5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btt5.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(btt5.getText());
+                    kqgio.setText(btt5.getText());
+                }
             }
         });
 
@@ -392,174 +424,199 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                btt6.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btt6.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt5.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                kqgio.setText(btt6.getText());
+                    kqgio.setText(btt6.getText());
+                }
             }
         });
 
         btt7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btt7.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btt7.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt5.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(btt7.getText());
+                    kqgio.setText(btt7.getText());
+                }
             }
         });
 
         btt8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btt8.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btt8.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt5.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(btt8.getText());
+                    kqgio.setText(btt8.getText());
+                }
             }
         });
 
         btc9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btc9.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btc9.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(btc9.getText());
+                    kqgio.setText(btc9.getText());
+                }
             }
         });
 
         btc10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btc10.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btc10.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btc9.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(btc10.getText());
+                    kqgio.setText(btc10.getText());
+                }
             }
         });
 
         btc11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btc11.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btc11.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
+                    btc12.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc9.setTextColor(Color.BLACK);
-                btc12.setTextColor(Color.BLACK);
-
-                kqgio.setText(btc11.getText());
+                    kqgio.setText(btc11.getText());
+                }
             }
         });
 
         btc12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn ngày trước",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    btc12.setTextColor(Color.BLUE);
+                    bts1.setTextColor(Color.BLACK);
+                    bts3.setTextColor(Color.BLACK);
+                    bts4.setTextColor(Color.BLACK);
 
-                btc12.setTextColor(Color.BLUE);
-                bts1.setTextColor(Color.BLACK);
-                bts3.setTextColor(Color.BLACK);
-                bts4.setTextColor(Color.BLACK);
+                    bts2.setTextColor(Color.BLACK);
+                    btt6.setTextColor(Color.BLACK);
+                    btt7.setTextColor(Color.BLACK);
+                    btt8.setTextColor(Color.BLACK);
 
-                bts2.setTextColor(Color.BLACK);
-                btt6.setTextColor(Color.BLACK);
-                btt7.setTextColor(Color.BLACK);
-                btt8.setTextColor(Color.BLACK);
+                    btt5.setTextColor(Color.BLACK);
+                    btc10.setTextColor(Color.BLACK);
+                    btc11.setTextColor(Color.BLACK);
+                    btc9.setTextColor(Color.BLACK);
 
-                btt5.setTextColor(Color.BLACK);
-                btc10.setTextColor(Color.BLACK);
-                btc11.setTextColor(Color.BLACK);
-                btc9.setTextColor(Color.BLACK);
-
-                kqgio.setText(btc12.getText());
+                    kqgio.setText(btc12.getText());
+                }
             }
         });
 
-        // Khai báo radio button
-        rdg = (RadioGroup) view.findViewById(R.id.rdgroup);
-
-        rdg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                RadioButton selectedRadioButton = view.findViewById(i); // Tìm RadioButton dựa trên ID
-                selectedRadioButton.setTextColor(Color.BLUE);
-                kqtang.setText(selectedRadioButton.getText().toString()); // Lấy text của RadioButton đã chọn
-            }
-        });
 
         imgdate1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -569,7 +626,7 @@ public class BookTable_Fragment extends Fragment {
                 tv03.setTextColor(Color.BLACK);
                 tv04.setTextColor(Color.BLACK);
                 tv05.setTextColor(Color.BLACK);
-                kqngay.setText(tv01.getText());
+                kqdate.setText(tv01.getText());
             }
         });
 
@@ -582,7 +639,7 @@ public class BookTable_Fragment extends Fragment {
                 tv04.setTextColor(Color.BLACK);
                 tv05.setTextColor(Color.BLACK);
 
-                kqngay.setText(tv02.getText());
+                kqdate.setText(tv02.getText());
             }
         });
 
@@ -597,7 +654,7 @@ public class BookTable_Fragment extends Fragment {
                 tv04.setTextColor(Color.BLACK);
                 tv05.setTextColor(Color.BLACK);
 
-                kqngay.setText(tv03.getText());
+                kqdate.setText(tv03.getText());
             }
         });
 
@@ -610,7 +667,7 @@ public class BookTable_Fragment extends Fragment {
                 tv01.setTextColor(Color.BLACK);
                 tv05.setTextColor(Color.BLACK);
 
-                kqngay.setText(tv04.getText());
+                kqdate.setText(tv04.getText());
             }
         });
 
@@ -623,7 +680,7 @@ public class BookTable_Fragment extends Fragment {
                 tv04.setTextColor(Color.BLACK);
                 tv01.setTextColor(Color.BLACK);
 
-                kqngay.setText(tv05.getText());
+                kqdate.setText(tv05.getText());
             }
         });
 
@@ -633,24 +690,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban1.getText().equals("Đã đặt")) {
-                    if (kt1) {
-                        kqban.setText(ban1.getText());
-                        ban1.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else if (!kt1) {
-                        ban1.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt1 = !kt1;
+                    else {
+                        if (kt1) {
+                            kqban.setText(ban1.getText().toString().replaceAll("[^\\d]", ""));
+                            ban1.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else if (!kt1) {
+                            ban1.setTextColor(Color.BLACK);
+                        }
+                        kt1 = !kt1;
+                    }
                 }
             }
         });
@@ -659,24 +722,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban2.getText().equals("Đã đặt")) {
-                    if (kt2) {
-                        kqban.setText(ban2.getText());
-                        ban2.setTextColor(Color.BLUE);
-                        ban1.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban2.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt2 = !kt2;
+                    else {
+                        if (kt2) {
+                            kqban.setText(ban2.getText().toString().replaceAll("[^\\d]", ""));
+                            ban2.setTextColor(Color.BLUE);
+                            ban1.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban2.setTextColor(Color.BLACK);
+                        }
+                        kt2 = !kt2;
+                    }
                 }
             }
         });
@@ -685,24 +754,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban3.getText().equals("Đã đặt")) {
-                    if (kt3) {
-                        kqban.setText(ban3.getText());
-                        ban3.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban3.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt3 = !kt3;
+                    else {
+                        if (kt3) {
+                            kqban.setText(ban3.getText().toString().replaceAll("[^\\d]", ""));
+                            ban3.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban3.setTextColor(Color.BLACK);
+                        }
+                        kt3 = !kt3;
+                    }
                 }
             }
         });
@@ -711,24 +786,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban4.getText().equals("Đã đặt")) {
-                    if (kt4) {
-                        kqban.setText(ban4.getText());
-                        ban4.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban4.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt4 = !kt4;
+                    else {
+                        if (kt4) {
+                            kqban.setText(ban4.getText().toString().replaceAll("[^\\d]", ""));
+                            ban4.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban4.setTextColor(Color.BLACK);
+                        }
+                        kt4 = !kt4;
+                    }
                 }
             }
         });
@@ -737,24 +818,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban5.getText().equals("Đã đặt")) {
-                    if (kt5) {
-                        kqban.setText(ban5.getText());
-                        ban5.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban5.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt5 = !kt5;
+                    else {
+                        if (kt5) {
+                            kqban.setText(ban5.getText().toString().replaceAll("[^\\d]", ""));
+                            ban5.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban5.setTextColor(Color.BLACK);
+                        }
+                        kt5 = !kt5;
+                    }
                 }
             }
         });
@@ -763,24 +850,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban6.getText().equals("Đã đặt")) {
-                    if (kt6) {
-                        kqban.setText(ban6.getText());
-                        ban6.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban6.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt6 = !kt6;
+                    else {
+                        if (kt6) {
+                            kqban.setText(ban6.getText().toString().replaceAll("[^\\d]", ""));
+                            ban6.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban6.setTextColor(Color.BLACK);
+                        }
+                        kt6 = !kt6;
+                    }
                 }
             }
         });
@@ -789,24 +882,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban7.getText().equals("Đã đặt")) {
-                    if (kt7) {
-                        kqban.setText(ban7.getText());
-                        ban7.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban7.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt7 = !kt7;
+                    else {
+                        if (kt7) {
+                            kqban.setText(ban7.getText().toString().replaceAll("[^\\d]", ""));
+                            ban7.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban7.setTextColor(Color.BLACK);
+                        }
+                        kt7 = !kt7;
+                    }
                 }
             }
         });
@@ -815,24 +914,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban8.getText().equals("Đã đặt")) {
-                    if (kt8) {
-                        kqban.setText(ban8.getText());
-                        ban8.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban8.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt8 = !kt8;
+                    else {
+                        if (kt8) {
+                            kqban.setText(ban8.getText().toString().replaceAll("[^\\d]", ""));
+                            ban8.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban8.setTextColor(Color.BLACK);
+                        }
+                        kt8 = !kt8;
+                    }
                 }
             }
         });
@@ -841,24 +946,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban9.getText().equals("Đã đặt")) {
-                    if (kt9) {
-                        kqban.setText(ban9.getText());
-                        ban9.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban5.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban9.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt9 = !kt9;
+                    else {
+                        if (kt9) {
+                            kqban.setText(ban9.getText().toString().replaceAll("[^\\d]", ""));
+                            ban9.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban5.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban9.setTextColor(Color.BLACK);
+                        }
+                        kt9 = !kt9;
+                    }
                 }
             }
         });
@@ -867,24 +978,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban10.getText().equals("Đã đặt")) {
-                    if (kt10) {
-                        kqban.setText(ban10.getText());
-                        ban10.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban10.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt10 = !kt10;
+                    else {
+                        if (kt10) {
+                            kqban.setText(ban10.getText().toString().replaceAll("[^\\d]", ""));
+                            ban10.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban11.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban10.setTextColor(Color.BLACK);
+                        }
+                        kt10 = !kt10;
+                    }
                 }
             }
         });
@@ -893,24 +1010,30 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban11.getText().equals("Đã đặt")) {
-                    if (kt11) {
-                        kqban.setText(ban11.getText());
-                        ban11.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban12.setTextColor(Color.BLACK);
-                    } else {
-                        ban11.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt11 = !kt11;
+                    else {
+                        if (kt11) {
+                            kqban.setText(ban11.getText().toString().replaceAll("[^\\d]", ""));
+                            ban11.setTextColor(Color.BLUE);
+                            ban2.setTextColor(Color.BLACK);
+                            ban3.setTextColor(Color.BLACK);
+                            ban4.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban6.setTextColor(Color.BLACK);
+                            ban7.setTextColor(Color.BLACK);
+                            ban8.setTextColor(Color.BLACK);
+                            ban9.setTextColor(Color.BLACK);
+                            ban10.setTextColor(Color.BLACK);
+                            ban1.setTextColor(Color.BLACK);
+                            ban12.setTextColor(Color.BLACK);
+                        } else {
+                            ban11.setTextColor(Color.BLACK);
+                        }
+                        kt11 = !kt11;
+                    }
                 }
             }
         });
@@ -919,31 +1042,37 @@ public class BookTable_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!ban12.getText().equals("Đã đặt")) {
-                    if (kt12) {
-                        kqban.setText(ban12.getText());
-                        ban12.setTextColor(Color.BLUE);
-                        ban2.setTextColor(Color.BLACK);
-                        ban3.setTextColor(Color.BLACK);
-                        ban4.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                        ban6.setTextColor(Color.BLACK);
-                        ban7.setTextColor(Color.BLACK);
-                        ban8.setTextColor(Color.BLACK);
-                        ban9.setTextColor(Color.BLACK);
-                        ban10.setTextColor(Color.BLACK);
-                        ban11.setTextColor(Color.BLACK);
-                        ban1.setTextColor(Color.BLACK);
-                    } else {
-                        ban12.setTextColor(Color.BLACK);
+                    if(kqgio.getText().toString().equals("Không có gì"))
+                    {
+                        Toast.makeText(getContext(),"Vui lòng chọn giờ trước" ,Toast.LENGTH_SHORT).show();
                     }
-                    kt12 = !kt12;
+                        else {
+                            if (kt12) {
+                                kqban.setText(ban12.getText().toString().replaceAll("[^\\d]", ""));
+                                ban12.setTextColor(Color.BLUE);
+                                ban2.setTextColor(Color.BLACK);
+                                ban3.setTextColor(Color.BLACK);
+                                ban4.setTextColor(Color.BLACK);
+                                ban1.setTextColor(Color.BLACK);
+                                ban6.setTextColor(Color.BLACK);
+                                ban7.setTextColor(Color.BLACK);
+                                ban8.setTextColor(Color.BLACK);
+                                ban9.setTextColor(Color.BLACK);
+                                ban10.setTextColor(Color.BLACK);
+                                ban11.setTextColor(Color.BLACK);
+                                ban1.setTextColor(Color.BLACK);
+                            } else {
+                                ban12.setTextColor(Color.BLACK);
+                            }
+                            kt12 = !kt12;
+                        }
                 }
             }
         });
 
         // ShraePrefrences
         SharedPreferences share = getActivity().getSharedPreferences("Mybook", Context.MODE_PRIVATE);
-        String sharetang = share.getString("kqtang"," ");
+        String sharepeople = share.getString("kqpeople"," ");
         String sharengay = share.getString("kqngay"," ");
         String sharegio = share.getString("kqgio"," ");
         String shareban = share.getString("kqban"," ");
@@ -1045,37 +1174,37 @@ public class BookTable_Fragment extends Fragment {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (kqtang.getText().toString().equals("Không có gì"))
-                {
-                    Toast.makeText(getContext(), "Vui lòng chọn tầng.", Toast.LENGTH_SHORT).show();
-                }
-                else if (kqban.getText().toString().equals("Không có gì"))
-                {
-                    Toast.makeText(getContext(), "Vui lòng chọn bàn.", Toast.LENGTH_SHORT).show();
-                }
-                else if (kqngay.getText().toString().equals("Không có gì"))
+               if (kqban.getText().toString().equals("Không có gì"))
                 {
                     Toast.makeText(getContext(), "Vui lòng chọn ngày.", Toast.LENGTH_SHORT).show();
                 }
-                else if ( kqgio.getText().toString().equals("Không có gì"))
+                else if (kqpeople.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(), "Vui lòng chọn số người.", Toast.LENGTH_SHORT).show();
+                }
+                else if ( kqdate.getText().toString().equals("Không có gì"))
+                {
+                    Toast.makeText(getContext(), "Vui lòng chọn ngày ngày.", Toast.LENGTH_SHORT).show();
+                }
+                else if(kqgio.getText().toString().equals("Không có gì"))
                 {
                     Toast.makeText(getContext(), "Vui lòng chọn giờ.", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     SharedPreferences share = getActivity().getSharedPreferences("Mybook", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = share.edit();
-                    editor.putString("kqtang",kqtang.getText().toString());
-                    editor.putString("kqban",kqban.getText().toString());
                     editor.putString("kqgio",kqgio.getText().toString());
-                    editor.putString("kqngay",kqngay.getText().toString());
+                    editor.putString("kqban",kqban.getText().toString());
+                    editor.putString("kqpeople",kqpeople.getText().toString());
+                    editor.putString("kqdate",kqdate.getText().toString());
                     editor.commit();
 
                     Fragment newFragment = new BookFragment(); // Replace with your XuFragment class
                     Bundle args = new Bundle();
-                    args.putString("tang", kqtang.getText().toString());
-                    args.putString("ban", kqban.getText().toString());
-                    args.putString("date", kqngay.getText().toString());
                     args.putString("gio", kqgio.getText().toString());
+                    args.putString("ban", kqban.getText().toString());
+                    args.putString("people",kqpeople.getText().toString());
+                    args.putString("date",kqdate.getText().toString());
                     newFragment.setArguments(args);
 
                     FragmentManager fragmentManager = getParentFragmentManager();
@@ -1086,6 +1215,39 @@ public class BookTable_Fragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void datacombobox()
+    {
+        cbbpeople = view.findViewById(R.id.cbbpeople);
+        ArrayList<String> items = new ArrayList<>();
+        items.add("1 đến 2 người");
+        items.add("2 đến 4 người");
+        items.add("4 đến 6 người");
+        items.add("6 đến 10 người");
+        items.add("Trên 10 người");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getContext(), // Context
+                R.layout.spinner_item, // Layout cho từng item
+                items // Dữ liệu
+        );
+
+// Đặt layout hiển thị cho dropdown (khi Spinner được bấm)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cbbpeople.setAdapter(adapter);
+        cbbpeople.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                kqpeople.setText(selectedItem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Khi không chọn gì
+            }
+        });
+
     }
 
 }

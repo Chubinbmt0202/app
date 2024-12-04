@@ -4,7 +4,7 @@
     android:id="@+id/layout_account"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00BFFF"
+    android:background="#E91E63"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="fragment_ngv.AccountFragment">
@@ -29,7 +29,7 @@
                 android:layout_weight="1"
                 android:text="Thông Tin"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <FrameLayout
@@ -140,7 +140,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Hóa Đơn"
+                                android:text="Chi Tiết Hóa Đơn"
                                 android:textSize="16sp"
 
                                 android:textStyle="bold" />
@@ -269,13 +269,12 @@
                         android:drawableStart="@drawable/ngv_book"
                         android:drawableEnd="@drawable/baseline_navigate_next_24"
                         android:text="Giới thiệu danh mục"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -291,7 +290,7 @@
                         android:drawableStart="@drawable/baseline_feedback_24"
                         android:drawableEnd="@drawable/baseline_navigate_next_24"
                         android:text="Phản hồi."
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -310,7 +309,7 @@
                         android:drawableStart="@drawable/baseline_help_24"
                         android:drawableEnd="@drawable/baseline_navigate_next_24"
                         android:text="Trợ Giúp."
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
 
@@ -327,7 +326,7 @@
                         android:gravity="center"
                          android:textColor="#F21E0F"
                         android:text="Đăng Nhập."
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
             </LinearLayout>

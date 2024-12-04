@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import BOOK_ACTIVITY.PayBook_Fragment;
 import HOME.Nagigationkey;
 import User_Restaurant.DetailUser_Activity;
 import fragment_ngv.AccountFragment;
@@ -156,8 +157,7 @@ public class Accout_detail_userFragment extends Fragment {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s = " " ;
-
+                String s = " "  , phone = " ";
                 SharedPreferences share = getActivity().getSharedPreferences("user",MODE_PRIVATE);
                 if(share.getInt("kt",0) == 1)
                 {
@@ -171,7 +171,7 @@ public class Accout_detail_userFragment extends Fragment {
                     {
                         ((Nagigationkey) getActivity()).navigateToFragment(R.id.book); // Chuyển đến BookFragment
                         // Tạo Fragment và thêm dữ liệu vào Bundle
-                        Fragment newFragment = new BookFragment();
+                        Fragment newFragment = new PayBook_Fragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("nameuser", s);
                         bundle.putInt("kt", 1);

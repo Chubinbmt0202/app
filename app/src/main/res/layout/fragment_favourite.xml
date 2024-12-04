@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Nhà Hàng Bếp Xưa"
+            android:text="Yêu Thích"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -36,7 +36,7 @@
     <EditText
         android:id="@+id/edtsearch1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_timkiem"
@@ -48,9 +48,9 @@
         android:padding="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="5dp"
         android:id="@+id/rcvyeuthich"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>
