@@ -25,13 +25,14 @@ import java.util.ArrayList;
 
 import Category.DetailCategory_PhoFragment;
 import Order.Class_CategoryBanhCuon;
+import fragment_ngv.Class_Home;
 
 public class Addapter_Home extends BaseAdapter {
     private Activity context;
-    private ArrayList<Class_CategoryBanhCuon> list;
+    private ArrayList<Class_Home> list;
     boolean isFavorite = false;
 
-    public Addapter_Home(Activity context, ArrayList<Class_CategoryBanhCuon> list) {
+    public Addapter_Home(Activity context, ArrayList<Class_Home> list) {
         this.context = context;
         this.list = list;
     }
@@ -60,7 +61,7 @@ public class Addapter_Home extends BaseAdapter {
 
             convertView = li.inflate(R.layout.list_categorycanhcuon, null);
         }
-       Class_CategoryBanhCuon home = list.get(position);
+        Class_Home home = list.get(position);
 
         ImageView imghome = convertView.findViewById(R.id.imgmonan);
         imghome.setImageResource(home.getImgmonan());
@@ -99,6 +100,7 @@ public class Addapter_Home extends BaseAdapter {
                 bundle.putInt("img", home.getImgmonan());
                 bundle.putString("gia", home.getGiadonvi());
                 bundle.putString("ten", home.getTenmonan());
+                bundle.putInt("ten", home.getTraitim());
                 newFragment.setArguments(bundle);
 
                 FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager(); // Use getSupportFragmentManager for activity context

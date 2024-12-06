@@ -2,6 +2,7 @@ package Accout;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,10 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.apprestaurant.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +31,15 @@ import java.util.ArrayList;
 public class placed_orderdeatail_Fragment extends Fragment {
 
     private View view;
-    private int ttrang[] = {1,1, 1, 1, 1};
-    private String id[] = {"0005", "0004", "0003", "0002","001"};
-    private String ngaydat[] = {"30/10/2024", "22/10/2024", "1/10/2024", "8/8/2024","1/8/2024"};
+
+    private ArrayList<String> id;
+    private ArrayList<Integer> tt;
+    private ArrayList<String> date;
+    private DatabaseReference mDatabase;
+
+//    private int ttrang[] = {1,1, 1, 1, 1};
+//    private String id[] = {"0005", "0004", "0003", "0002","001"};
+//    private String ngaydat[] = {"30/10/2024", "22/10/2024", "1/10/2024", "8/8/2024","1/8/2024"};
 
     private ImageView imgbackdetail;
     private ArrayList<Class_sumdeltaihistory> list;
@@ -79,16 +93,82 @@ public class placed_orderdeatail_Fragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_placed_orderdeatail_, container, false);
 
         rcv = view.findViewById(R.id.rcv_placed);
+        id = new ArrayList<>();
+        tt  = new ArrayList<>();
+        date  = new ArrayList<>();
 
         rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
         list = new ArrayList<>();
-        for (int i = 0; i < id.length; i++) {
-
-            list.add(new Class_sumdeltaihistory(id[i], ttrang[i], ngaydat[i]));
-        }
-        apdate = new ArrayApdat_SumDetailHistory(list, getActivity());
-        rcv.setAdapter(apdate);
+        loadFirebaseid();
 
         return view;
+    }
+    private void loadFirebaseid() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Hang").child("Listid").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren())
+                {
+                    id.add(data.getValue(String.class));
+                }
+                loadNgay();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void loadNgay() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Hang").child("Listdate").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    date.add(itemSnapshot.getValue(String.class));
+                }
+                loadtrangthai();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void loadtrangthai() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Hang").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    tt.add(itemSnapshot.getValue(Integer.class));
+                }
+                if(tt.size()==date.size())
+                {
+                    for (int i = (id.size() -1) ; i>=0 ;i-- ) {
+                        if(tt.get(i) == 1) {
+                            list.add(new Class_sumdeltaihistory(id.get(i), tt.get(i), date.get(i)));
+                        }
+                    }
+                    apdate = new ArrayApdat_SumDetailHistory(list, getActivity());
+                    rcv.setAdapter(apdate);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

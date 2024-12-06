@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,16 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprestaurant.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import Accout.ArrayAdate_DetailHistory;
 import Accout.Class_Detail;
@@ -29,7 +38,7 @@ import BOOK_ACTIVITY.Database_GioHang;
 import Category.DetailCategory_PhoFragment;
 
 public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCategory.ViewHolder>{
-
+    private DatabaseReference mDatabase;
     private Context contex;
     private ArrayList<Class_CategoryBanhCuon> list;
     boolean isFavorite = false;
@@ -46,10 +55,90 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
             holder.tvtggia.setText(String.valueOf(item.getGiadonvi()));
             holder.imgmonan.setImageResource(item.getImgmonan());
 
+            if(item.getTinhtrang() == 1)
+            {
+                holder.imgtraitim.setImageResource(R.drawable.iconn_ttraitim); // Đặt về biểu tượng "yêu thích"
+            }
+        holder.imgtraitim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = holder.getAdapterPosition();
+                if (id == RecyclerView.NO_POSITION) {
+                    return;
+                }
+                String chuoi = null;
+                if(item.getMadanhmuc().equals("1"))
+                {
+                    chuoi = "Order/BanhCuon/Listt";
+                }
+                else if(item.getMadanhmuc().equals("2"))
+                {
+                    chuoi = "Order/Comchaosup/Listt";
+                }
+                else if(item.getMadanhmuc().equals("3"))
+                {
+                    chuoi = "Order/Drink/Listt";
+                }
+                else if(item.getMadanhmuc().equals("4"))
+                {
+                    chuoi = "Order/Gaboheo/Listt";
+                }
+                else if(item.getMadanhmuc().equals("5"))
+                {
+                    chuoi = "Order/HaiSan/Listt";
+                }
+                else if(item.getMadanhmuc().equals("6"))
+                {
+                    chuoi = "Order/HotPog/Listt";
+                }
+                else if(item.getMadanhmuc().equals("7"))
+                {
+                    chuoi = "Order/Pho/Listt";
+                }
+                else if(item.getMadanhmuc().equals("8"))
+                {
+                    chuoi = "Order/TrangMieng/Listt";
+                }
 
+                if (isFavorite) {
+                    mDatabase.child("Order").child("TrangMieng").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    holder.imgtraitim.setImageResource(R.drawable.btn_2);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(chuoi);
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put(id + "", 0);
+
+                    databaseReference.updateChildren(updates)
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
+                            .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
+                } else {
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(chuoi);
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put(id+"", 1);
+
+                    databaseReference.updateChildren(updates)
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
+                            .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
+                    holder.imgtraitim.setImageResource(R.drawable.img_yeuthich);
+                }
+
+                isFavorite = !isFavorite;
+            }
+        });
             holder.imgmonan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Fragment newFragment = new DetailCategory_PhoFragment();
 
                 // Tạo Bundle và truyền dữ liệu
@@ -57,9 +146,11 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                 bundle.putInt("img", item.getImgmonan());
                 bundle.putString("gia", item.getGiadonvi());
                 bundle.putString("ten", item.getTenmonan());
+                bundle.putString("mota", item.getMota());
+                bundle.putInt("tt", item.getTinhtrang());
                 newFragment.setArguments(bundle);
 
-                FragmentManager fragmentManager = ((FragmentActivity) contex).getSupportFragmentManager(); // Use getSupportFragmentManager for activity context
+                FragmentManager fragmentManager = ((FragmentActivity) contex).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
                 fragmentTransaction.addToBackStack(null);
@@ -72,7 +163,7 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                 public void onClick(View view) {
                     holder.imgmonan.setImageResource(item.getImgmonan());
 
-                    ds.add(new Class_CategoryBanhCuon(item.getTenmonan(),item.getImgmonan(),item.getGiadonvi()));
+                    ds.add(new Class_CategoryBanhCuon(item.getMadanhmuc(),item.getMasanpham(),item.getTenmonan(),item.getImgmonan(),item.getGiadonvi(),item.getMota(),item.getTinhtrang()));
                     data = new Database_GioHang(contex);
                     boolean kt = false;
 
@@ -140,19 +231,6 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
             imgtraitim = itemView.findViewById(R.id.imgtraitim);
             home_addmenubanhcuon = itemView.findViewById(R.id.home_addmenubanhcuon);
 
-            imgtraitim.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Thay đổi trạng thái và cập nhật hình ảnh dựa trên trạng thái
-                    if (isFavorite) {
-                        imgtraitim.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
-                    } else {
-                        imgtraitim.setImageResource(R.drawable.iconn_ttraitim); // Đặt về biểu tượng "không yêu thích"
-                    }
-                    // Thay đổi giá trị của biến boolean
-                    isFavorite = !isFavorite;
-                }
-            });
         }
     }
 

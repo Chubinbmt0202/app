@@ -26,7 +26,7 @@ import fragment_ngv.OrderFragment;
 public class DetailCategory_PhoFragment extends Fragment {
 
     private ImageView imgmonan , imgyeuthich;
-    private TextView tvtenmonan , tvgia;
+    private TextView tvtenmonan , tvgia, tvmota;
     private LinearLayout line;
     private View view;
     boolean isFavorite = false;
@@ -76,6 +76,7 @@ public class DetailCategory_PhoFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_detail_category__pho, container, false);
         line = view.findViewById(R.id.lnout);
+        int a = 0;
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,13 +91,19 @@ public class DetailCategory_PhoFragment extends Fragment {
         imgmonan = view.findViewById(R.id.foodImage);
         tvtenmonan = view.findViewById(R.id.foodName);
         tvgia = view.findViewById(R.id.foodPrice);
+        tvmota = view.findViewById(R.id.foodDescription);
         Bundle bundle = getArguments();
         if(bundle != null) {
             imgmonan.setImageResource(bundle.getInt("img"));
             tvgia.setText(bundle.getString("gia"));
             tvtenmonan.setText(bundle.getString("ten"));
+            tvmota.setText(bundle.getString("mota"));
+            a = bundle.getInt("tt");
         }
-
+        if(a ==1)
+        {
+            imgyeuthich.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
+        }
         imgyeuthich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

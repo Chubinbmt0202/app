@@ -1,8 +1,10 @@
 package HOME;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +19,79 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprestaurant.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Category.DetailCategory_PhoFragment;
 import Order.Apdate_OrderCategory;
 import Order.Class_CategoryBanhCuon;
+import fragment_ngv.Class_Home;
 
 public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHome.ViewHolder>{
     private Context contex;
-    private ArrayList<Class_CategoryBanhCuon> list;
+    private ArrayList<Class_Home> list;
     boolean isFavorite = false;
     @Override
-    public void onBindViewHolder(@NonNull Apdate_CategoryHome.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Apdate_CategoryHome.ViewHolder holder,  int position) {
 
-        Class_CategoryBanhCuon item = list.get(position);
+        Class_Home item = list.get(position);
         holder.tvtenmonan.setText(String.valueOf(item.getTenmonan()));
         holder.tvtggia.setText(String.valueOf(item.getGiadonvi()));
         holder.imgmonan.setImageResource(item.getImgmonan());
+        if(item.getTraitim() == 1)
+        {
+            holder.imgtraitim.setImageResource(R.drawable.img_yeuthich);
+        }
+
+        holder.imgmonan.setImageResource(item.getImgmonan());
+        if (item.getTraitim() == 1) {
+            holder.imgtraitim.setImageResource(R.drawable.img_yeuthich);
+        }
+
+        holder.imgtraitim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = holder.getAdapterPosition();
+                if (id == RecyclerView.NO_POSITION) {
+                    return;
+                }
+
+                if (isFavorite) {
+                    holder.imgtraitim.setImageResource(R.drawable.btn_2);
+                    String chuoi = null;
+                    if(item.getMahome() ==1 )
+                    {
+                        chuoi = "Home/Home1/Listt";
+                    }
+                    else
+                    {
+                        chuoi = "Home/Home2/Listt";
+                    }
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(chuoi);
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put(id + "", 0);
+
+                    databaseReference.updateChildren(updates)
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
+                            .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
+                } else {
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Home/Home1/Listt");
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put(id+"", 1);
+
+                    databaseReference.updateChildren(updates)
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
+                            .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
+                    holder.imgtraitim.setImageResource(R.drawable.img_yeuthich);
+                }
+
+                isFavorite = !isFavorite;
+            }
+        });
 
         holder.imgmonan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +103,7 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
                 bundle.putInt("img", item.getImgmonan());
                 bundle.putString("gia", item.getGiadonvi());
                 bundle.putString("ten", item.getTenmonan());
+                bundle.putString("mota", item.getMota());
                 newFragment.setArguments(bundle);
 
                 FragmentManager fragmentManager = ((FragmentActivity) contex).getSupportFragmentManager(); // Use getSupportFragmentManager for activity context
@@ -60,7 +118,7 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
 
 
 
-    public Apdate_CategoryHome(ArrayList<Class_CategoryBanhCuon> list, Context contex) {
+    public Apdate_CategoryHome(ArrayList<Class_Home> list, Context contex) {
         this.list = list;
         this.contex = contex;
     }
@@ -88,22 +146,6 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
             imgmonan = itemView.findViewById(R.id.imgmonanhome);
             imgtraitim = itemView.findViewById(R.id.imgtraitimhome);
 
-
-
-
-            imgtraitim.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Thay đổi trạng thái và cập nhật hình ảnh dựa trên trạng thái
-                    if (isFavorite) {
-                        imgtraitim.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
-                    } else {
-                        imgtraitim.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
-                    }
-                    // Thay đổi giá trị của biến boolean
-                    isFavorite = !isFavorite;
-                }
-            });
 
         }
     }

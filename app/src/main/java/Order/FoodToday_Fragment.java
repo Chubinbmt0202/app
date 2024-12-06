@@ -114,14 +114,14 @@ public class FoodToday_Fragment extends Fragment {
     private void setMonAn()
     {
         rcv = view.findViewById(R.id.rcv_categoryccsup);
-        rcv.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        list = new ArrayList<>();
-        for ( int i = 0 ; i < imganh.length ; i++)
-        {
-            list.add(new Class_CategoryBanhCuon(tenmonan[i],imganh[i],giadonvi[i]));
-        }
-        apdate = new Apdate_OrderCategory(list,getActivity());
-        rcv.setAdapter(apdate);
+//        rcv.setLayoutManager(new GridLayoutManager(getActivity(),2));
+//        list = new ArrayList<>();
+//        for ( int i = 0 ; i < imganh.length ; i++)
+//        {
+//            list.add(new Class_CategoryBanhCuon(tenmonan[i],imganh[i],giadonvi[i]));
+//        }
+//        apdate = new Apdate_OrderCategory(list,getActivity());
+//        rcv.setAdapter(apdate);
 
     }
     private void ExitMonantoday()

@@ -37,13 +37,14 @@ public class Order_CategoryPhoFragment extends Fragment {
     private View view;
     private DatabaseReference mDatabase;
 
-    private  String tenmonan[] = {"Phở bắp","Phở bắp gâu","Phở tái nạm","Phở tái bắp","Hũ tiếu bò khô","Hũ tiếu khô"};
-    private String giadonvi[] = {"76.000 vnd/tô","99.000 vnd/tô","99.000 vnd/tô","99.000 vnd/tô","76.000 vnd/tô","82.000 vnd/tô"};
-    private String imganh[] = {"R.drawable.img_phobap", "R.drawable.img_phobapgau", "R.drawable.img_photainam", "R.drawable.img_photaibap","R.drawable.menu_category_hutieubokho","R.drawable.menu_category_hutieukho"};
+//    private  String tenmonan[] = {"Phở bắp","Phở bắp gâu","Phở tái nạm","Phở tái bắp","Hũ tiếu bò khô","Hũ tiếu khô"};
+//    private String giadonvi[] = {"76.000 vnd/tô","99.000 vnd/tô","99.000 vnd/tô","99.000 vnd/tô","76.000 vnd/tô","82.000 vnd/tô"};
+//    private String imganh[] = {"R.drawable.img_phobap", "R.drawable.img_phobapgau", "R.drawable.img_photainam", "R.drawable.img_photaibap","R.drawable.menu_category_hutieubokho","R.drawable.menu_category_hutieukho"};
 
     private ArrayList<Class_CategoryBanhCuon> list ;
     private Apdate_OrderCategory apdate ;
     private RecyclerView rcv;
+
 
     // Khai báo nút quay lại
     private ImageView imgback;
@@ -94,19 +95,10 @@ public class Order_CategoryPhoFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_order__category_pho, container, false);
         // ...
-        List<String> tma = new ArrayList<>();
-        List<Integer> anhh = new ArrayList<>();
-        List<String> Gia = new ArrayList<>();
+
         rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        loadFirebaseData();
-        list = new ArrayList<>();
-        for ( int i = 0;i < tma.size(); i++)
-        {
-            list.add(new Class_CategoryBanhCuon(tma.get(i),anhh.get(i),Gia.get(i)));
-        }
-        apdate = new Apdate_OrderCategory(list,getActivity());
-        rcv.setAdapter(apdate);
+        loadFirebasemadanhmuc();
         Quailai();
         return view;
     }
@@ -126,7 +118,52 @@ public class Order_CategoryPhoFragment extends Fragment {
             }
         });
     }
-    private void loadFirebaseData() {
+
+    private void loadFirebasemadanhmuc() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        String madanhmuc ;
+        // Load dish names
+        mDatabase.child("Order").child("Pho").child("MaDanhMuc").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+              {
+                  String madanhmuc = snapshot.getValue(String.class); // Lấy giá trị từ Firebase
+                  if (madanhmuc != null) {
+                      loadMasanpham(madanhmuc); // Chỉ gọi tiếp nếu `madanhmuc` không null
+                  } else {
+                      Toast.makeText(getActivity(), "Không tìm thấy danh mục", Toast.LENGTH_SHORT).show();
+                  }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải danh mục", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void loadMasanpham(String madanhmuc) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        List<String> masanpham = new ArrayList<>();
+        // Load dish names
+        mDatabase.child("Order").child("Pho").child("Listid").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    masanpham.add(itemSnapshot.getValue(String.class));
+                }
+                loadFirebaseData(madanhmuc,masanpham);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải mã sản phẩm", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadFirebaseData(String madanhmuc, List<String> masanpham) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("Order").child("Pho").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -137,7 +174,7 @@ public class Order_CategoryPhoFragment extends Fragment {
                     tma.add(itemSnapshot.getValue(String.class));
                 }
 
-                loadImageData(tma);
+                loadImageData(madanhmuc,masanpham,tma);
             }
 
             @Override
@@ -147,7 +184,7 @@ public class Order_CategoryPhoFragment extends Fragment {
         });
     }
 
-    private void loadImageData(List<String> tma) {
+    private void loadImageData(String madanhmuc, List<String> masanpham,List<String> tma) {
         mDatabase.child("Order").child("Pho").child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -163,7 +200,7 @@ public class Order_CategoryPhoFragment extends Fragment {
                     }
                 }
 
-                loadPriceData(tma, anhh); // Chuyển tiếp để tải giá
+                loadPriceData(madanhmuc,masanpham,tma, anhh); // Chuyển tiếp để tải giá
             }
 
             @Override
@@ -173,7 +210,7 @@ public class Order_CategoryPhoFragment extends Fragment {
         });
     }
 
-    private void loadPriceData(List<String> tma, List<Integer> anhh) {
+    private void loadPriceData(String madanhmuc, List<String> masanpham,List<String> tma, List<Integer> anhh) {
         mDatabase.child("Order").child("Pho").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -181,24 +218,63 @@ public class Order_CategoryPhoFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Gia.add(itemSnapshot.getValue(String.class));
                 }
+                loadPriceTinhtrang(madanhmuc, masanpham, tma,  anhh, Gia) ;
 
-                if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
-                    list = new ArrayList<>();
-                    for (int i = 0; i < tma.size(); i++) {
-                        list.add(new Class_CategoryBanhCuon(tma.get(i), anhh.get(i), Gia.get(i)));
-                    }
 
-                    // Cập nhật RecyclerView
-                    apdate = new Apdate_OrderCategory(list, getActivity());
-                    rcv.setAdapter(apdate);
-                } else {
-                    Toast.makeText(getActivity(), "Dữ liệu không đồng bộ!", Toast.LENGTH_SHORT).show();
                 }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải giá", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadPriceTinhtrang(String madanhmuc, List<String> masanpham,List<String> tma, List<Integer> anhh,List<String> gia) {
+        mDatabase.child("Order").child("Pho").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Integer> tt = new ArrayList<>();
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    tt.add(itemSnapshot.getValue(Integer.class));
+                }
+                loadMota(madanhmuc, masanpham, tma,  anhh, gia,tt) ;
+
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getActivity(), "Lỗi khi tải giá", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadMota(String madanhmuc, List<String> masanpham,List<String> tma, List<Integer> anhh,List<String> Gia, List<Integer> tt) {
+        mDatabase.child("Order").child("Pho").child("Listmota").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> mota = new ArrayList<>();
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    mota.add(itemSnapshot.getValue(String.class));
+                }
+                if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
+                    list = new ArrayList<>();
+                    for (int i = 0; i < masanpham.size(); i++) {
+                        list.add(new Class_CategoryBanhCuon(madanhmuc,masanpham.get(i),tma.get(i), anhh.get(i), Gia.get(i),mota.get(i),tt.get(i)));
+                    }
+                    apdate = new Apdate_OrderCategory(list, getActivity());
+                    rcv.setAdapter(apdate);
+                } else {
+                    Toast.makeText(getActivity(), "Dữ liệu không đồng bộ!", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải danh sách ảnh", Toast.LENGTH_SHORT).show();
             }
         });
     }

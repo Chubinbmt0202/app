@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp"
+    android:layout_margin="10dp"
     tools:context="Category.DetailCategory_PhoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -42,7 +41,7 @@
                 <ImageView
                     android:id="@+id/foodImage"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="250dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/img_phobap" />
 
@@ -107,9 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:background="@color/white"
-                    android:text=" Nguyên liệu: Thịt bò (300g),bánh phở (200g),hành tây (1 củ),gừng (1 nhánh), hành lá, ngò gai,gia vị (muối, tiêu, nước mắm),
-                                               + nước dùng (xương bò hoặc nước lọc),
-                                               + chanh, ớt.\n
+                    android:text=" Nguyên liệu: Thịt bò (300g),bánh phở (200g),hành tây (1 củ),gừng (1 nhánh), hành lá, ngò gai,gia vị (muối, tiêu, nước mắm),nước dùng (xương bò hoặc nước lọc), chanh, ớt.
             Cách làm:
             Hầm xương bò với hành tây, gừng (1-2 giờ), nêm gia vị.
             Thái thịt bò mỏng, chần trong nước dùng.
@@ -120,75 +117,45 @@
             "
                     android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView40"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:text="Giá :"-->
-<!--                            android:textColor="#E91E63"-->
-<!--                            android:textSize="20sp"-->
-<!--                            android:textStyle="bold" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/foodPrice"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:gravity="end"-->
-<!--                            android:text="80000/ 1 đĩa"-->
-<!--                            android:layout_marginRight="5dp"-->
-<!--                            android:textColor="#E91E63"-->
-<!--                            android:textSize="20sp"-->
-<!--                            android:textStyle="bold" />-->
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/foodyeuthich"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:layout_marginRight="50dp"
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/btn_traitim"
-                            android:src="@drawable/btn_2" />
-
-                        <Button
-                            android:id="@+id/button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btn_dangky"
-                            android:text="Thêm vào giỏ hàng"
-                            android:textSize="20sp"
-                            app:backgroundTint="#E91E63"
-                            app:icon="@drawable/baseline_add_shopping_cart_24" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/foodyeuthich"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/btn_traitim"
+                android:src="@drawable/btn_2" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_dangky"
+                android:text="Thêm đồ ăn"
+                android:textSize="20sp"
+                app:backgroundTint="#E91E63"
+                app:icon="@drawable/baseline_add_shopping_cart_24" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

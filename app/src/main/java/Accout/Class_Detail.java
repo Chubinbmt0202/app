@@ -2,24 +2,16 @@ package Accout;
 
 public class Class_Detail {
     private int img , solg;
-    private int tonggia , giagoc ;
+    private int tonggia  ;
     private String tenmon;
 
-    public Class_Detail(int giagoc, String tenmon, int tonggia, int solg, int img) {
-        this.giagoc = giagoc;
+    public Class_Detail( String tenmon, int tonggia, int solg, int img) {
         this.tenmon = tenmon;
         this.tonggia = tonggia;
         this.solg = solg;
         this.img = img;
     }
 
-    public int getGiagoc() {
-        return giagoc;
-    }
-
-    public void setGiagoc(int giagoc) {
-        this.giagoc = giagoc;
-    }
 
     public int getImg() {
         return img;

@@ -22,12 +22,10 @@ public class ArrayAdate_DetailHistory extends RecyclerView.Adapter<ArrayAdate_De
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Class_Detail item = list.get(position);
         holder.tvtenmonan.setText(item.getTenmon());
-        holder.tvtggia.setText(String.valueOf(item.getTonggia()));
+        holder.tvtggia.setText(item.getTonggia());
         holder.imgmonan.setImageResource(item.getImg());
         holder.solg.setText(String.valueOf(item.getSolg()));
-        holder.tvgiagoc.setText(String.valueOf(item.getGiagoc()));
     }
-
 
     public ArrayAdate_DetailHistory(ArrayList<Class_Detail> list, Context contex) {
         this.list = list;
@@ -48,16 +46,15 @@ public class ArrayAdate_DetailHistory extends RecyclerView.Adapter<ArrayAdate_De
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvtenmonan , tvtggia , tvgiagoc , solg;
+        TextView tvtenmonan , tvtggia  , solg;
         ImageView imgmonan;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvtenmonan = itemView.findViewById(R.id.tvtenmonan); // ID của TextView trong layout
-            tvtggia = itemView.findViewById(R.id.tvsumdongia);
-            imgmonan = itemView.findViewById(R.id.imgmonan);
-            tvgiagoc = itemView.findViewById(R.id.tv_giagoc);
-            solg = itemView.findViewById(R.id.tv_solg);
+            tvtenmonan = itemView.findViewById(R.id.tvtenmonandetail); // ID của TextView trong layout
+            tvtggia = itemView.findViewById(R.id.tvsumdongiadetail);
+            imgmonan = itemView.findViewById(R.id.imgmonandetail);
+            solg = itemView.findViewById(R.id.tv_solgdetail);
         }
     }
 }

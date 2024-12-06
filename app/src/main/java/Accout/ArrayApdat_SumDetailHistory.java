@@ -104,11 +104,10 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
                 {
                     it.putExtra("ktra",1);
                 }
-
                 else if(item.getTinhtrang() == 3)
                 {
                     it.putExtra("ktra",3);
-                    it.putExtra("id",item.getIdhoadon());
+//                    it.putExtra("id",item.getIdhoadon());
                 }
                 else if(item.getTinhtrang() == 2)
                 {
@@ -118,6 +117,7 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
                 {
                     it.putExtra("ktra",4);
                 }
+                it.putExtra("id",holder.getAdapterPosition());
                 startActivity(contex,it,null);
             }
         });

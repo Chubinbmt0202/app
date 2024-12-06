@@ -2,6 +2,7 @@ package fragment_ngv;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,10 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apprestaurant.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,20 +52,32 @@ public class HomeFragment extends Fragment {
 
     private TextView tvtatca;
     // Khai bao recycleview
+    private DatabaseReference mDatabase;
 
-    private RecyclerView rcvhome , rcvhome1;
-    private Apdate_CategoryHome gh ;
-
+    private RecyclerView rcvhome, rcvhome1;
+    private Apdate_CategoryHome gh , gh1;
     // Khai bao cho nut tim kiem san pham
 
     private TextView edtseach;
-   // khai bao bien cho quang cao dau tien
+    // khai bao bien cho quang cao dau tien
     private ViewPager viewpager;
     private PhotoApdater madapter;
-   // Khai bao bien cho combo thuc don
+    // Khai bao bien cho combo thuc don
     private ViewPager viewPagercombo;
     private View view;
 
+    private List<String> tma;
+    private List<Integer> anhh;
+    private List<String> Gia;
+    private List<String> mota;
+    private List<Integer> tt;
+    private List<String> tma1;
+    private List<Integer> anhh1;
+    private List<String> Gia1;
+    private List<String> mota1;
+    private List<Integer> tt1;
+    private ArrayList<Class_Home> list;
+    private ArrayList<Class_Home> list1;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -108,6 +126,20 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         edtseach = view.findViewById(R.id.edtsearch1);
 
+        tma = new ArrayList<>();
+        anhh = new ArrayList<>();
+        Gia = new ArrayList<>();
+        mota = new ArrayList<>();
+        list = new ArrayList<>();
+        tt = new ArrayList<>();
+
+        tma1 = new ArrayList<>();
+        anhh1 = new ArrayList<>();
+        Gia1 = new ArrayList<>();
+        mota1 = new ArrayList<>();
+        list1 = new ArrayList<>();
+        tt1 = new ArrayList<>();
+
         edtseach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,11 +176,10 @@ public class HomeFragment extends Fragment {
     }
 
     // khai bao cho anh quang cao
-    private void setimgquangcao()
-    {
+    private void setimgquangcao() {
         viewpager = view.findViewById(R.id.viewpage);
-        circleindicator= view.findViewById(R.id.circleindicator);
-        madapter = new PhotoApdater(getContext(),getDanhsach());
+        circleindicator = view.findViewById(R.id.circleindicator);
+        madapter = new PhotoApdater(getContext(), getDanhsach());
         viewpager.setAdapter(madapter);
         circleindicator.setViewPager(viewpager);
 
@@ -162,10 +193,9 @@ public class HomeFragment extends Fragment {
         return list;
     }
 
-    private void Quangcaocombo()
-    {
+    private void Quangcaocombo() {
         viewPagercombo = view.findViewById(R.id.viewpagethucdon);
-        madapter = new PhotoApdater(getContext(),getDanhSachcombo());
+        madapter = new PhotoApdater(getContext(), getDanhSachcombo());
         viewPagercombo.setAdapter(madapter);
     }
 
@@ -177,50 +207,227 @@ public class HomeFragment extends Fragment {
         return listcombo;
     }
 
-    private void Themmonan()
-    {
+    private void Themmonan() {
         rcvhome = view.findViewById(R.id.gvhome);
-        gh = new Apdate_CategoryHome(getDSMonAn(),getContext());
         rcvhome.setLayoutManager(new GridLayoutManager(getContext(),2));
-        rcvhome.setAdapter(gh);
+        getTenMonAn();
     }
 
-    private void Themmonanchay()
-    {
+    private void Themmonanchay() {
         rcvhome1 = view.findViewById(R.id.rcvhome1);
-
-        // Thiết lập LayoutManager theo chiều ngang
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvhome1.setLayoutManager(layoutManager);
-
-
-        gh = new Apdate_CategoryHome(getDSMonAn1(),getContext());
-//        rcvhome1.setLayoutManager(new GridLayoutManager(getContext(),1));
-        rcvhome1.setAdapter(gh);
+        getTenMonAn1();
     }
 
 
-    private ArrayList<Class_CategoryBanhCuon> getDSMonAn() {
-        ArrayList<Class_CategoryBanhCuon> list = new ArrayList<>();
-        list.add(new Class_CategoryBanhCuon("Gà nướng mật ong",R.drawable.img_gadeolenmo,"440.000 vnd/con"));
-        list.add(new Class_CategoryBanhCuon("Gà xiên nướng lá chanh", R.drawable.img_gavienscn, "109.000 vnd/ xiên"));
-        list.add(new Class_CategoryBanhCuon("Cá kho tộ",R.drawable.haisanca_cakhoto,"225.000 vnd/tộ"));
-        list.add(new Class_CategoryBanhCuon("Cá mú kho tộ",R.drawable.img_camukhoto,"320.000 vnd/phần"));
-        list.add(new Class_CategoryBanhCuon("Ốc hương hấp xả",R.drawable.menu_category_ochuonghapxa,"366.000 vnd/đĩa"));
-        list.add(new Class_CategoryBanhCuon("Phở bắp",R.drawable.img_phobap,"76.000 vnd/tô"));
-        list.add(new Class_CategoryBanhCuon("Phở bắp gâu", R.drawable.img_phobapgau,"99.000 vnd/tô"));
-        list.add(new Class_CategoryBanhCuon("Hũ tiếu khô",R.drawable.menu_category_hutieukho,"82.000 vnd/tô"));
-        list.add(new Class_CategoryBanhCuon("Cơm chiên lá é",R.drawable.img_comchiengionlae,"135.000 vnd/phần"));
-        list.add(new Class_CategoryBanhCuon("Cơm chiên hải sản",R.drawable.img_comchienhaisan,"210.000 vnd/thố"));
-        return list;
+    private void getTenMonAn() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Home").child("Home2").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    tma.add(itemSnapshot.getValue(String.class));
+                }
+                loadImageData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void loadImageData() {
+        mDatabase.child("Home").child("Home2").child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    String imageName = itemSnapshot.getValue(String.class);
+                    int resourceId = getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName());
+                    if (resourceId == 0) {
+                        resourceId = R.drawable.haisanca_cakhoto; // Hình mặc định
+                    }
+                    anhh.add(resourceId);
+                }
+                loadFirebaseMota();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải danh sách ảnh", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void loadFirebaseMota() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Home").child("Home2").child("Listmota").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    mota.add(itemSnapshot.getValue(String.class));
+                }
+                loadFirebaseMtt();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private ArrayList<Class_CategoryBanhCuon> getDSMonAn1() {
-        ArrayList<Class_CategoryBanhCuon> list = new ArrayList<>();
-        list.add(new Class_CategoryBanhCuon("Gà nướng mật ong",R.drawable.img_gadeolenmo,"440.000 vnd/con"));
-        list.add(new Class_CategoryBanhCuon("Gà xiên nướng lá chanh", R.drawable.img_gavienscn, "109.000 vnd/xiên"));
-        list.add(new Class_CategoryBanhCuon("Cá kho tộ",R.drawable.haisanca_cakhoto,"225.000 vnd/tộ"));
-        list.add(new Class_CategoryBanhCuon("Cá mú kho tộ",R.drawable.img_camukhoto,"320.000 vnd/phần"));
-          return list;
+    private void loadFirebaseMtt() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Home").child("Home2").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    tt.add(itemSnapshot.getValue(Integer.class));
+                }
+                loadPriceData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadPriceData() {
+        mDatabase.child("Home").child("Home2").child("ListGia").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    Gia.add(itemSnapshot.getValue(String.class));
+                }
+
+                if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
+                    for (int i = 0; i < tma.size(); i++) {
+                        list.add(new Class_Home(1,tma.get(i), anhh.get(i), Gia.get(i),mota.get(i),tt.get(i)));
+                    }
+                    gh = new Apdate_CategoryHome(list, getActivity());
+                    rcvhome.setAdapter(gh);
+                } else {
+                    Toast.makeText(getActivity(), "Dữ liệu không đồng bộ!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải giá", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getTenMonAn1() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Home").child("Home1").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    tma1.add(itemSnapshot.getValue(String.class));
+                }
+                loadImageData1();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void loadImageData1() {
+        mDatabase.child("Home").child("Home1").child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    String imageName = itemSnapshot.getValue(String.class);
+                    int resourceId = getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName());
+                    if (resourceId == 0) {
+                        resourceId = R.drawable.haisanca_cakhoto; // Hình mặc định
+                    }
+                    anhh1.add(resourceId);
+                }
+                loadFirebaseMota1();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải danh sách ảnh", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void loadFirebaseMota1() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Home").child("Home1").child("Listmota").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    mota1.add(itemSnapshot.getValue(String.class));
+                }
+                loadFirebaseMtt1();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadFirebaseMtt1() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("Home").child("Home1").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    tt1.add(itemSnapshot.getValue(Integer.class));
+                }
+                loadPriceData1();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadPriceData1() {
+        mDatabase.child("Home").child("Home1").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    Gia1.add(itemSnapshot.getValue(String.class));
+                }
+
+                if (tma1.size() == anhh1.size() && anhh1.size() == Gia1.size()) {
+                    for (int i = 0; i < tma1.size(); i++) {
+                        list1.add(new Class_Home(2,tma1.get(i), anhh1.get(i), Gia1.get(i),mota1.get(i),tt1.get(i)));
+                    }
+                    // Update RecyclerView adapter
+                    gh1 = new Apdate_CategoryHome(list1,getActivity());
+                    rcvhome1.setAdapter(gh1);
+                } else {
+                    Toast.makeText(getActivity(), "Dữ liệu không đồng bộ!", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải giá", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
