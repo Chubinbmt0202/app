@@ -563,8 +563,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Đã đặt"
-                                android:textColor="#EB4135"
+                                android:text="Bàn 02"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
                                 android:textSize="15sp" />
 
                         </LinearLayout>
@@ -698,8 +699,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Đã đặt"
-                                android:textColor="#EB4135"
+                                android:textStyle="bold"
+                                android:text="Bàn 07"
+                                android:textColor="@color/black"
                                 android:textSize="15sp" />
 
                         </LinearLayout>
@@ -754,8 +756,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Đã đặt"
-                                android:textColor="#EB4135"
+                                android:text="Bàn 09"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
                                 android:textSize="15sp" />
 
                         </LinearLayout>

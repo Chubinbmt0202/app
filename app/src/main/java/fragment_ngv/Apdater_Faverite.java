@@ -2,12 +2,15 @@ package fragment_ngv;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,17 +21,30 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprestaurant.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Category.DetailCategory_PhoFragment;
+
 
 public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.ViewHolder>{
 
     private Context context;
     private ArrayList<Yeuthich> list;
-
+    private DatabaseReference mDatabase;
     boolean isFavorite = false;
+    private int iduser;
+    private int kt1 , kt2  , id;
+    private String kt3;
     public Apdater_Faverite(Context context, ArrayList<Yeuthich> list) {
         this.context = context;
         this.list = list;
@@ -44,9 +60,123 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
     @Override
     public void onBindViewHolder(@NonNull Apdater_Faverite.ViewHolder holder, int position) {
          Yeuthich yt = list.get(position);
+        SharedPreferences sharett = context.getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
 
          holder.imganh.setImageResource(yt.getImganh());
          holder.tvyeuthich.setText(yt.getTenmonan());
+
+
+        holder.iconyeuthich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                kt1 = 0;
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                // Load dish names
+                mDatabase.child("YeuThich").child(iduser+"").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                            int i =0 ;
+                            for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                                String value = itemSnapshot.getValue(String.class);
+                                if (value != null && value.equals(yt.getMasp()))
+                                {
+                                    kt3 = itemSnapshot.getKey();
+                                    break;
+                                }
+                                i++;
+                            }
+                            kt1 = Integer.parseInt(kt3);
+                            mDatabase.child("YeuThich").child(iduser+"").child("Listmasp").child(kt1+"").removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                        }
+                                    });
+                            mDatabase.child("YeuThich").child(iduser+"").child("Listtenmonan").child(kt1+"").removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                        }
+                                    });
+                            mDatabase.child("YeuThich").child(iduser+"").child("Listidyt").child(kt1+"").removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                        }
+                                    });
+                            mDatabase.child("YeuThich").child(iduser+"").child("Listanh").child(kt1+"").removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                        }
+                                    });
+                            mDatabase.child("YeuThich").child(iduser+"").child("Listmota").child(kt1+"").removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                        }
+                                    });
+                            mDatabase.child("YeuThich").child(iduser+"").child("ListGia").child(kt1+"").removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(context, "Lỗi", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
 
         holder.cvyeuthich.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,20 +216,6 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
             iconyeuthich = itemView.findViewById(R.id.iconyeuthich);
             cvyeuthich = itemView.findViewById(R.id.cvyeuthich);
 
-
-            iconyeuthich.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Thay đổi trạng thái và cập nhật hình ảnh dựa trên trạng thái
-                    if (isFavorite) {
-                        iconyeuthich.setImageResource(R.drawable.img_yeuthich); // Đặt về biểu tượng "không yêu thích"
-                    } else {
-                        iconyeuthich.setImageResource(R.drawable.btn_2); // Đặt về biểu tượng "yêu thích"
-                    }
-                    // Thay đổi giá trị của biến boolean
-                    isFavorite = !isFavorite;
-                }
-            });
 
         }
     }

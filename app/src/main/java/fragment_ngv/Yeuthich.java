@@ -2,11 +2,13 @@ package fragment_ngv;
 
 public class Yeuthich {
     private int imganh ;
+    private String masp;
     private String tenmonan , mota , gia,id;
     private int tinhtrang;
 
-    public Yeuthich(String id, String tenmonan, int imganh, String gia, String mota, int tinhtrang) {
+    public Yeuthich(String id, String masp, String tenmonan, int imganh, String gia, String mota, int tinhtrang) {
         this.id = id;
+        this.masp = masp;
         this.tenmonan = tenmonan;
         this.imganh = imganh;
         this.gia = gia;
@@ -36,6 +38,14 @@ public class Yeuthich {
 
     public void setImganh(int imganh) {
         this.imganh = imganh;
+    }
+
+    public String getMasp() {
+        return masp;
+    }
+
+    public void setMasp(String masp) {
+        this.masp = masp;
     }
 
     public String getMota() {

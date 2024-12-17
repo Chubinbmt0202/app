@@ -84,8 +84,8 @@ public class AccountFragment extends Fragment {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("name", nameUser);
                 editor.putInt("check", 1);
-                editor.apply();  // Sử dụng apply() thay vì commit()
-                tvUser.setText(nameUser); // Cập nhật TextView nếu cần thiết
+                editor.apply();
+                tvUser.setText(nameUser);
             }
         }
 

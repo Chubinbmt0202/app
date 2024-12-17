@@ -2,10 +2,11 @@ package com.example.apprestaurant;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,13 +22,21 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import BOOK_ACTIVITY.PayBook_Fragment;
 import HOME.Nagigationkey;
-import User_Restaurant.DetailUser_Activity;
 import fragment_ngv.AccountFragment;
-import fragment_ngv.BookFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,9 +50,11 @@ public class Accout_detail_userFragment extends Fragment {
     private ImageView imgback , imguser;
     private TextView tv_edit;
     private Button btn_update;
+    private DatabaseReference mDatabase;
     private RadioButton rdnam , rdnu;
     private View view;
-
+    private int iduser;
+private int stt;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,6 +102,10 @@ public class Accout_detail_userFragment extends Fragment {
         BottomNavigationView bt = getActivity().findViewById(R.id.ngv_bottomNavigation);
         bt.setVisibility(View.GONE);
         view = inflater.inflate(R.layout.fragment_accout_detail_user, container, false);
+
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
+
         edthoten = (EditText) view.findViewById(R.id.edtnameuser);
 
         edtemail = (EditText) view.findViewById(R.id.edt_email);
@@ -106,50 +121,9 @@ public class Accout_detail_userFragment extends Fragment {
         btn_update = view.findViewById(R.id.btn_capnhat);
 
         rdnu = view.findViewById(R.id.rdnu);
-
-
-
-        SharedPreferences share = getActivity().getSharedPreferences("user",MODE_PRIVATE);
-        if(share.getInt("kt",0) == 1)
-        {
-            edthoten.setText(share.getString("name",""));
-            edtphone.setText(share.getString("phone",""));
-            edtemail.setText(share.getString("email",""));
-            if(share.getInt("ck",0) == 1)
-            {
-                rdnam.setChecked(true);
-            }
-            else
-            {
-                rdnu.setChecked(true);
-            }
-        }
-
-        btn_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (edthoten.getText().toString().trim().isEmpty() ||
-                        edtemail.getText().toString().trim().isEmpty() ||
-                        edtphone.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(getContext(), "Vui lòng nhập đầy đủ tên khách hàng , email , sdt.", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    SharedPreferences share = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-
-                    SharedPreferences.Editor editor = share.edit();
-                    editor.clear();
-                    editor.putString("name", edthoten.getText().toString());
-                    editor.putString("email", edtemail.getText().toString());
-                    editor.putString("phone", edtphone.getText().toString());
-                    editor.putInt("ck", rdnam.isChecked() ? 1 : 0);
-                    editor.putInt("kt", 1);
-                    editor.commit();
-                    Toast.makeText(getActivity(), "Cập nhật thành công", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        latthongtin();
         Exit();
+        Kiemtraucapnhat();
         return view;
     }
     private void Exit()
@@ -201,6 +175,103 @@ public class Accout_detail_userFragment extends Fragment {
             }
         });
     }
+       private  void Kiemtraucapnhat() {
+           btn_update.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   if (edthoten.getText().toString().trim().isEmpty() ||
+                           edtemail.getText().toString().trim().isEmpty() ||
+                           edtphone.getText().toString().trim().isEmpty()) {
+                       Toast.makeText(getContext(), "Vui lòng nhập đầy đủ tên khách hàng , email , sdt.", Toast.LENGTH_LONG).show();
+                   } else {
+                       int h = 0;
+                       if (rdnam.isChecked()) {
+                           h = 1;
+                       }
+                       mDatabase = FirebaseDatabase.getInstance().getReference();
+                       DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                       Map<String, Object> newban = new HashMap<>();
+                       newban.put("SDT", edtphone.getText().toString());
+                       newban.put("GioiTinh", h);
+                       newban.put("Email", edtemail.getText().toString());
+                       newban.put("name", edthoten.getText().toString());
+                       database.child("User").child(iduser + "").setValue(newban)
+                               .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                   @Override
+                                   public void onSuccess(Void aVoid) {
+                                       Toast.makeText(getActivity(), "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                                   }
+                               })
+                               .addOnFailureListener(new OnFailureListener() {
+                                   @Override
+                                   public void onFailure(@org.checkerframework.checker.nullness.qual.NonNull Exception e) {
+                                       Toast.makeText(getActivity(), "Cập nhật không thành công", Toast.LENGTH_LONG).show();
+                                   }
+                               });
+                   }
+               }
+           });
+       }
 
-    }
-//}
+       private  void latthongtin() {
+           mDatabase = FirebaseDatabase.getInstance().getReference();
+           // Load dish names
+           mDatabase.child("User").child(iduser+"").child("Email").addListenerForSingleValueEvent(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot snapshot) {
+                   edtemail.setText(snapshot.getValue(String.class));
+               }
+
+               @Override
+               public void onCancelled(@NonNull DatabaseError error) {
+                   Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
+               }
+           });
+           mDatabase = FirebaseDatabase.getInstance().getReference();
+           // Load dish names
+           mDatabase.child("User").child(iduser+"").child("SDT").addListenerForSingleValueEvent(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot snapshot) {
+                   edtphone.setText(snapshot.getValue(String.class));
+               }
+
+               @Override
+               public void onCancelled(@NonNull DatabaseError error) {
+                   Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
+               }
+           });
+           mDatabase = FirebaseDatabase.getInstance().getReference();
+           // Load dish names
+           mDatabase.child("User").child(iduser+"").child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot snapshot) {
+                   edthoten.setText(snapshot.getValue(String.class));
+               }
+
+               @Override
+               public void onCancelled(@NonNull DatabaseError error) {
+                   Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
+               }
+           });
+           mDatabase = FirebaseDatabase.getInstance().getReference();
+           // Load dish names
+           mDatabase.child("User").child(iduser+"").child("GioiTinh").addListenerForSingleValueEvent(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot snapshot) {
+                   if(snapshot.getValue(Integer.class) ==1)
+                   {
+                       rdnam.setChecked(true);
+                   }
+                   else
+                   {
+                       rdnu.setChecked(true);
+                   }
+               }
+               @Override
+               public void onCancelled(@NonNull DatabaseError error) {
+                   Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
+               }
+           });
+       }
+}
+

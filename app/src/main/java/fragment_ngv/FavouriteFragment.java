@@ -1,5 +1,7 @@
 package fragment_ngv;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,9 +49,11 @@ public class FavouriteFragment extends Fragment {
     private List<String> tma;
     private List<String> id;
     private List<Integer> anh;
+    private int iduser;
     private List<Integer> tt;
     private List<String> Gia;
     private List<String> mota;
+    private List<String> masp;
     private DatabaseReference mDatabase;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -98,12 +102,17 @@ public class FavouriteFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_favourite, container, false);
 
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
+
+
         tma = new ArrayList<>();
         anh = new ArrayList<>();
         Gia = new ArrayList<>();
         mota = new ArrayList<>();
         id = new ArrayList<>();
         tt = new ArrayList<>();
+        masp = new ArrayList<>();
 
         rcvyeuthich = view.findViewById(R.id.rcvyeuthich);
         rcvyeuthich.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -115,11 +124,31 @@ public class FavouriteFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Load dish names
-        mDatabase.child("YeuThich").child("Listidyt").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("YeuThich").child(iduser+"").child("Listidyt").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     id.add(itemSnapshot.getValue(String.class));
+                }
+                loadFirebasemasp();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadFirebasemasp() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Load dish names
+        mDatabase.child("YeuThich").child(iduser+"").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    masp.add(itemSnapshot.getValue(String.class));
                 }
                 loadFirebaseData();
             }
@@ -137,7 +166,7 @@ public class FavouriteFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Load dish names
-        mDatabase.child("YeuThich").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("YeuThich").child(iduser+"").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
@@ -154,7 +183,7 @@ public class FavouriteFragment extends Fragment {
     }
 
     private void loadImageData() {
-        mDatabase.child("YeuThich").child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("YeuThich").child(iduser+"").child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
@@ -180,31 +209,11 @@ public class FavouriteFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Load dish names
-        mDatabase.child("YeuThich").child("Listmota").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("YeuThich").child(iduser+"").child("Listmota").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
-                }
-                loadFirebasett();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebasett() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("YeuThich").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
                 }
                 loadPriceData();
             }
@@ -217,8 +226,10 @@ public class FavouriteFragment extends Fragment {
     }
 
 
+
+
     private void loadPriceData() {
-        mDatabase.child("YeuThich").child("ListGia").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("YeuThich").child(iduser+"").child("ListGia").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
@@ -227,7 +238,7 @@ public class FavouriteFragment extends Fragment {
                 ArrayList<Yeuthich>  list = new ArrayList<>();
                 if (tma.size() == anh.size() && anh.size() == Gia.size()) {
                     for (int i = 0; i < tma.size(); i++) {
-                        list.add(new Yeuthich(id.get(i),tma.get(i), anh.get(i), Gia.get(i),mota.get(i),tt.get(i)));
+                        list.add(new Yeuthich(id.get(i),masp.get(i),tma.get(i), anh.get(i), Gia.get(i),mota.get(i),1));
                     }
 
                     // Update RecyclerView adapter

@@ -6,6 +6,9 @@ public class Class_Home {
     private String mota;
     private int traitim;
     private int mahome;
+    private int madanhmuc;
+    private int masp;
+    private int trangthai;
 
     public Class_Home(int mahome,String tenmonan, int imgmonan, String giadonvi, String mota, int traitim) {
         this.tenmonan = tenmonan;

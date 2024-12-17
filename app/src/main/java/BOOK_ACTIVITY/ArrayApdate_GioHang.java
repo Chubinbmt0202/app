@@ -36,6 +36,7 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
         this.contex = contex;
         this.listener = listener;
         this.load = l;
+        data = new Database_GioHang(contex);
     }
 
     @Override
@@ -58,6 +59,12 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
         int a = item.getGia()/1000;
         holder.tvsumkq.setText(a +"." +"000 vnd");
         holder.imgmonan.setImageResource(item.getImg());
+
+        if(item.getTinhtrang() == 1) {
+            holder.cb_book.setChecked(true);
+            holder.img_icondelete.setVisibility(View.VISIBLE);
+        }
+
 
         holder.img_icondelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +127,7 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
             @Override
             public void onClick(View view) {
                 int b = 0;
+
                 if(!holder.tvsumkq.getText().toString().equals("0 vnd"))
                 {
                     String result = holder.tvsumkq.getText().toString().replaceAll("[^\\d]", "");
@@ -127,6 +135,8 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
                 }
                 if(holder.cb_book.isChecked())
                 {
+                    data = new Database_GioHang(contex);
+                    data.Capnhattinhtrang(item.getId(),1);
                     holder.img_icondelete.setVisibility(View.VISIBLE);
                     NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
                     String formattedSum = formatter.format(b);
@@ -137,6 +147,8 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
                 }
                 else
                 {
+                    data = new Database_GioHang(contex);
+                    data.Capnhattinhtrang(item.getId(),0);
                     holder.img_icondelete.setVisibility(View.GONE);
                     int tru = -b;
                     // Gọi listener để thông báo BookFragment
@@ -157,6 +169,17 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
                 holder.tvkqsolg.setText(String.valueOf(solg));
                 NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
 
+
+                data = new Database_GioHang(contex);
+                Cursor cursor = data.getKiemTra(item.getId());
+                if (cursor != null && cursor.moveToFirst()) {
+                    Toast.makeText(contex,item.getId() +"",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(contex,"Không tìm thấy id",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    data.Capnhatsolg(item.getId(),solg);
+                }
                 if (holder.cb_book.isChecked())
                 {
                     int b = 0;
@@ -165,6 +188,8 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
                     b += item.getGia();
                     String formattedSum1 = formatter.format(b);
                     holder.tvsumkq.setText(formattedSum1 + " vnd");
+
+
 
                     // Gọi listener để thông báo BookFragment
                     if (listener != null) {
@@ -188,6 +213,8 @@ public class ArrayApdate_GioHang extends RecyclerView.Adapter<ArrayApdate_GioHan
                 int solg = Integer.parseInt(holder.tvkqsolg.getText().toString());
                 solg -= 1;
                 if (solg > 0) {
+                    data = new Database_GioHang(contex);
+                    data.Capnhatsolg(item.getId(),solg);
                     int sum = item.getGia() / solg;
                     holder.tvkqsolg.setText(String.valueOf(solg));
                     NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));

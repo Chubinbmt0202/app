@@ -1,5 +1,8 @@
 package fragment_ngv;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -125,6 +128,18 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
         edtseach = view.findViewById(R.id.edtsearch1);
+
+        // Kiêm tra co click dang nhap khong
+        if(getActivity().getIntent()!= null)
+        {
+            Intent it = getActivity().getIntent();
+            int id = it.getIntExtra("idus",0);
+            SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+            SharedPreferences.Editor edt = sharett.edit();
+            edt.putInt("id",id);
+            edt.commit();
+        }
+
 
         tma = new ArrayList<>();
         anhh = new ArrayList<>();

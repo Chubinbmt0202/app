@@ -1,6 +1,7 @@
 package Order;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprestaurant.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +48,10 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
     private Danhsachgiohang dsgh;
     ArrayList<Class_CategoryBanhCuon> ds = new ArrayList<>();
     Database_GioHang data;
+    private int kt1 , kt2 ;
+    private String kt3;
     boolean one = false;
+    int iduser;
 
 
     @Override
@@ -55,10 +61,21 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
             holder.tvtggia.setText(String.valueOf(item.getGiadonvi()));
             holder.imgmonan.setImageResource(item.getImgmonan());
 
+        SharedPreferences sharett = contex.getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
+
+
             if(item.getTinhtrang() == 1)
             {
                 holder.imgtraitim.setImageResource(R.drawable.iconn_ttraitim); // Đặt về biểu tượng "yêu thích"
+                holder.imgtraitim.setTag(R.drawable.img_yeuthich);
             }
+            else
+            {
+                holder.imgtraitim.setTag(R.drawable.btn_2);
+            }
+
+
         holder.imgtraitim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,28 +117,124 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                     chuoi = "Order/TrangMieng/Listt";
                 }
 
-                if (isFavorite) {
-                    mDatabase.child("Order").child("TrangMieng").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
+                int currentDrawableId = (int) holder.imgtraitim.getTag();
+                if (currentDrawableId == R.drawable.img_yeuthich) {
+                    holder.imgtraitim.setImageResource(R.drawable.btn_2);
+                    holder.imgtraitim.setTag(R.drawable.btn_2);
+                    kt1 = 0;
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(chuoi);
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put(id + "", 0);
+                    databaseReference.updateChildren(updates)
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
+                            .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    // Load dish names
+                    mDatabase.child("YeuThich").child(iduser+"").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                            if(snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                                int i =0 ;
+                                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                                    String value = itemSnapshot.getValue(String.class);
+                                    if (value != null && value.equals(item.getMasanpham()))
+                                    {
+                                        kt3 = itemSnapshot.getKey();
+                                        break;
+                                    }
+                                    i++;
+                                }
+                                kt1 = Integer.parseInt(kt3);
+                                mDatabase.child("YeuThich").child(iduser+"").child("Listmasp").child(kt1+"").removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                            }
+                                        });
+                                mDatabase.child("YeuThich").child(iduser+"").child("Listtenmonan").child(kt1+"").removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                            }
+                                        });
+                                mDatabase.child("YeuThich").child(iduser+"").child("Listidyt").child(kt1+"").removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                            }
+                                        });
+                                mDatabase.child("YeuThich").child(iduser+"").child("Listanh").child(kt1+"").removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                            }
+                                        });
+                                mDatabase.child("YeuThich").child(iduser+"").child("Listmota").child(kt1+"").removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                            }
+                                        });
+                                mDatabase.child("YeuThich").child(iduser+"").child("ListGia").child(kt1+"").removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Firebase", "Dữ liệu đã được xóa thành công.");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
+                                            }
+                                        });
+                            }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Toast.makeText(contex, "Lỗi", Toast.LENGTH_SHORT).show();
                         }
                     });
 
-                    holder.imgtraitim.setImageResource(R.drawable.btn_2);
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(chuoi);
-                    Map<String, Object> updates = new HashMap<>();
-                    updates.put(id + "", 0);
-
-                    databaseReference.updateChildren(updates)
-                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
-                            .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
-                } else {
+                }
+                else
+                {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(chuoi);
                     Map<String, Object> updates = new HashMap<>();
                     updates.put(id+"", 1);
@@ -130,9 +243,145 @@ public class Apdate_OrderCategory extends RecyclerView.Adapter<Apdate_OrderCateg
                             .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
                             .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
                     holder.imgtraitim.setImageResource(R.drawable.img_yeuthich);
+                    holder.imgtraitim.setTag(R.drawable.img_yeuthich);
+                    kt1 = 0 ; kt2 = 0;
+
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                    mDatabase.child("YeuThich").child(iduser+"").child("Listidyt").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists() && snapshot.getChildrenCount() > 0)
+                            {
+                                int i  = 1;
+                                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+//                                    i = Integer.parseInt(itemSnapshot.getKey().toString());
+////                                    i -=1;
+                                    if( snapshot.getChildrenCount() == i )
+                                    {
+                                        kt1 = Integer.parseInt(itemSnapshot.getKey());
+                                    }
+                                    i++;
+                                }
+                            }
+                            kt1++;
+                            kt2 = kt1+1;
+                            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> newid = new HashMap<>();
+                            newid.put(kt1+"", kt2+"");
+                            database.child("YeuThich").child(iduser+"").child("Listidyt").updateChildren(newid)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được thêm thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@org.checkerframework.checker.nullness.qual.NonNull Exception e) {
+                                            Log.e("Firebase", "Thêm dữ liệu thất bại: ", e);
+                                        }
+                                    });
+                            Map<String, Object> newtma = new HashMap<>();
+                            newtma.put(kt1+"", item.getTenmonan());
+                            database.child("YeuThich").child(iduser+"").child("Listtenmonan").updateChildren(newtma)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được thêm thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@org.checkerframework.checker.nullness.qual.NonNull Exception e) {
+                                            Log.e("Firebase", "Thêm dữ liệu thất bại: ", e);
+                                        }
+                                    });
+
+                            Map<String, Object> newmota = new HashMap<>();
+                            newmota.put(kt1+"", item.getMota());
+                            database.child("YeuThich").child(iduser+"").child("Listmota").updateChildren(newmota)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được thêm thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@org.checkerframework.checker.nullness.qual.NonNull Exception e) {
+                                            Log.e("Firebase", "Thêm dữ liệu thất bại: ", e);
+                                        }
+                                    });
+
+                            Map<String, Object> newmasp = new HashMap<>();
+                            newmasp.put(kt1+"", item.getMasanpham());
+                            database.child("YeuThich").child(iduser+"").child("Listmasp").updateChildren(newmasp)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được thêm thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@org.checkerframework.checker.nullness.qual.NonNull Exception e) {
+                                            Log.e("Firebase", "Thêm dữ liệu thất bại: ", e);
+                                        }
+                                    });
+
+                            String chuoianh = contex.getResources().getResourceEntryName(item.getImgmonan());
+                            Map<String, Object> newt = new HashMap<>();
+                            newt.put(kt1+"",chuoianh );
+                            database.child("YeuThich").child(iduser+"").child("Listanh").updateChildren(newt)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được thêm thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@org.checkerframework.checker.nullness.qual.NonNull Exception e) {
+                                            Log.e("Firebase", "Thêm dữ liệu thất bại: ", e);
+                                        }
+                                    });
+
+                            Map<String, Object> newgia = new HashMap<>();
+                            String result = item.getGiadonvi().replaceAll("[^\\d]", "");
+                            int dgia;
+                            if(result.isEmpty())
+                            {
+                                dgia =0;
+                            }
+                            else
+                            {
+                                dgia = Integer.parseInt(result);
+                            }
+                            newgia.put(kt1+"", dgia+"");
+                            database.child("YeuThich").child(iduser+"").child("ListGia").updateChildren(newgia)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Firebase", "Dữ liệu đã được thêm thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@org.checkerframework.checker.nullness.qual.NonNull Exception e) {
+                                            Log.e("Firebase", "Thêm dữ liệu thất bại: ", e);
+                                        }
+                                    });
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(contex, "Lỗi key ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
-                isFavorite = !isFavorite;
             }
         });
             holder.imgmonan.setOnClickListener(new View.OnClickListener() {

@@ -92,6 +92,7 @@ public class orderdetails_Fragment extends Fragment {
             }
         });
 
+
         if(getArguments()!= null)
         {
             Bundle bundle = getArguments();
@@ -107,7 +108,7 @@ public class orderdetails_Fragment extends Fragment {
             }
         }
         else {
-            // Set default fragment
+
             if (getActivity() != null) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
@@ -115,6 +116,7 @@ public class orderdetails_Fragment extends Fragment {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
+
         }
 
         tbldetail.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

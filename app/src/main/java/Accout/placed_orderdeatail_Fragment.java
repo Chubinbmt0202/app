@@ -1,5 +1,7 @@
 package Accout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,6 +47,7 @@ public class placed_orderdeatail_Fragment extends Fragment {
     private ArrayList<Class_sumdeltaihistory> list;
     private ArrayApdat_SumDetailHistory apdate;
     private RecyclerView rcv;
+    private int iduser;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,7 +92,7 @@ public class placed_orderdeatail_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_placed_orderdeatail_, container, false);
 
         rcv = view.findViewById(R.id.rcv_placed);
@@ -99,22 +102,24 @@ public class placed_orderdeatail_Fragment extends Fragment {
 
         rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
         list = new ArrayList<>();
-        loadFirebaseid();
 
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
+        loadFirebaseid();
         return view;
     }
     private void loadFirebaseid() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Load dish names
-        mDatabase.child("Hang").child("Listid").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        mDatabase.child("DonHang").child(iduser+"").child("1").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren())
                 {
-                    id.add(data.getValue(String.class));
+                    id.add(data.getKey());
                 }
-                loadNgay();
+                loadNgay(id);
             }
 
             @Override
@@ -125,50 +130,28 @@ public class placed_orderdeatail_Fragment extends Fragment {
     }
 
 
-    private void loadNgay() {
+    private void loadNgay(List<String> id) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Load dish names
-        mDatabase.child("Hang").child("Listdate").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    date.add(itemSnapshot.getValue(String.class));
-                }
-                loadtrangthai();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void loadtrangthai() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Hang").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
-                if(tt.size()==date.size())
-                {
-                    for (int i = (id.size() -1) ; i>=0 ;i-- ) {
-                        if(tt.get(i) == 1) {
-                            list.add(new Class_sumdeltaihistory(id.get(i), tt.get(i), date.get(i)));
+        for(int i = 0 ; i< id.size() ;i++) {
+            mDatabase.child("DonHang").child(iduser + "").child("1").child(id.get(i)).child("Date").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        date.add(snapshot.getValue(String.class));
+                    if (id.size() == date.size()) {
+                        for (int i = (id.size() - 1); i >= 0; i--) {
+                            list.add(new Class_sumdeltaihistory(id.get(i), 1, date.get(i)));
                         }
+                        apdate = new ArrayApdat_SumDetailHistory(list, getActivity());
+                        rcv.setAdapter(apdate);
                     }
-                    apdate = new ArrayApdat_SumDetailHistory(list, getActivity());
-                    rcv.setAdapter(apdate);
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
-}
+    }

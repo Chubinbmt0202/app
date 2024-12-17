@@ -16,13 +16,26 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.apprestaurant.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import User_Restaurant.DetailUser_Activity;
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextView txtdangnhap ;
     private EditText edtname , edtphone , edtemail , pass1 , pass2 ;
     private Button btndangki;
+    private DatabaseReference mDatabase;
+    private  int thamso = 0;
+    int ktbt ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         edtemail = findViewById(R.id.editTextTextEmailAddress);
         pass1 = findViewById(R.id.Pass_dki_mk);
         pass2 = findViewById(R.id.Pass_dki_mk2);
-
+        ktbt = 0;
         ToLogin();
         ToDangKy();
 
@@ -61,49 +74,79 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-    private void ToDangKy()
-    {
-        btndangki = (Button) findViewById(R.id.btn_dangki);
+    private void ToDangKy() {
+        btndangki = findViewById(R.id.btn_dangki);
 
         btndangki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // Kiểm tra null cho các trường nhập liệu
                 if (edtname == null || edtphone == null || edtemail == null || pass1 == null || pass2 == null) {
                     Toast.makeText(RegisterActivity.this, "Một trong các trường không được khởi tạo.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                // Kiểm tra thông tin nhập vào
+
+                // Kiểm tra dữ liệu nhập
                 if (edtname.getText().toString().trim().isEmpty() ||
                         edtphone.getText().toString().trim().isEmpty() ||
                         edtemail.getText().toString().trim().isEmpty() ||
                         pass1.getText().toString().trim().isEmpty() ||
-                        pass2.getText().toString().trim().isEmpty())
-                {
+                        pass2.getText().toString().trim().isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_LONG).show();
+                    return;
                 }
-                else if (!pass1.getText().toString().trim().equals(pass2.getText().toString().trim()))
-                {
+
+                if (!pass1.getText().toString().trim().equals(pass2.getText().toString().trim())) {
                     Toast.makeText(RegisterActivity.this, "Mật khẩu không trùng nhau.", Toast.LENGTH_LONG).show();
+                    return;
                 }
-                else
-                {
-                    Intent it = new Intent(RegisterActivity.this, DetailUser_Activity.class);
-                    it.putExtra("name", edtname.getText().toString().trim());
-                    it.putExtra("phone", edtphone.getText().toString().trim());
-                    it.putExtra("email", edtemail.getText().toString().trim());
-                    startActivity(it);
-                    Toast.makeText(RegisterActivity.this, "Đăng ký thành công.", Toast.LENGTH_LONG).show();
 
-                    Intent it1 = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(it1);
-                }
+                // Khởi tạo tham chiếu Firebase Realtime Database
+                mDatabase = FirebaseDatabase.getInstance().getReference("User");
+                // Lấy số lượng user hiện tại từ Realtime Database
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
+                        thamso = snapshot.exists() ? (int) snapshot.getChildrenCount() +1 : 0;
+                        // Lưu dữ liệu vào Firestore
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        // Tạo dữ liệu người dùng mới
+                        Map<String, Object> newUser = new HashMap<>();
+                        newUser.put("name", edtname.getText().toString().trim());
+                        newUser.put("SDT", edtphone.getText().toString().trim());
+                        newUser.put("Email", edtemail.getText().toString().trim());
+                        newUser.put("GioiTinh", 1); // Mặc định giới tính
+                        newUser.put("Mkhau", pass1.getText().toString().trim());
+
+                        database.child("User").child(thamso + "").setValue(newUser)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(RegisterActivity.this, "Đăng ký thành công.", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(RegisterActivity.this, "Đăng ký không thành công.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                        Toast.makeText(RegisterActivity.this, "Đăng ký thành công.", Toast.LENGTH_LONG).show();
+                        Intent it1 = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(it1);
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
+                        Log.e("FirebaseError", "Lỗi truy cập Firebase Database", error.toException());
+                        Toast.makeText(RegisterActivity.this, "Lỗi khi truy cập dữ liệu.", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-
-
-
         });
-
     }
+
 
 }

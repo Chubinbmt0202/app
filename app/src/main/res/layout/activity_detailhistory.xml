@@ -53,6 +53,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textttcn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -81,6 +82,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textttdb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"

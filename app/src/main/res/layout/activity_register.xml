@@ -83,7 +83,7 @@
             android:background="@drawable/btn_dangky"
             android:ems="10"
             android:hint="Mật khẩu "
-            android:inputType="numberPassword"
+            android:inputType="text"
             android:textColor="@color/black"
             app:backgroundTint="@null" />
 
@@ -95,7 +95,7 @@
             android:background="@drawable/btn_dangky"
             android:ems="10"
             android:hint="Nhập lại mật khẩu "
-            android:inputType="numberPassword"
+            android:inputType="text"
             android:textColor="@color/black"
             app:backgroundTint="@null" />
 

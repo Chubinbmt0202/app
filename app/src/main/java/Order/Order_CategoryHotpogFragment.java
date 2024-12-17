@@ -50,7 +50,7 @@ public class Order_CategoryHotpogFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_order__category_hotpog, container, false);
 
-        rcv = view.findViewById(R.id.rcv_detailhistoryyy);
+        rcv = view.findViewById(R.id.rcv_categoryhotpog);
         rcv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         tma = new ArrayList<>();
@@ -73,9 +73,9 @@ public class Order_CategoryHotpogFragment extends Fragment {
         mDatabase.child("Order").child("HotPog").child("MaDanhMuc").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                madanhmuc = snapshot.getValue(String.class); // Lấy giá trị từ Firebase
+                madanhmuc = snapshot.getValue(String.class);
                 if (madanhmuc != null) {
-                    loadMasanpham(); // Chỉ gọi tiếp nếu `madanhmuc` không null
+                    loadMasanpham();
                 } else {
                     Toast.makeText(getActivity(), "Không tìm thấy danh mục", Toast.LENGTH_SHORT).show();
                 }
@@ -207,7 +207,6 @@ public class Order_CategoryHotpogFragment extends Fragment {
                         list.add(new Class_CategoryBanhCuon(madanhmuc,masanpham.get(i),tma.get(i), anhh.get(i), Gia.get(i),mota.get(i),tt.get(i)));
                     }
 
-                    // Update RecyclerView adapter
                     apdate = new Apdate_OrderCategory(list, getActivity());
                     rcv.setAdapter(apdate);
                 } else {

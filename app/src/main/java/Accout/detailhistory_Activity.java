@@ -1,7 +1,9 @@
 package Accout;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.security.identity.CipherSuiteNotSupportedException;
 import android.util.Log;
@@ -27,14 +29,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprestaurant.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import BOOK_ACTIVITY.BookTable_Fragment;
@@ -46,14 +52,20 @@ public class detailhistory_Activity extends AppCompatActivity {
     // Khai báo nút 'OK' và nút 'Hủy Đơn Hàng'
     private Button btn_dthsok, btn_dthsback, btn_ohanhoi;
     private LinearLayout linedgph;
+    String  idd;
     private ImageView ngoisao1, ngoisao2, ngoisao3, ngoisao4, ngoisao5;
     boolean ktra = false;
-    private DatabaseReference mDatabase;
+    String ngaydat = null;
+    private  int k = 0;
+    private DatabaseReference mDatabase , mDatabase1;
     private TextView tv_tieude, tv_tgdahuy;
     private int sao = 0 ,id;
     private EditText edtph;
+    private int iduser;
+    private TextView textttcn,textttdb;
     private  ArrayList<String> tma;
     private ArrayList<Integer> gia , solg , img ;
+  //  "haisanca_cakhoto","img_baongubotoi","img_canuonghaivi"
 //    private int img[] = {R.drawable.haisanca_cakhoto, R.drawable.img_baongubotoi, R.drawable.img_canuonghaivi};
 //    private int giagoc[] = {80000, 45000, 25000};
 //    private String tenmon[] = {"Cá khô tộ", "Bào ngư bơ tỏi", "Cá nướng hai vị"};
@@ -78,7 +90,12 @@ public class detailhistory_Activity extends AppCompatActivity {
         linedgph = findViewById(R.id.linedgph);
         btn_ohanhoi = findViewById(R.id.btn_ohanhoi);
 
+        // thông tin người dùng và thông tin đặt bàn
+        textttcn = findViewById(R.id.textttcn);
+        textttdb = findViewById(R.id.textttdb);
 
+        SharedPreferences sharett = getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
         linedgph.setVisibility(View.GONE);
 
         ngoisao1 = findViewById(R.id.imgngoisao1);
@@ -193,84 +210,144 @@ public class detailhistory_Activity extends AppCompatActivity {
         img = new ArrayList<>();
 
         Intent it = getIntent();
-        int so = it.getIntExtra("id",-1);
-        if(so!=-1) {
+        idd = it.getStringExtra("id");
+        int so = it.getIntExtra("ktra",0);
+        List<Integer> ktlist = new ArrayList<Integer>();
+
+        if(so!=0 && idd != null) {
+            String chuoiktra ;
+            if(so==1)
+            {
+                chuoiktra = "1";
+
+            }
+            else if(so==3)
+            {
+                chuoiktra = "3";
+            }
+            else
+            {
+                chuoiktra = "2";
+            }
+
             mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("Hang").child("MonAN").child(String.valueOf(so)).child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child("User").child(iduser+"").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    textttcn.setText("Tên: " + snapshot.child("name").getValue(String.class));
+                    textttcn.setText(textttcn.getText()+" - SDT: " + snapshot.child("SDT").getValue(String.class));
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            mDatabase.child("DonHang").child(iduser+"").child(chuoiktra).child(idd).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    textttdb.setText("Bàn: " + snapshot.child("Ban").getValue(String.class));
+                    textttdb.setText(textttdb.getText() + ", Ngày: " + snapshot.child("Date").getValue(String.class));
+                    textttdb.setText(textttdb.getText() + ", Giờ: " + snapshot.child("Gio").getValue(String.class));
+                    ngaydat = snapshot.child("Date").getValue(String.class);
+                    if(chuoiktra.equals("1"))
+                    {
+                        tv_tgdahuy.setText("Đã đặt vào ngày " + ngaydat);
+                    }
+                    else if(chuoiktra.equals("3"))
+                    {
+                        tv_tgdahuy.setText("Đã hủy vào ngày " + ngaydat);
+                    }
+                    else
+                    {
+                        tv_tgdahuy.setText("Đã đặt vào ngày " + ngaydat);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle possible errors.
+                }
+            });
+
+
+            mDatabase1 = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/" + chuoiktra +"/" + idd);
+            mDatabase1.child("Monan").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                         tma.add(itemSnapshot.getValue(String.class));
                     }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    mDatabase1.child("Monan").child("Listsolg").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                                solg.add(itemSnapshot.getValue(Integer.class));
+                            }
+                            mDatabase1.child("Monan").child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                                        String imageName = itemSnapshot.getValue(String.class);
+                                        int resourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
+                                        if (resourceId != 0) {
+                                            img.add(resourceId);
+                                        } else {
+                                            Toast.makeText(detailhistory_Activity.this,"ảnh lỗi",Toast.LENGTH_SHORT).show();
+                                        }
 
-                }
-            });
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("Hang").child("MonAN").child(String.valueOf(so)).child("Listsolg").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                        solg.add(itemSnapshot.getValue(Integer.class));
-                   }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                    mDatabase1.child("Monan").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                                                gia.add(itemSnapshot.getValue(Integer.class));
+                                            }
+                                            rcv= findViewById(R.id.rcv_detailhistoryyy);
+                                            rcv.setLayoutManager(new LinearLayoutManager(detailhistory_Activity.this));
+                                            if (gia.size() == tma.size() && tma.size() == solg.size() && solg.size() == img.size()) {
+                                                list = new ArrayList<>();
+                                                for (int i = 0; i < tma.size(); i++) {
+                                                    list.add(new Class_Detail(tma.get(i), gia.get(i), solg.get(i), img.get(i)));
+                                                }
+                                                if(list != null) {
+                                                    apdate = new ArrayAdate_DetailHistory(list, detailhistory_Activity.this);
+                                                    rcv.setAdapter(apdate);
+                                                }
+                                            } else {
+                                                Log.e("Firebase", "Dữ liệu không đồng bộ.");
+                                            }
+                                        }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("Hang").child("MonAN").child(String.valueOf(so)).child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                        String imageName = itemSnapshot.getValue(String.class);
-                        int resourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
-                        if (resourceId != 0) {
-                            img.add(resourceId);
-                        } else {
-                            Toast.makeText(detailhistory_Activity.this,"ảnh lỗi",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                         }
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("Hang").child("MonAN").child(String.valueOf(so)).child("ListGia").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                        gia.add(itemSnapshot.getValue(Integer.class));
-                    }
 
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+        }
 
-                }
-            });
-        }
-        rcv= findViewById(R.id.rcv_detailhistoryyy);
-        rcv.setLayoutManager(new LinearLayoutManager(detailhistory_Activity.this));
-        if (gia.size() == tma.size() && tma.size() == solg.size() && solg.size() == img.size()) {
-            for (int i = 0; i < tma.size(); i++) {
-                list.add(new Class_Detail(tma.get(i), gia.get(i), solg.get(i), img.get(i)));
-            }
-            apdate = new ArrayAdate_DetailHistory(list, detailhistory_Activity.this);
-            rcv.setAdapter(apdate);
-        } else {
-            Log.e("Firebase", "Dữ liệu không đồng bộ.");
-        }
         butttonOK();
         buttonHuyDonHang();
 
     }
-
 
 
     private void butttonOK() {
@@ -291,12 +368,6 @@ public class detailhistory_Activity extends AppCompatActivity {
                     }
                     else if (a==3)
                     {
-//                        Cancel_DetaildetailhistoryFragment fragment = new Cancel_DetaildetailhistoryFragment();
-//                        // Replace the current fragment with the new one
-//                        getSupportFragmentManager().beginTransaction()
-//                                .replace(R.id.ngv_viewPager, fragment) // Replace with the correct container ID
-//                                .addToBackStack(null) // Optional: Adds this transaction to the back stack
-//                                .commit();
                         Intent ik = new Intent(detailhistory_Activity.this,Cancel_DetaildetailhistoryFragment.class);
                         startActivity(ik);
                     }
@@ -320,23 +391,46 @@ public class detailhistory_Activity extends AppCompatActivity {
                         AlertDialog.Builder ab = new AlertDialog.Builder(detailhistory_Activity.this);
                         ab.setMessage("Bạn có chăc chắn muốn hủy ?");
                         ab.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Hang/Listt");
-                                Map<String, Object> updates = new HashMap<>();
-                                updates.put(id+"", 3);
-                                databaseReference.updateChildren(updates)
-                                        .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
-                                        .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
+                                        DatabaseReference sourceRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/1/" + idd );
+                                        DatabaseReference destinationRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/3/" + idd );
 
-                                Toast.makeText(detailhistory_Activity.this, "Đã hủy đơn hàng thành công !", Toast.LENGTH_SHORT).show();
-                                Intent it = new Intent(detailhistory_Activity.this, ArrayApdat_SumDetailHistory.class);
-                                it.putExtra("huy", 1);
-                                startActivity(it);
-                                finish();
-                            }
-                        });
+                                        sourceRef.addListenerForSingleValueEvent(new  ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()) {
+                                                    destinationRef.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
+                                                        @Override
+                                                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                            if (error != null) {
+                                                                Log.e("YourTag", "Lỗi khi sao chép dữ liệu: " + error.getMessage());
+                                                            } else {
+
+                                                                sourceRef.removeValue();
+                                                                Toast.makeText(detailhistory_Activity.this, "Đã hủy đơn hàng thành công !", Toast.LENGTH_SHORT).show();
+                                                                Intent it = new Intent(detailhistory_Activity.this, orderdetails_Fragment.class);
+                                                                it.putExtra("huy", 1);
+                                                                startActivity(it);
+                                                                finish();
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    Log.d("YourTag", "Dữ liệu nguồn không tồn tại");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                Log.e("YourTag", "Lỗi khi truy xuất dữ liệu nguồn: " + error.getMessage());
+                                            }
+                                        });
+
+                                    }
+                                });
+
                         ab.setNegativeButton("Không", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -354,24 +448,43 @@ public class detailhistory_Activity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         AlertDialog.Builder ab = new AlertDialog.Builder(detailhistory_Activity.this);
-                        ab.setMessage("Bạn có chăc chắn muốn đặt lại ?");
+                        ab.setMessage("Bạn có chắc chắn muốn đặt lại ?");
                         ab.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(detailhistory_Activity.this, "Đã đặt thành công", Toast.LENGTH_SHORT).show();
-                                Intent k = getIntent();
-                                String idtt = k.getStringExtra("id");
-                                // Create the fragment and pass the data using Bundle
-                                Cancel_DetaildetailhistoryFragment fragment = new Cancel_DetaildetailhistoryFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putString("iddonhang", idtt);
-                                fragment.setArguments(bundle);
+                                DatabaseReference sourceRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/3/" + idd);
+                                DatabaseReference destinationRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/1/" + idd);
 
-                                // Replace the current fragment with the new one
-                                getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.ngv_viewPager, fragment) // Replace with the correct container ID
-                                        .addToBackStack(null) // Optional: Adds this transaction to the back stack
-                                        .commit();
+                                sourceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            destinationRef.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
+                                                @Override
+                                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                    if (error != null) {
+                                                        Log.e("YourTag", "Lỗi khi sao chép dữ liệu: " + error.getMessage());
+                                                    } else {
+                                                        sourceRef.removeValue();
+                                                        Toast.makeText(detailhistory_Activity.this, "Đã đặt thành công", Toast.LENGTH_SHORT).show();
+
+//
+
+                                                        Intent it = new Intent(detailhistory_Activity.this, orderdetails_Fragment.class);
+                                                        it.putExtra("huy", 1);
+                                                        startActivity(it);
+                                                        finish();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.e("YourTag", "Lỗi khi đọc dữ liệu: " + error.getMessage());
+                                    }
+                                });
                             }
                         });
                         ab.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -384,8 +497,9 @@ public class detailhistory_Activity extends AppCompatActivity {
                 });
 
             }
-            else if (a == 4)
+            else if (a == 2)
             {
+                btn_dthsback.setVisibility(View.GONE);
                 linedgph.setVisibility(View.VISIBLE);
                 btn_ohanhoi.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -404,6 +518,8 @@ public class detailhistory_Activity extends AppCompatActivity {
                     }
                 });
             }
+
+
 
         }
     }

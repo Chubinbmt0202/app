@@ -7,6 +7,8 @@ import static java.security.AccessController.getContext;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +23,24 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprestaurant.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
 
 public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat_SumDetailHistory.ViewHolder>{
+    private int iduser;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Class_sumdeltaihistory item = list.get(position);
         holder.idhoadon.setText("Hóa đơn #" + item.getIdhoadon() );
         holder.textngaydat.setText(item.getNgaydat());
+        SharedPreferences sharett = contex.getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
         if(item.getTinhtrang() == 2)
         {
             holder.texttinhtrang.setText("Đặt thành công");
@@ -56,7 +67,36 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
                     ab.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(contex, "Đã hủy đơn hàng thành công !", Toast.LENGTH_SHORT).show();
+                            DatabaseReference sourceRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/1/" + item.getIdhoadon() );
+                            DatabaseReference destinationRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/3/" + item.getIdhoadon() );
+
+                            sourceRef.addListenerForSingleValueEvent(new  ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        destinationRef.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                if (error != null) {
+                                                    Log.e("YourTag", "Lỗi khi sao chép dữ liệu: " + error.getMessage());
+                                                } else {
+                                                    Toast.makeText(contex, "Đã hủy đơn hàng thành công !", Toast.LENGTH_SHORT).show();
+                                                    Log.d("YourTag", "Sao chép dữ liệu thành công");
+                                                    sourceRef.removeValue();
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        Log.d("YourTag", "Dữ liệu nguồn không tồn tại");
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("YourTag", "Lỗi khi truy xuất dữ liệu nguồn: " + error.getMessage());
+                                }
+                            });
+
                         }
                     });
                     ab.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -81,7 +121,35 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
                     ab.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(contex, "Đặt thành công !", Toast.LENGTH_SHORT).show();
+                            DatabaseReference sourceRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/3/" + item.getIdhoadon() );
+                            DatabaseReference destinationRef = FirebaseDatabase.getInstance().getReference("DonHang/" + iduser + "/1/" + item.getIdhoadon() );
+
+                            sourceRef.addListenerForSingleValueEvent(new  ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        destinationRef.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                if (error != null) {
+                                                    Log.e("YourTag", "Lỗi khi sao chép dữ liệu: " + error.getMessage());
+                                                } else {
+                                                    Toast.makeText(contex, "Đặt thành công !", Toast.LENGTH_SHORT).show();
+                                                    sourceRef.removeValue();
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        Log.d("YourTag", "Dữ liệu nguồn không tồn tại");
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("YourTag", "Lỗi khi truy xuất dữ liệu nguồn: " + error.getMessage());
+                                }
+                            });
+
                         }
                     });
                     ab.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -107,7 +175,6 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
                 else if(item.getTinhtrang() == 3)
                 {
                     it.putExtra("ktra",3);
-//                    it.putExtra("id",item.getIdhoadon());
                 }
                 else if(item.getTinhtrang() == 2)
                 {
@@ -117,7 +184,7 @@ public class ArrayApdat_SumDetailHistory extends RecyclerView.Adapter<ArrayApdat
                 {
                     it.putExtra("ktra",4);
                 }
-                it.putExtra("id",holder.getAdapterPosition());
+                it.putExtra("id",item.getIdhoadon());
                 startActivity(contex,it,null);
             }
         });

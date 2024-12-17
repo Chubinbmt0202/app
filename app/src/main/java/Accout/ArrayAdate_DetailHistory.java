@@ -22,7 +22,7 @@ public class ArrayAdate_DetailHistory extends RecyclerView.Adapter<ArrayAdate_De
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Class_Detail item = list.get(position);
         holder.tvtenmonan.setText(item.getTenmon());
-        holder.tvtggia.setText(item.getTonggia());
+        holder.tvtggia.setText(String.valueOf(item.getTonggia()));
         holder.imgmonan.setImageResource(item.getImg());
         holder.solg.setText(String.valueOf(item.getSolg()));
     }

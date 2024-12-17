@@ -2,14 +2,17 @@ package HOME;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import BOOK_ACTIVITY.Database_GioHang;
 import Category.DetailCategory_PhoFragment;
 import Order.Apdate_OrderCategory;
 import Order.Class_CategoryBanhCuon;
@@ -34,6 +38,8 @@ import fragment_ngv.Class_Home;
 public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHome.ViewHolder>{
     private Context contex;
     private ArrayList<Class_Home> list;
+    Database_GioHang data;
+    private DatabaseReference mDatabase;
     boolean isFavorite = false;
     @Override
     public void onBindViewHolder(@NonNull Apdate_CategoryHome.ViewHolder holder,  int position) {
@@ -45,12 +51,47 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
         if(item.getTraitim() == 1)
         {
             holder.imgtraitim.setImageResource(R.drawable.img_yeuthich);
+            holder.imgtraitim.setTag(R.drawable.img_yeuthich);
+        }
+        else
+        {
+            holder.imgtraitim.setTag(R.drawable.btn_2);
         }
 
-        holder.imgmonan.setImageResource(item.getImgmonan());
-        if (item.getTraitim() == 1) {
-            holder.imgtraitim.setImageResource(R.drawable.img_yeuthich);
-        }
+
+        holder.home_addmenujome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.imgmonan.setImageResource(item.getImgmonan());
+
+                data = new Database_GioHang(contex);
+                boolean kt = false;
+
+                if (data != null) {
+                    Cursor cs = data.getTenmonan();
+                    if (cs.getCount() != 0) {
+                        cs.moveToFirst();
+                        while(cs.isAfterLast() == false) {
+                            if (item.getTenmonan().equals(cs.getString(0)) && item.getGiadonvi().equals(cs.getString(1))) {
+                                kt = true;
+                                return;
+                            }
+                            cs.moveToNext();
+                        }
+                        if (kt== false) {
+                            data.Themsanpham(item.getTenmonan(), item.getGiadonvi(), item.getImgmonan());
+                            Toast.makeText(contex,"Thêm món ăn thành công.",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else {
+                        data.Themsanpham(item.getTenmonan(), item.getGiadonvi(), item.getImgmonan());
+                        Toast.makeText(contex,"Thêm món ăn thành công.",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+
 
         holder.imgtraitim.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +101,11 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
                     return;
                 }
 
-                if (isFavorite) {
+
+                int currentDrawableId = (int) holder.imgtraitim.getTag();
+                if (currentDrawableId == R.drawable.img_yeuthich) {
                     holder.imgtraitim.setImageResource(R.drawable.btn_2);
+                    holder.imgtraitim.setTag(R.drawable.btn_2);
                     String chuoi = null;
                     if(item.getMahome() ==1 )
                     {
@@ -78,6 +122,9 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
                     databaseReference.updateChildren(updates)
                             .addOnSuccessListener(aVoid -> Log.d("Firebase", "Cập nhật thành công!"))
                             .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi cập nhật: " + e.getMessage()));
+
+
+
                 } else {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Home/Home1/Listt");
                     Map<String, Object> updates = new HashMap<>();
@@ -137,7 +184,7 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvtenmonan , tvtggia  ;
-        ImageView imgmonan , imgtraitim ;
+        ImageView imgmonan , imgtraitim ,home_addmenujome;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -145,7 +192,7 @@ public class Apdate_CategoryHome extends RecyclerView.Adapter<Apdate_CategoryHom
             tvtggia = itemView.findViewById(R.id.tv_giadonvihome);
             imgmonan = itemView.findViewById(R.id.imgmonanhome);
             imgtraitim = itemView.findViewById(R.id.imgtraitimhome);
-
+            home_addmenujome= itemView.findViewById(R.id.home_addmenujome);
 
         }
     }
