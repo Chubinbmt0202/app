@@ -1,0 +1,787 @@
+{
+  "Hang": {
+    "Listct": [
+      {
+        "ListGio": [
+          "8:00",
+          "9:00",
+          "19:00"
+        ],
+        "Listban": [
+          3,
+          6,
+          8,
+          12
+        ]
+      },
+      {
+        "ListGio": [
+          "8:00",
+          "9:00",
+          "12:00"
+        ],
+        "Listban": [
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "ListGio": [
+          "8:00",
+          "12:00"
+        ],
+        "Listban": [
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "ListGio": [
+          "8:00",
+          "17:00",
+          "19:00"
+        ],
+        "Listban": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "ListGio": [
+          "8:00",
+          "17:00",
+          "19:00"
+        ],
+        "Listban": [
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "ListGio": [
+          "8:00",
+          "17:00",
+          "19:00"
+        ],
+        "Listban": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "Listdate": [
+      "2/11/2024",
+      "22/10/2024",
+      "1/10/2024",
+      "8/8/2024",
+      "1/8/2024",
+      "1/11/2024"
+    ],
+    "Listid": [
+      "0001",
+      "0002",
+      "0003",
+      "0004",
+      "0001",
+      "0001"
+    ],
+    "Listpeople": [
+      "1 đến 2 người",
+      "1 đến 2 người",
+      "1 đến 2 người",
+      "1 đến 2 người",
+      "1 đến 2 người",
+      "1 đến 2 người"
+    ],
+    "Listt": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      3
+    ],
+    "MonAN": [
+      {
+        "ListGia": [
+          80000,
+          35000
+        ],
+        "Listanh": [
+          "haisanca_cakhoto",
+          "img_baongubotoi"
+        ],
+        "Listsolg": [
+          1,
+          2
+        ],
+        "Listtenmonan": [
+          "Cá khô tộ",
+          "Bào ngư bơ tỏi"
+        ]
+      },
+      {
+        "ListGia": [
+          80000,
+          45000,
+          25000
+        ],
+        "Listanh": [
+          "haisanca_cakhoto",
+          "img_baongubotoi",
+          "img_canuonghaivi"
+        ],
+        "Listsolg": [
+          1,
+          1,
+          1
+        ],
+        "Listtenmonan": [
+          "Cá khô tộ",
+          "Bào ngư bơ tỏi",
+          "Cá nướng hai vị"
+        ]
+      },
+      {
+        "ListGia": [
+          80000,
+          45000,
+          25000
+        ],
+        "Listanh": [
+          "haisanca_cakhoto",
+          "img_baongubotoi",
+          "img_canuonghaivi"
+        ],
+        "Listsolg": [
+          80000,
+          45000,
+          25000
+        ],
+        "Listtenmonan": [
+          "Cá khô tộ",
+          "Bào ngư bơ tỏi",
+          "Cá nướng hai vị"
+        ]
+      },
+      {
+        "ListGia": [
+          80000,
+          45000,
+          25000
+        ],
+        "Listanh": [
+          "haisanca_cakhoto",
+          "img_baongubotoi",
+          "img_canuonghaivi"
+        ],
+        "Listsolg": [
+          1,
+          1,
+          1
+        ],
+        "Listtenmonan": [
+          "Cá khô tộ",
+          "Bào ngư bơ tỏi",
+          "Cá nướng hai vị"
+        ]
+      },
+      {
+        "ListGia": [
+          80000,
+          45000,
+          25000
+        ],
+        "Listanh": [
+          "haisanca_cakhoto",
+          "img_baongubotoi",
+          "img_canuonghaivi"
+        ],
+        "Listsolg": [
+          80000,
+          45000,
+          25000
+        ],
+        "Listtenmonan": [
+          "Cá khô tộ",
+          "Bào ngư bơ tỏi",
+          "Cá nướng hai vị"
+        ]
+      },
+      {
+        "ListGia": [
+          80000,
+          45000,
+          25000
+        ],
+        "Listanh": [
+          "haisanca_cakhoto",
+          "img_baongubotoi",
+          "img_canuonghaivi"
+        ],
+        "Listsolg": [
+          1,
+          1,
+          1
+        ],
+        "Listtenmonan": [
+          "Cá khô tộ",
+          "Bào ngư bơ tỏi",
+          "Cá nướng hai vị"
+        ]
+      }
+    ]
+  },
+  "Home": {
+    "Home1": {
+      "Listanh": [
+        "img_gadeolenmo",
+        "img_gavienscn",
+        "haisanca_cakhoto",
+        "img_camukhoto"
+      ],
+      "Listgia": [
+        "440.000 vnd/con",
+        "109.000 vnd/xiên",
+        "225.000 vnd/tộ",
+        "320.000 vnd/phần"
+      ],
+      "Listmota": [
+        "Nguyên liệu gà nướng mật ong gồm: gà ta, mật ong, tỏi, sả, ớt, dầu ăn, muối tôm12. Đây là món ăn thơm ngon, hấp dẫn với lớp da gà vàng óng và thịt mềm ngọt.",
+        "Nguyên liệu gà nướng lá chanh gồm: gà ta, lá chanh, sả, hành tím, gừng, ớt, mật ong, và gia vị (muối, hạt nêm, tiêu)12. Đây là món ăn thơm ngon, hấp dẫn với hương vị đặc trưng của lá chanh và sả.",
+        "Nguyên liệu cá kho tộ gồm: cá (thường là cá basa hoặc cá lóc), thịt ba chỉ, nước dừa, hành tím, tỏi, ớt, và gia vị (nước mắm, đường, tiêu)12. Đây là món ăn đậm đà, thơm ngon, rất phổ biến trong ẩm thực Việt Nam.",
+        "Nguyên liệu cá mú kho tộ: Cá mú, tỏi, hành lá, nước mắm, tiêu, đường, dầu ăn"
+      ],
+      "Listt": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "Listtenmonan": [
+        "Gà nướng mật ong",
+        "Gà xiên nướng lá chanh",
+        "Cá kho tộ",
+        "Cá mú kho tộ"
+      ]
+    },
+    "Home2": {
+      "ListGia": [
+        "440.000 vnd/con",
+        "109.000 vnd/ xiên",
+        "225.000 vnd/tộ",
+        "320.000 vnd/phần",
+        "366.000 vnd/đĩa",
+        "76.000 vnd/tô",
+        "99.000 vnd/tô",
+        "82.000 vnd/tô",
+        "135.000 vnd/phần",
+        "210.000 vnd/thố"
+      ],
+      "Listanh": [
+        "img_gadeolenmo",
+        "img_gavienscn",
+        "haisanca_cakhoto",
+        "img_camukhoto",
+        "menu_category_ochuonghapxa",
+        "img_phobap",
+        "img_phobapgau",
+        "menu_category_hutieukho",
+        "img_comchiengionlae",
+        "img_comchienhaisan"
+      ],
+      "Listmota": [
+        "Nguyên liệu gà nướng mật ong gồm: gà ta, mật ong, tỏi, sả, ớt, dầu ăn, muối tôm12. Đây là món ăn thơm ngon, hấp dẫn với lớp da gà vàng óng và thịt mềm ngọt.",
+        "Nguyên liệu gà nướng lá chanh gồm: gà ta, lá chanh, sả, hành tím, gừng, ớt, mật ong, và gia vị (muối, hạt nêm, tiêu)12. Đây là món ăn thơm ngon, hấp dẫn với hương vị đặc trưng của lá chanh và sả.",
+        "Nguyên liệu cá kho tộ gồm: cá (thường là cá basa hoặc cá lóc), thịt ba chỉ, nước dừa, hành tím, tỏi, ớt, và gia vị (nước mắm, đường, tiêu)12. Đây là món ăn đậm đà, thơm ngon, rất phổ biến trong ẩm thực Việt Nam.",
+        "Nguyên liệu cá mú kho tộ: Cá mú, tỏi, hành lá, nước mắm, tiêu, đường, dầu ăn",
+        "Nguyên liệu ốc hương hấp sả: Ốc hương, sả, gừng, ớt, lá chanh, gia vị (muối, tiêu, đường)",
+        "Thịt bắp bò, bánh phở, hành lá, rau thơm, nước dùng từ xương bò. Sử dụng thịt bắp bò, nước dùng phở thơm ngon, đậm đà.",
+        "Thịt bắp bò, bánh phở, hành lá, rau thơm, nước dùng từ xương bò. Sử dụng thịt bắp bò, nước dùng phở thơm ngon, đậm đà.",
+        "Thịt bò, hủ tiếu khô, giá đỗ, rau sống, nước sốt đậm đà. Hủ tiếu khô với thịt bò, thường được ăn kèm với nước sốt đậm đà và rau sống.",
+        "Nguyên liệu cơm chiên lá é gồm: cơm nguội, lá é, tôm, hành tím, dầu ăn, muối, hạt nêm, và nước mắm12. Món này có hương vị thơm ngon, lạ miệng, rất dễ làm và phù hợp cho bữa ăn gia đình.",
+        "Nguyên liệu cơm chiên hải sản gồm: cơm nguội, tôm, mực, trứng gà, cà rốt, hành lá, tỏi, dầu ăn, và gia vị (muối, hạt nêm, nước mắm)12. Món này kết hợp hải sản tươi ngon với cơm chiên giòn, tạo nên hương vị thơm ngon và hấp dẫn."
+      ],
+      "Listt": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Listtenmonan": [
+        "Gà nướng mật ong",
+        "Gà xiên nướng lá chanh",
+        "Cá kho tộ",
+        "Cá mú kho tộ",
+        "Ốc hương hấp xả",
+        "Phở bắp",
+        "Phở bắp gâu",
+        "Hũ tiếu khô",
+        "Cơm chiên lá é",
+        "Cơm chiên hải sản"
+      ]
+    }
+  },
+  "Order": {
+    "BanhCuon": {
+      "Listanh": [
+        "img_goicuonthitxaxiu",
+        "img_goicuonthitxaxiu",
+        "img_goicuoncahoi",
+        "img_goicuoncangu",
+        "img_bobia"
+      ],
+      "Listgia": [
+        "15.000 vnd/cuốn",
+        "20.000 vnd/cuốn",
+        "17.000vnd/cuốn",
+        "22.000 vnd/cuốn",
+        "13.000 vnd/cuốn"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "Listmota": [
+        " là một món ăn ngon miệng và bổ dưỡng, rất phổ biến trong ẩm thực Việt Nam.guyên liệu gỏi cuốn thịt xá xíu gồm: thịt xá xíu, bánh tráng, rau sống (xà lách, rau thơm, húng quế, giá đỗ), bún tươi, và nước chấm (nước mắm pha chua ngọt).",
+        "là một món ăn ngon và bổ dưỡng, kết hợp giữa bắp bò mềm mại và các loại rau tươi mát, cuốn trong bánh tráng.Nguyên liệu gỏi cuốn bắp bò gồm: bắp bò luộc thái lát, bánh tráng, rau sống (xà lách, rau thơm, húng quế, giá đỗ), bún tươi, và nước chấm (nước mắm pha chua ngọt).",
+        "Nguyên liệu gỏi cuốn cá hồi gồm: cá hồi áp chảo, bánh tráng, rau sống (xà lách, rau thơm, cải mầm), bún tươi, dưa leo, và nước chấm (nước mắm pha chua ngọt)12.",
+        "Nguyên liệu gỏi cuốn cá ngừ gồm: cá ngừ áp chảo hoặc cá ngừ đóng hộp, bánh tráng, rau sống (xà lách, rau thơm, cải mầm), bún tươi, dưa leo, và nước chấm (nước mắm pha chua ngọt)",
+        "Nguyên liệu gỏi cuốn bò bía gồm: lạp xưởng, trứng tráng, củ sắn (củ đậu), cà rốt, rau sống (xà lách, rau thơm), tôm khô, và bánh tráng12. Món này thường được chấm với tương đen pha chua ngọt, tạo nên hương vị đặc trưng và hấp dẫn1"
+      ],
+      "Listt": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Listtenmonan": [
+        "Gỏi cuốn thịt xá xíu",
+        "Gỏi cuốn bắp bò cuốn",
+        "Gỏi cuốn cá hồi",
+        "Gỏi cuốn cá ngừ",
+        "Gỏi cuốn bò bía"
+      ],
+      "MaDanhMuc": "1"
+    },
+    "Comchaosup": {
+      "Listanh": [
+        "img_comchiengionlae",
+        "img_comchienhaisan",
+        "img_comchientrung",
+        "img_suphaisan",
+        "img_supthapcam",
+        "img_chaobobam",
+        "img_xoinamhatsen"
+      ],
+      "Listgia": [
+        "135.000 vnd/phần",
+        "210.000 vnd/thố",
+        "155.000 vnd/thố",
+        "62.000 vnd/chén",
+        "102.000 vnd/thố",
+        "109.000 vnd/thố",
+        "138.000 vnd/phần"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "Listmota": [
+        "Nguyên liệu cơm chiên lá é gồm: cơm nguội, lá é, tôm, hành tím, dầu ăn, muối, hạt nêm, và nước mắm12. Món này có hương vị thơm ngon, lạ miệng, rất dễ làm và phù hợp cho bữa ăn gia đình.",
+        "Nguyên liệu cơm chiên hải sản gồm: cơm nguội, tôm, mực, trứng gà, cà rốt, hành lá, tỏi, dầu ăn, và gia vị (muối, hạt nêm, nước mắm)12. Món này kết hợp hải sản tươi ngon với cơm chiên giòn, tạo nên hương vị thơm ngon và hấp dẫn.",
+        "Nguyên liệu cơm chiên trứng gồm: cơm nguội, trứng gà, hành lá, tỏi, dầu ăn, và gia vị (muối, hạt nêm, nước mắm)12. Món này đơn giản, dễ làm và rất ngon miệng.",
+        "Nguyên liệu súp hải sản: Tôm, mực, cua, trứng cút, nấm hương, cà rốt, bắp ngọt, bột năng, nước hầm xương.",
+        "Nguyên liệu súp thập cẩm: Tôm, thịt gà, chả lụa, bắp ngọt, hạt sen, nấm, bột năng, nước dùng gà.",
+        "Nguyên liệu cháo bò bằm: Thịt bò bằm, gạo, cà rốt, hành tím, hành lá, tía tô, gia vị (muối, hạt nêm, nước mắm)",
+        "Nguyên liệu xôi nấm hạt sen: Gạo nếp, nấm hương, hạt sen, đậu xanh, dừa nạo, nước cốt dừa, gia vị (muối, đường)"
+      ],
+      "Listt": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "Listtenmonan": [
+        "Cơm chiên lá é",
+        "Cơm chiên hải sản",
+        "Cơm chiên trứng",
+        "Súp hải sản",
+        "Súp thập cẩm",
+        "Cháo bò bằm",
+        "Xôi nấm hạt sen"
+      ],
+      "MaDanhMuc": "2"
+    },
+    "Drink": {
+      "Listanh": [
+        "img_trada",
+        "img_trachanhbacha",
+        "img_tragung",
+        "img_tradao",
+        "img_trabac",
+        "img_sodachanhdg",
+        "img_bia"
+      ],
+      "Listgia": [
+        "6.000 vnd/ly",
+        "66.000 vnd/ly",
+        "62.000 vnd/ly",
+        "76.000 vnd/ly",
+        "80.000 vnd/ấm",
+        "66.000 vnd/ly",
+        "49.000 vnd/chai"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "Listmota": [
+        "Nguyên liệu trà đá gồm: trà (thường là trà xanh hoặc trà đen) và đá viên12. Đây là một thức uống giải khát phổ biến và rất được ưa chuộng tại Việt Nam.",
+        "Nguyên liệu trà chanh bạc hà gồm: trà xanh, chanh, lá bạc hà, đường, và đá viên12. Đây là một thức uống giải khát tuyệt vời, kết hợp vị chua dịu của chanh và hương thơm mát của bạc hà.",
+        "Nguyên liệu trà gừng gồm: gừng tươi, nước, và mật ong (tùy chọn)12. Đây là một thức uống ấm áp, có nhiều lợi ích cho sức khỏe như giảm buồn nôn, chống viêm, và cải thiện tiêu hóa.",
+        "Nguyên liệu trà đào gồm: trà đen, đào ngâm, syrup đào, nước đường, và đá viên12. Đây là một thức uống giải khát thơm ngon, mát lạnh, rất được ưa chuộng.",
+        "Nguyên liệu trà đào gồm: trà đen, đào ngâm, syrup đào, nước đường, và đá viên12. Đây là một thức uống giải khát thơm ngon, mát lạnh, rất được ưa chuộng.",
+        "Nguyên liệu soda chanh đường gồm: soda, chanh tươi, đường, và đá viên. Đây là một thức uống giải khát mát lạnh, rất dễ làm và phổ biến.",
+        "Nguyên liệu bia gồm: nước, mạch nha (lúa mạch), hoa bia, và men bia12. Đây là một thức uống có cồn phổ biến, được ưa chuộng trên toàn thế giới."
+      ],
+      "Listt": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "Listtenmonan": [
+        "Trà đá",
+        "Trà chanh bạc hà",
+        "Trà gừng",
+        "Trà đào",
+        "Trà đào cam sả",
+        "Soda chanh đường",
+        "Bia Heineken"
+      ],
+      "MaDanhMuc": "3"
+    },
+    "Gaboheo": {
+      "Listanh": [
+        "img_gadeolenmo",
+        "img_gadeolenmo",
+        "img_gavienscn",
+        "img_gavienscn",
+        "img_gaxiennuonglc",
+        "img_gaxiennuonglc"
+      ],
+      "Listgia": [
+        "440.000 vnd/con",
+        "245.000 vnd/nửa con",
+        "109.000 vnd/xiên",
+        "510.000 vnd/5 xiên",
+        "190.000 vnd/phần",
+        "120.000 vnd/phần"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "Listmota": [
+        "Nguyên liệu gà nướng mật ong gồm: gà ta, mật ong, tỏi, sả, ớt, dầu ăn, muối tôm12. Đây là món ăn thơm ngon, hấp dẫn với lớp da gà vàng óng và thịt mềm ngọt.",
+        "Nguyên liệu gà nướng mật ong gồm: gà ta, mật ong, tỏi, sả, ớt, dầu ăn, muối tôm12. Đây là món ăn thơm ngon, hấp dẫn với lớp da gà vàng óng và thịt mềm ngọt.",
+        "Nguyên liệu gà nướng lá chanh gồm: gà ta, lá chanh, sả, hành tím, gừng, ớt, mật ong, và gia vị (muối, hạt nêm, tiêu)12. Đây là món ăn thơm ngon, hấp dẫn với hương vị đặc trưng của lá chanh và sả.",
+        "Nguyên liệu gà nướng lá chanh gồm: gà ta, lá chanh, sả, hành tím, gừng, ớt, mật ong, và gia vị (muối, hạt nêm, tiêu)12. Đây là món ăn thơm ngon, hấp dẫn với hương vị đặc trưng của lá chanh và sả.",
+        "Nguyên liệu gà chiên chua ngọt gồm: thịt gà, bột bắp, hành tây, ớt chuông, dứa, giấm, tương cà, dầu mè, và gia vị (muối, đường, hạt nêm)12. Đây là món ăn thơm ngon, hấp dẫn với vị chua ngọt đặc trưng.",
+        "Nguyên liệu gà chiên chua ngọt gồm: thịt gà, bột bắp, hành tây, ớt chuông, dứa, giấm, tương cà, dầu mè, và gia vị (muối, đường, hạt nêm)12. Đây là món ăn thơm ngon, hấp dẫn với vị chua ngọt đặc trưng."
+      ],
+      "Listt": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "Listtenmonan": [
+        "Gà nướng mật ong",
+        "Gà nướng mật ong",
+        "Gà xiên nướng lá chanh",
+        "Gà xiên nướng lá chanh",
+        "Gà viên chua ngọt",
+        "Gà viên chua ngọt"
+      ],
+      "MaDanhMuc": "4"
+    },
+    "HaiSan": {
+      "Listanh": [
+        "haisanca_cakhoto",
+        "img_calockhoto",
+        "img_camukhoto",
+        " img_canuonghaivi",
+        "menu_category_ochuonghapxa",
+        "menu_category_nghuenuongmohanh",
+        "menu_category_ochuonghapxa "
+      ],
+      "Listgia": [
+        "225.000 vnd/tộ",
+        "170.000 vnd/đĩa",
+        "320.000 vnd/phần",
+        "310.000 vnd/phần",
+        "366.000 vnd/đĩa",
+        "235.000 vnd/đĩa",
+        "366.000 vnd/thố"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "Listmota": [
+        "Nguyên liệu cá kho tộ gồm: cá (thường là cá basa hoặc cá lóc), thịt ba chỉ, nước dừa, hành tím, tỏi, ớt, và gia vị (nước mắm, đường, tiêu)12. Đây là món ăn đậm đà, thơm ngon, rất phổ biến trong ẩm thực Việt Nam.",
+        "Nguyên liệu cá lóc kho tộ: Cá lóc, thịt ba chỉ, nước dừa, hành tím, tỏi, ớt, nước mắm, đường, tiêu",
+        "Nguyên liệu cá mú kho tộ: Cá mú, tỏi, hành lá, nước mắm, tiêu, đường, dầu ăn",
+        "Nguyên liệu cá nướng hai vị: Cá (cá diêu hồng, cá thu), gia vị (muối, tiêu, ớt, tỏi, hành, sả), giấy bạc",
+        "Nguyên liệu ốc hương hấp sả: Ốc hương, sả, gừng, ớt, lá chanh, gia vị (muối, tiêu, đường)",
+        "Nguyên liệu nghêu nướng mỡ hành: Nghêu, hành lá, đậu phộng, dầu ăn, gia vị (muối, đường, hạt nêm)",
+        "Nguyên liệu cá nướng hai vị: Cá (cá diêu hồng, cá thu), gia vị (muối, tiêu, ớt, tỏi, hành, sả), giấy bạc"
+      ],
+      "Listt": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "Listtenmonan": [
+        "Cá kho tộ",
+        "Cá lóc kho tộ",
+        "Cá mú kho tộ",
+        "Cá nướng hai vị",
+        "Ốc hương hấp xả",
+        "Nghêu nướng mỡ hành",
+        "Ốc hương hấp xả"
+      ],
+      "MaDanhMuc": "5"
+    },
+    "HotPog": {
+      "Listanh": [
+        "img_laumangcachua",
+        "img_lauhaisanchuacay",
+        "img_laumangcamu",
+        "img_lauthapcam"
+      ],
+      "Listgia": [
+        "482.000 vnd/lẩu",
+        "439.000 vnd/lẩu",
+        "428.000 vnd/lẩu",
+        "510.000 vnd/lẩu"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "Listmota": [
+        "Lẩu cá măng chua: Sử dụng cá và măng chua, nước lẩu có vị chua thanh, thường được nấu với cà chua, dứa và các loại rau thơm.",
+        "Lẩu hải sản chua cay: Kết hợp nhiều loại hải sản như tôm, mực, nghêu, và cá, nước lẩu có vị chua cay đặc trưng từ ớt và chanh.",
+        "Lẩu măng cá mú: Dùng cá mú và măng, nước lẩu có vị ngọt từ cá và vị chua từ măng, thường được nấu với các loại rau như rau muống, cải thảo.",
+        "Lẩu thập cẩm: Là sự kết hợp của nhiều loại nguyên liệu như thịt bò, gà, hải sản, và các loại rau củ, nước lẩu có thể có nhiều hương vị khác nhau tùy thuộc vào cách nấu."
+      ],
+      "Listt": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "Listtenmonan": [
+        "Lẩu cá măng chua",
+        "Lẩu hải sản chua cay",
+        "Lẩu măng cá Mú",
+        "Lẩu thập cẩm"
+      ],
+      "MaDanhMuc": "6"
+    },
+    "Pho": {
+      "Listanh": [
+        "img_phobap",
+        "img_phobapgau",
+        "img_photainam",
+        "img_photaibap",
+        "menu_category_hutieubokho",
+        "menu_category_hutieukho"
+      ],
+      "Listgia": [
+        "76.000 vnd/tô",
+        "99.000 vnd/tô",
+        "99.000 vnd/tô",
+        "99.000 vnd/tô",
+        "76.000 vnd/tô",
+        "82.000 vnd/tô"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "Listmota": [
+        "Thịt bắp bò, bánh phở, hành lá, rau thơm, nước dùng từ xương bò. Sử dụng thịt bắp bò, nước dùng phở thơm ngon, đậm đà.",
+        "Thịt bắp bò, ngô ngọt, bánh phở, hành lá, rau thơm, nước dùng từ xương bò.Kết hợp giữa thịt bắp bò và ngô, tạo nên hương vị ngọt ngào và độc đáo.",
+        " Thịt bò tái, nạm bò, bánh phở, hành lá, rau thơm, nước dùng từ xương bò. Sử dụng thịt bò tái và nạm bò, nước dùng phở trong và ngọt.",
+        "Thịt bò tái, bắp bò, bánh phở, hành lá, rau thơm, nước dùng từ xương bò.Kết hợp giữa thịt bò tái và bắp bò, nước dùng phở thơm ngon.",
+        "Thịt bò, hủ tiếu khô, giá đỗ, rau sống, nước sốt đậm đà. Hủ tiếu khô với thịt bò, thường được ăn kèm với nước sốt đậm đà và rau sống.",
+        "Thịt heo, tôm, hủ tiếu khô, giá đỗ, rau sống, nước sốt đặc biệt.Hủ tiếu khô với nhiều loại topping như thịt heo, tôm, và rau sống, ăn kèm với nước sốt đặc biệt."
+      ],
+      "Listt": [
+        1,
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "Listtenmonan": [
+        "Phở bắp",
+        "Phở bắp gâu",
+        "Phở tái nạm",
+        "Phở tái bắp",
+        "Hũ tiếu bò khô",
+        "Hũ tiếu khô"
+      ],
+      "MaDanhMuc": "7"
+    },
+    "TrangMieng": {
+      "Listanh": [
+        "img_traicaythapcam",
+        "img_chekhucbach",
+        "img_suachuaxoai",
+        "img_caramen",
+        "img_chehoacau",
+        "img_chesshatluu"
+      ],
+      "Listgia": [
+        "138.000 vnd/đĩa",
+        "48.000 vnd/chén",
+        "48.000 vnd/phần",
+        "42.000 vnd/đĩa",
+        "32.000 vnd/đĩa",
+        "48.000 vnd/ly"
+      ],
+      "Listid": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "Listmota": [
+        "Các loại trái cây tươi như dưa hấu, xoài, nho, táo, lê, và kiwi, thường được trộn với sữa chua hoặc nước cốt dừa.",
+        "Khúc bạch (thạch làm từ sữa và gelatin), hạnh nhân, nhãn, và nước đường.",
+        "Sữa chua, xoài chín cắt nhỏ, và có thể thêm mật ong hoặc đường.",
+        "Trứng, sữa, đường, và nước caramen.",
+        "Đậu xanh, bột năng, nước cốt dừa, và đường.",
+        "Hạt lựu làm từ bột năng, nước cốt dừa, và nước đường."
+      ],
+      "Listt": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "Listtenmonan": [
+        "Trái cây thập cẩm",
+        "Chè khúc bạch",
+        "Sữa chua xoài",
+        "Caremen",
+        "Chè hoa cau",
+        "Chè hạt lựu"
+      ],
+      "MaDanhMuc": "8"
+    }
+  },
+  "User": [
+    {
+      "Email": "adf",
+      "GioiTinh": 1,
+      "Mkhau": "1",
+      "SDT": "123",
+      "name": "abc"
+    }
+  ],
+  "YeuThich": {
+    "ListGia": [
+      "15.000/cuốn",
+      "10000",
+      "10000"
+    ],
+    "Listanh": [
+      "img_goicuonthitxaxiu",
+      "img_goicuontomthitheo",
+      "haisanca_cakhoto"
+    ],
+    "Listidyt": [
+      "1",
+      "2",
+      "3"
+    ],
+    "Listmota": [
+      " là một món ăn ngon miệng và bổ dưỡng, rất phổ biến trong ẩm thực Việt Nam.guyên liệu gỏi cuốn thịt xá xíu gồm: thịt xá xíu, bánh tráng, rau sống (xà lách, rau thơm, húng quế, giá đỗ), bún tươi, và nước chấm (nước mắm pha chua ngọt).",
+      " là một món ăn ngon miệng và bổ dưỡng, rất phổ biến trong ẩm thực Việt Nam.guyên liệu gỏi cuốn thịt xá xíu gồm: thịt xá xíu, bánh tráng, rau sống (xà lách, rau thơm, húng quế, giá đỗ), bún tươi, và nước chấm (nước mắm pha chua ngọt).",
+      " là một món ăn ngon miệng và bổ dưỡng, rất phổ biến trong ẩm thực Việt Nam.guyên liệu gỏi cuốn thịt xá xíu gồm: thịt xá xíu, bánh tráng, rau sống (xà lách, rau thơm, húng quế, giá đỗ), bún tươi, và nước chấm (nước mắm pha chua ngọt)."
+    ],
+    "Listt": [
+      0,
+      0,
+      0
+    ],
+    "Listtenmonan": [
+      "Gỏi cuốn thịt xá xíu",
+      "Gỏi cuốn bắp bò cuốn",
+      "Cá lóc kho tộ"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "208607320957",
+    "project_id": "laptrinhdidong04-bbf0a",
+    "storage_bucket": "laptrinhdidong04-bbf0a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208607320957:android:3ee34cb80a701fd30dca14",
+        "android_client_info": {
+          "package_name": "com.example.apprestaurant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrSQT3EJ6JySyEYblVu0JeyecWIid7g1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
