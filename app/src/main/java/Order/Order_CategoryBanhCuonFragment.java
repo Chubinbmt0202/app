@@ -1,5 +1,7 @@
 package Order;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,7 +44,9 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
     private List<String> Gia;
     private String madanhmuc;
     private List<String> masanpham;
-    private List<String> mota ;private DatabaseReference mDatabase;
+    private List<String> mota ;
+    private DatabaseReference mDatabase;
+    private int iduser;
 
 
 //    private  String tenmonan[] = {"Gỏi cuốn thịt xá xíu",
@@ -112,7 +116,6 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_order__category_banh_cuon, container, false);
         ExitBanhCuon();
         rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
@@ -124,7 +127,8 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
         list = new ArrayList<>();
         masanpham = new ArrayList<>();
         tt = new ArrayList<>();
-
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",-1);
         loadFirebasemadanhmuc();
         return view;
     }
@@ -136,13 +140,13 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
         mDatabase.child("Order").child("BanhCuon").child("MaDanhMuc").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    madanhmuc = snapshot.getValue(String.class);
+                madanhmuc = snapshot.getValue(String.class);
                 loadMasanpham();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi khi tải mã danh mục món ăn", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -150,20 +154,48 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
 
     private void loadMasanpham() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
         mDatabase.child("Order").child("BanhCuon").child("Listid").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     masanpham.add(itemSnapshot.getValue(String.class));
+                    if (iduser == -1)
+                    {
+                        tt.add(0);
+                    } else
+                    if(iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("1").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 loadFirebaseData();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -214,32 +246,11 @@ public class Order_CategoryBanhCuonFragment extends Fragment {
     private void loadFirebaseMota() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Load dish names
         mDatabase.child("Order").child("BanhCuon").child("Listmota").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
-                }
-                loadFirebaseMota1();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebaseMota1() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Order").child("BanhCuon").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
                 }
                 loadPriceData();
             }

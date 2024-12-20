@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,9 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apprestaurant.Accout_detail_userFragment;
 import com.example.apprestaurant.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import Accout.orderdetails_Fragment;
 import Category.DetailCategory_Activity;
@@ -35,8 +42,10 @@ public class AccountFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private int id;
     private CardView cvUser, cvRestaurant, cvDetailCategory, cvBookHistory;
     private View view;
+    private DatabaseReference mDatabase;
     private TextView tvUser;
     private LinearLayout lineFeedback , linegtdm;
     private TextView tx_action;
@@ -76,18 +85,31 @@ public class AccountFragment extends Fragment {
             tvUser.setText(sp.getString("name", "Nhom 12"));
         }
 
-        // Kiểm tra và nhận dữ liệu từ Bundle
-        if (getArguments() != null) {
-            String nameUser = getArguments().getString("nameuser");
-            int kt = getArguments().getInt("kt");
-            if (kt == 1) {
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("name", nameUser);
-                editor.putInt("check", 1);
-                editor.apply();
-                tvUser.setText(nameUser);
-            }
-        }
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+         id = sharett.getInt("id",-1);
+
+         if(id != -1) {
+             mDatabase = FirebaseDatabase.getInstance().getReference("User/" + id);
+             mDatabase.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                     if (snapshot.exists()) {
+                         tvUser.setText(snapshot.getValue(String.class));
+                     }
+                 }
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError error) {
+
+                 }
+             });
+         }
+         else
+         {
+             tvUser.setText("Chưa có thông tin.");
+             Toast.makeText(getActivity(), "Vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
+         }
+
 
         initializeFeedback();
 
@@ -97,10 +119,18 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), LoginActivity.class);
-                startActivity(it);
+                if(tx_action.getText().toString().equals("Đăng xuất"))
+                {
+                    it.putExtra("dx",1);
+                }
+                    startActivity(it);
+
             }
         });
-
+        if(id != -1)
+        {
+            tx_action.setText("Đăng xuất");
+        }
         return view;
     }
 

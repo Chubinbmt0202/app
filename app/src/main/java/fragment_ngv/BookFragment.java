@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apprestaurant.R;
+import com.google.firebase.database.DatabaseReference;
 
 import BOOK_ACTIVITY.ArrayApdate_GioHang;
 import BOOK_ACTIVITY.BookTable_Fragment;
@@ -66,7 +68,8 @@ public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTot
     private ArrayList<GioHang> list ;
     private ArrayApdate_GioHang apdate ;
     private RecyclerView  rcv;
-
+    private int iduser;
+    private DatabaseReference mDatabase;
     // Tạo 1 SharedPreferences chứa các thành  phần
     private SharedPreferences share;
     private int ktra;
@@ -113,10 +116,11 @@ public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTot
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_book, container, false);
 
-
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",0);
         
         rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -128,13 +132,12 @@ public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTot
         tongtiendata = 0;
         if (cs.moveToFirst()) {
             do {
-                String result = cs.getString(2).replaceAll("[^\\d]", "");  // Clean the result string
+                String result = cs.getString(2).replaceAll("[^\\d]", "");
                 if (!result.isEmpty()) {
-                    int a = Integer.parseInt(result);  // Parse the numeric value only if it's not empty
+                    int a = Integer.parseInt(result);
                     int imgColumnIndex = cs.getColumnIndex("IMG");
                     if (imgColumnIndex != -1) {
-                        int img = cs.getInt(imgColumnIndex);  // Safely get the image column value
-                        // Add the item to the list
+                        int img = cs.getInt(imgColumnIndex);
                         if(cs.getInt(4) ==1)
                         {
                             tongtiendata += (a*cs.getInt(5));
@@ -148,12 +151,10 @@ public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTot
                 } else {
                     Log.e("Data Error", "Empty or invalid value found in the result column");
                 }
-            } while (cs.moveToNext());  // Continue to the next row
+            } while (cs.moveToNext());
         } else {
             Log.e("Database Error", "Cursor is empty");
         }
-
-
 
         if(list.size() != 0) {
             apdate = new ArrayApdate_GioHang(list, getActivity(), this,this);
@@ -167,24 +168,8 @@ public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTot
         String chuyendoi = formatter.format(tongtiendata);
         tvtongtien.setText(chuyendoi + " vnd");
 
-        ktr();
-
-
-//        share = getActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-//        if(share != null)
-//        {
-//            ktra = 1;
-//            if (ktra == share.getInt("kt", 0))
-//            {
-//                tvgio.setText(share.getString("kqgio", " "));
-//                tvban.setText(share.getString("kqban", " "));
-//                tvdate.setText(share.getString("kqdate", " "));
-//                tvsonguoi.setText(share.getString("kqpeople", " "));
-//                tvbook.setText("Chỉnh sửa");
-//            }
-//        }
-
-
+        if(iduser != -1) {
+            ktr();
         if (getArguments() != null) {
               tvgio.setText(getArguments().getString("gio"));
               tvban.setText(getArguments().getString("ban"));
@@ -200,13 +185,17 @@ public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTot
               editor.commit();
               tvbook.setText("Chỉnh sửa");
         }
-        TiepTuc();
+            TiepTuc();
+        }
+        else
+        {
+            Toast.makeText(getContext(),"Vui lòng đăng nhập.",Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
 
     @Override
     public void onTotalAmountChanged(int formattedSum) {
-        // Cập nhật tvtongtien trong BookFragment
         if (tvtongtien != null) {
             int b = formattedSum;
             String result = tvtongtien.getText().toString().replaceAll("[^\\d]", "");
@@ -282,13 +271,19 @@ public class BookFragment extends Fragment  implements ArrayApdate_GioHang.OnTot
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Database_GioHang data = new Database_GioHang(getContext());
+                Cursor cusor = data.getTinhtrang();
+                cusor.moveToFirst();
                 if(tvgio.getText().equals("Rỗng")) {
                   Toast.makeText(getContext(),"Vui lòng đặt bàn trước!",Toast.LENGTH_SHORT).show();
+                }
+                else if(cusor.getCount() <= 0)
+                {
+                    Toast.makeText(getContext(),"Vui lòng chọn món ăn!",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     Fragment newFragment = new PayBook_Fragment();
-
                     Bundle bl = new Bundle();
                     bl.putString("people",tvsonguoi.getText().toString());
                     bl.putString("ban",tvban.getText().toString());

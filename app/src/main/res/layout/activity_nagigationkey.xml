@@ -13,10 +13,10 @@
 
     <FrameLayout
         android:id="@+id/ngv_viewPager"
-        android:layout_weight="10.75"
         android:layout_width="match_parent"
-        android:contentDescription="ViewPager for navigating fragments"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="10.88"
+        android:contentDescription="ViewPager for navigating fragments">
 
     </FrameLayout>
 
@@ -27,7 +27,7 @@
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:layout_weight="1.25"
+        android:layout_weight="1.22"
         android:background="@drawable/border"
         android:visibility="visible"
         app:itemIconTint="@color/changecolor_ngv"

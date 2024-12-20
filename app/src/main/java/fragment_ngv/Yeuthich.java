@@ -5,8 +5,9 @@ public class Yeuthich {
     private String masp;
     private String tenmonan , mota , gia,id;
     private int tinhtrang;
+    private String madm;
 
-    public Yeuthich(String id, String masp, String tenmonan, int imganh, String gia, String mota, int tinhtrang) {
+    public Yeuthich(String mdm ,String id, String masp, String tenmonan, int imganh, String gia, String mota, int tinhtrang) {
         this.id = id;
         this.masp = masp;
         this.tenmonan = tenmonan;
@@ -14,6 +15,15 @@ public class Yeuthich {
         this.gia = gia;
         this.mota = mota;
         this.tinhtrang = tinhtrang;
+        this.madm = mdm;
+    }
+
+    public String getMadm() {
+        return madm;
+    }
+
+    public void setMadm(String madm) {
+        this.madm = madm;
     }
 
     public String getId() {

@@ -72,13 +72,13 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
             public void onClick(View view) {
                 kt1 = 0;
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                // Load dish names
-                mDatabase.child("YeuThich").child(iduser+"").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                mDatabase.child("YeuThich").child(iduser+"").child(yt.getMadm()).child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists() && snapshot.getChildrenCount() > 0) {
                             int i =0 ;
-                            for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                            for(DataSnapshot itemSnapshot : snapshot.getChildren()) {
                                 String value = itemSnapshot.getValue(String.class);
                                 if (value != null && value.equals(yt.getMasp()))
                                 {
@@ -88,7 +88,7 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
                                 i++;
                             }
                             kt1 = Integer.parseInt(kt3);
-                            mDatabase.child("YeuThich").child(iduser+"").child("Listmasp").child(kt1+"").removeValue()
+                            mDatabase.child("YeuThich").child(iduser+"").child(yt.getMadm()).child("Listmasp").child(kt1+"").removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -101,7 +101,7 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
                                             Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
                                         }
                                     });
-                            mDatabase.child("YeuThich").child(iduser+"").child("Listtenmonan").child(kt1+"").removeValue()
+                            mDatabase.child("YeuThich").child(iduser+"").child(yt.getMadm()).child("Listtenmonan").child(kt1+"").removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -114,7 +114,7 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
                                             Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
                                         }
                                     });
-                            mDatabase.child("YeuThich").child(iduser+"").child("Listidyt").child(kt1+"").removeValue()
+                            mDatabase.child("YeuThich").child(iduser+"").child(yt.getMadm()).child("Listidyt").child(kt1+"").removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -127,7 +127,7 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
                                             Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
                                         }
                                     });
-                            mDatabase.child("YeuThich").child(iduser+"").child("Listanh").child(kt1+"").removeValue()
+                            mDatabase.child("YeuThich").child(iduser+"").child(yt.getMadm()).child("Listanh").child(kt1+"").removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -140,7 +140,7 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
                                             Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
                                         }
                                     });
-                            mDatabase.child("YeuThich").child(iduser+"").child("Listmota").child(kt1+"").removeValue()
+                            mDatabase.child("YeuThich").child(iduser+"").child(yt.getMadm()).child("Listmota").child(kt1+"").removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -153,7 +153,7 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
                                             Log.e("Firebase", "Xóa dữ liệu thất bại: ", e);
                                         }
                                     });
-                            mDatabase.child("YeuThich").child(iduser+"").child("ListGia").child(kt1+"").removeValue()
+                            mDatabase.child("YeuThich").child(iduser+"").child(yt.getMadm()).child("ListGia").child(kt1+"").removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -184,6 +184,8 @@ public class Apdater_Faverite extends RecyclerView.Adapter<Apdater_Faverite.View
                 Fragment newFragment = new DetailCategory_PhoFragment();
 
                 Bundle bundle = new Bundle();
+                bundle.putString("madm", yt.getMadm());
+                bundle.putString("masp", yt.getMasp());
                 bundle.putInt("img", yt.getImganh());
                 bundle.putString("gia", yt.getGia());
                 bundle.putString("ten", yt.getTenmonan());

@@ -37,8 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     private int check;
     private DatabaseReference mDatabase;
     private EditText edtsdt, edtpass;
-    int ss = 0;
+    int ss = 0 ,  i = 0;
     String  kk ;
+    private TextView gohome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,19 +56,28 @@ public class LoginActivity extends AppCompatActivity {
 
         cbghinho = findViewById(R.id.cbghinho);
         txtdki = findViewById(R.id.txt_dangky);
+        gohome = findViewById(R.id.gohome);
         edtsdt = findViewById(R.id.edtsearch1);
         edtpass = findViewById(R.id.pass);
-        btn_login = findViewById(R.id.btn_dangnhap); // Khởi tạo btn_login
+        btn_login = findViewById(R.id.btn_dangnhap);
 
-
-        share = getSharedPreferences("mysave", MODE_PRIVATE);
-        check = share.getInt("cb", 0);
-        if (check == 1) {
-            cbghinho.setChecked(true);
-            edtsdt.setText(share.getString("tk", ""));
-            edtpass.setText(share.getString("mk", ""));
+        if (getIntent() != null) {
+            Intent itt = getIntent();
+            i = itt.getIntExtra("dx", 0);
+            if (i != 0) {
+                edtsdt.setText("");
+                edtpass.setText("");
+            }
         }
-
+        if (i == 0) {
+            share = getSharedPreferences("mysave", MODE_PRIVATE);
+            check = share.getInt("cb", 0);
+            if (check == 1) {
+                cbghinho.setChecked(true);
+                edtsdt.setText(share.getString("tk", ""));
+                edtpass.setText(share.getString("mk", ""));
+            }
+        }
 
         txtdki.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        denhome();
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,15 +107,14 @@ public class LoginActivity extends AppCompatActivity {
                             boolean userFound = false;
 
                             for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                int maid = Integer.parseInt(userSnapshot.getKey());
                                 String phoneNumber = userSnapshot.child("SDT").getValue(String.class);
                                 String password = userSnapshot.child("Mkhau").getValue(String.class);
 
-                                // Check if phone number matches
                                 if (phoneNumber != null && phoneNumber.equals(edtsdt.getText().toString())) {
                                     userFound = true;
-
-                                    // Check if password matches
                                     if (password != null && password.equals(edtpass.getText().toString())) {
+                                        share = getSharedPreferences("mysave", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = share.edit();
                                         editor.putString("tk", edtsdt.getText().toString());
                                         editor.putString("mk", edtpass.getText().toString());
@@ -113,13 +122,13 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.apply();
 
                                         Intent it = new Intent(LoginActivity.this, Nagigationkey.class);
-                                        it.putExtra("idus", userSnapshot.getKey());
+                                        it.putExtra("idus", maid);
                                         startActivity(it);
                                         finish();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
                                     }
-                                    break; // Stop after finding the user
+                                    break;
                                 }
                             }
 
@@ -127,16 +136,25 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Sai số điện thoại", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             Toast.makeText(LoginActivity.this, "Lỗi kết nối dữ liệu", Toast.LENGTH_SHORT).show();
                         }
                     });
 
-
-
                 }
+            }
+        });
+    }
+    private void denhome()
+    {
+        gohome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ithome = new Intent(LoginActivity.this, Nagigationkey.class);
+                ithome.putExtra("idus", -1);
+                startActivity(ithome);
+                finish();
             }
         });
     }

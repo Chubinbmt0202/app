@@ -4,19 +4,28 @@ public class Class_Home {
     private int imgmonan ;
     private String giadonvi  , tenmonan;
     private String mota;
+    private String madanhmuc;
+    private String masp;
     private int traitim;
-    private int mahome;
-    private int madanhmuc;
-    private int masp;
-    private int trangthai;
+    private int Mahome;
 
-    public Class_Home(int mahome,String tenmonan, int imgmonan, String giadonvi, String mota, int traitim) {
+    public Class_Home(int Mahome ,String madanhmuc, String masp, String tenmonan, int imgmonan, String giadonvi, String mota, int traitim) {
+        this.madanhmuc = madanhmuc;
+        this.masp = masp;
         this.tenmonan = tenmonan;
         this.imgmonan = imgmonan;
         this.giadonvi = giadonvi;
         this.mota = mota;
-        this.mahome = mahome;
         this.traitim = traitim;
+        this.Mahome = Mahome;
+    }
+
+    public int getMahome() {
+        return Mahome;
+    }
+
+    public void setMahome(int mahome) {
+        Mahome = mahome;
     }
 
     public String getGiadonvi() {
@@ -33,6 +42,22 @@ public class Class_Home {
 
     public void setImgmonan(int imgmonan) {
         this.imgmonan = imgmonan;
+    }
+
+    public String getMadanhmuc() {
+        return madanhmuc;
+    }
+
+    public void setMadanhmuc(String madanhmuc) {
+        this.madanhmuc = madanhmuc;
+    }
+
+    public String getMasp() {
+        return masp;
+    }
+
+    public void setMasp(String masp) {
+        this.masp = masp;
     }
 
     public String getMota() {
@@ -57,14 +82,6 @@ public class Class_Home {
 
     public void setTraitim(int traitim) {
         this.traitim = traitim;
-    }
-
-    public int getMahome() {
-        return mahome;
-    }
-
-    public void setMahome(int mahome) {
-        this.mahome = mahome;
     }
 }
 

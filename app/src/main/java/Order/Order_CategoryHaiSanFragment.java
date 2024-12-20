@@ -1,5 +1,7 @@
 package Order;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,6 +64,7 @@ public class Order_CategoryHaiSanFragment extends Fragment {
     private List<String> mota;
     private  String madanhmuc;
     private List<String> masanpham;
+    private int iduser;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -118,7 +121,8 @@ public class Order_CategoryHaiSanFragment extends Fragment {
         masanpham = new ArrayList<>();
         mota = new ArrayList<>();
         tt = new ArrayList<>();
-
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",-1);
         loadFirebasemadanhmuc();
 
         Quailai();
@@ -168,6 +172,36 @@ public class Order_CategoryHaiSanFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     masanpham.add(itemSnapshot.getValue(String.class));
+                    if (iduser == -1)
+                    {
+                        tt.add(0);
+                    } else
+                    if (iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("5").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 loadFirebaseData();
             }
@@ -232,26 +266,6 @@ public class Order_CategoryHaiSanFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
                 }
-                loadFirebaseMtt();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebaseMtt() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Order").child("HaiSan").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
                 loadPriceData();
             }
 
@@ -262,6 +276,26 @@ public class Order_CategoryHaiSanFragment extends Fragment {
         });
     }
 
+//    private void loadFirebaseMtt() {
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//
+//        // Load dish names
+//        mDatabase.child("Order").child("HaiSan").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+//                    tt.add(itemSnapshot.getValue(Integer.class));
+//                }
+//                loadPriceData();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+
     private void loadPriceData() {
         mDatabase.child("Order").child("HaiSan").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -269,7 +303,6 @@ public class Order_CategoryHaiSanFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Gia.add(itemSnapshot.getValue(String.class));
                 }
-
                 if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
                     list = new ArrayList<>();
                     for (int i = 0; i < masanpham.size(); i++) {

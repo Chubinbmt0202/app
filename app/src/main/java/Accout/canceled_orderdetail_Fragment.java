@@ -91,7 +91,6 @@ public class canceled_orderdetail_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_canceled_orderdetail_, container, false);
 
@@ -136,8 +135,8 @@ public class canceled_orderdetail_Fragment extends Fragment {
     private void loadNgay(List<String> id) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        for(int i = 0 ; i< id.size() ;i++) {
-            Toast.makeText(getActivity(), "Lỗi " + iduser, Toast.LENGTH_SHORT).show();
+        for(int i = 0 ; i< id.size() ;i++)
+        {
             mDatabase.child("DonHang").child(iduser + "").child("3").child(id.get(i)).child("Date").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

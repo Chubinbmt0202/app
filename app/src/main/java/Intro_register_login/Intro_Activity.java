@@ -66,6 +66,7 @@ public class Intro_Activity extends AppCompatActivity {
              @Override
              public void onClick(View view) {
                  Intent it = new Intent(Intro_Activity.this, Nagigationkey.class);
+                 it.putExtra("idus", -1);
                  startActivity(it);
                  finish();
              }

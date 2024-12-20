@@ -45,7 +45,7 @@ public class Order_CategoryGaBoHeoFragment extends Fragment implements Apdate_Or
     private List<String> Gia;
     private List<String> mota;
     private DatabaseReference mDatabase;
-
+    private int iduser;
     private View view;
     // Khai báo quay lại
     private ImageView imgback;
@@ -123,7 +123,8 @@ public class Order_CategoryGaBoHeoFragment extends Fragment implements Apdate_Or
         mota = new ArrayList<>();
         masanpham = new ArrayList<>();
         tt = new ArrayList<>();
-
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",-1);
         loadFirebasemadanhmuc();
         Quailai();
         return view;
@@ -180,6 +181,36 @@ public class Order_CategoryGaBoHeoFragment extends Fragment implements Apdate_Or
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     masanpham.add(itemSnapshot.getValue(String.class));
+                    if (iduser == -1)
+                    {
+                        tt.add(0);
+                    } else
+                    if (iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("4").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 loadFirebaseData();
             }
@@ -245,26 +276,6 @@ public class Order_CategoryGaBoHeoFragment extends Fragment implements Apdate_Or
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
                 }
-                loadtt();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadtt() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Order").child("Gaboheo").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
                 loadPriceData();
             }
 
@@ -274,7 +285,6 @@ public class Order_CategoryGaBoHeoFragment extends Fragment implements Apdate_Or
             }
         });
     }
-
     private void loadPriceData() {
         mDatabase.child("Order").child("Gaboheo").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -282,7 +292,6 @@ public class Order_CategoryGaBoHeoFragment extends Fragment implements Apdate_Or
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Gia.add(itemSnapshot.getValue(String.class));
                 }
-
                 if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
                     list = new ArrayList<>();
                     for (int i = 0; i < tma.size(); i++) {

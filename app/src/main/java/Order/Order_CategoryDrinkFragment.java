@@ -1,5 +1,7 @@
 package Order;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,6 +47,7 @@ public class Order_CategoryDrinkFragment extends Fragment {
     private List<String> masanpham;
     private List<String> mota;
     private DatabaseReference mDatabase;
+    private int iduser;
 //    private  String tenmonan[] = {"Trà đá","Trà chanh bạc hà","Trà gừng","Trà đào","Trà đào cam sả","Soda chanh đường","Bia Heineken"};
 //    private String giadonvi[] = {"6.000 vnd/ly","66.000 vnd/ly","62.000 vnd/ly","76.000 vnd/ly","80.000 vnd/ấm","66.000 vnd/ly","49.000 vnd/chai"};
 //    private int imganh[] = {
@@ -114,6 +117,9 @@ public class Order_CategoryDrinkFragment extends Fragment {
         mota = new ArrayList<>();
         tt =  new ArrayList<>();
 
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",-1);
+
         loadFirebasemadanhmuc();
         Quailai();
         return view;
@@ -163,6 +169,32 @@ public class Order_CategoryDrinkFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     masanpham.add(itemSnapshot.getValue(String.class));
+                    if (iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("3").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 loadFirebaseData();
             }
@@ -183,6 +215,36 @@ public class Order_CategoryDrinkFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     tma.add(itemSnapshot.getValue(String.class));
+                    if (iduser == -1)
+                    {
+                        tt.add(0);
+                    } else
+                    if (iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("2").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 loadImageData();
             }
@@ -228,26 +290,6 @@ public class Order_CategoryDrinkFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
                 }
-                loadFirebaseData1();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebaseData1() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Order").child("Drink").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
                 loadPriceData();
             }
 
@@ -257,6 +299,7 @@ public class Order_CategoryDrinkFragment extends Fragment {
             }
         });
     }
+
 
     private void loadPriceData() {
         mDatabase.child("Order").child("Drink").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {

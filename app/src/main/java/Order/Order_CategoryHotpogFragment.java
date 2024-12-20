@@ -1,5 +1,7 @@
 package Order;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,6 +46,7 @@ public class Order_CategoryHotpogFragment extends Fragment {
     private ArrayList<Class_CategoryBanhCuon> list;
     private Apdate_OrderCategory apdate;
     private  String madanhmuc ;
+    private int iduser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,7 +65,8 @@ public class Order_CategoryHotpogFragment extends Fragment {
         tt = new ArrayList<>();
         loadFirebasemadanhmuc();
         Quailai();
-
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",-1);
         return view;
     }
 
@@ -98,6 +102,36 @@ public class Order_CategoryHotpogFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     masanpham.add(itemSnapshot.getValue(String.class));
+                    if (iduser == -1)
+                    {
+                        tt.add(0);
+                    } else
+                    if (iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("6").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 loadFirebaseData();
             }
@@ -163,26 +197,6 @@ public class Order_CategoryHotpogFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
                 }
-                loadFirebasett();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebasett( ) {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Order").child("HotPog").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
                 loadPriceData();
             }
 
@@ -192,6 +206,26 @@ public class Order_CategoryHotpogFragment extends Fragment {
             }
         });
     }
+
+//    private void loadFirebasett( ) {
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//
+//        // Load dish names
+//        mDatabase.child("Order").child("HotPog").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+//                    tt.add(itemSnapshot.getValue(Integer.class));
+//                }
+//                loadPriceData();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void loadPriceData() {
         mDatabase.child("Order").child("HotPog").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {

@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
     private TextView tvtatca;
     // Khai bao recycleview
     private DatabaseReference mDatabase;
+    private  int id;
 
     private RecyclerView rcvhome, rcvhome1;
     private Apdate_CategoryHome gh , gh1;
@@ -78,9 +79,12 @@ public class HomeFragment extends Fragment {
     private List<Integer> anhh1;
     private List<String> Gia1;
     private List<String> mota1;
+    private List<String> madm , madm1;
+    private List<String> masp , masp1;
     private List<Integer> tt1;
     private ArrayList<Class_Home> list;
     private ArrayList<Class_Home> list1;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -133,14 +137,15 @@ public class HomeFragment extends Fragment {
         if(getActivity().getIntent()!= null)
         {
             Intent it = getActivity().getIntent();
-            int id = it.getIntExtra("idus",0);
+            id = it.getIntExtra("idus",0);
             SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
             SharedPreferences.Editor edt = sharett.edit();
             edt.putInt("id",id);
             edt.commit();
         }
 
-
+        madm = new ArrayList<>();
+        masp = new ArrayList<>();
         tma = new ArrayList<>();
         anhh = new ArrayList<>();
         Gia = new ArrayList<>();
@@ -148,6 +153,8 @@ public class HomeFragment extends Fragment {
         list = new ArrayList<>();
         tt = new ArrayList<>();
 
+        madm1 = new ArrayList<>();
+        masp1 = new ArrayList<>();
         tma1 = new ArrayList<>();
         anhh1 = new ArrayList<>();
         Gia1 = new ArrayList<>();
@@ -225,16 +232,84 @@ public class HomeFragment extends Fragment {
     private void Themmonan() {
         rcvhome = view.findViewById(R.id.gvhome);
         rcvhome.setLayoutManager(new GridLayoutManager(getContext(),2));
-        getTenMonAn();
+        getMadanhmuc();
     }
 
     private void Themmonanchay() {
         rcvhome1 = view.findViewById(R.id.rcvhome1);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvhome1.setLayoutManager(layoutManager);
-        getTenMonAn1();
+        getMadanhmuc1();
     }
 
+
+    private void getMadanhmuc() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Home").child("Home2").child("Listdm").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    madm.add(itemSnapshot.getValue(String.class));
+                }
+                getMasanpham(madm);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getMasanpham(List<String> madm) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Home").child("Home2").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 0;
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    masp.add(itemSnapshot.getValue(String.class));
+                    if(id ==-1)
+                    {
+                        tt.add(0);
+                    }
+                    else if (id != -1) {
+                            mDatabase.child("YeuThich").child(id + "").child(madm.get(i)).child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    boolean ktratt = false;
+                                    if (snapshot.exists()) {
+                                        for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                            if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                                ktratt = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (false == ktratt) {
+                                        tt.add(0);
+                                    } else {
+                                        tt.add(1);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                        i++;
+                }
+                getTenMonAn();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void getTenMonAn() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -284,26 +359,6 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
                 }
-                loadFirebaseMtt();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebaseMtt() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Home").child("Home2").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
                 loadPriceData();
             }
 
@@ -313,6 +368,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 
     private void loadPriceData() {
         mDatabase.child("Home").child("Home2").child("ListGia").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -324,7 +380,7 @@ public class HomeFragment extends Fragment {
 
                 if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
                     for (int i = 0; i < tma.size(); i++) {
-                        list.add(new Class_Home(1,tma.get(i), anhh.get(i), Gia.get(i),mota.get(i),tt.get(i)));
+                        list.add(new Class_Home(2,madm.get(i),masp.get(i),tma.get(i), anhh.get(i), Gia.get(i),mota.get(i),tt.get(i)));
                     }
                     gh = new Apdate_CategoryHome(list, getActivity());
                     rcvhome.setAdapter(gh);
@@ -340,10 +396,77 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // Home1
+    private void getMadanhmuc1() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Home").child("Home1").child("Listdm").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    madm1.add(itemSnapshot.getValue(String.class));
+                }
+                getMasanpham1(madm1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getMasanpham1(List<String> madm1) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Home").child("Home1").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i=0;
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    masp1.add(itemSnapshot.getValue(String.class));
+                    if(id ==-1)
+                    {
+                        tt1.add(0);
+                    }
+                    else if (id != -1) {
+                        mDatabase.child("YeuThich").child(id + "").child(madm1.get(i)).child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot item : snapshot.getChildren()) {
+                                        if (item.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt1.add(0);
+                                } else {
+                                    tt1.add(1);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    i++;
+                }
+                getTenMonAn1();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void getTenMonAn1() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Load dish names
         mDatabase.child("Home").child("Home1").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -367,7 +490,7 @@ public class HomeFragment extends Fragment {
                     String imageName = itemSnapshot.getValue(String.class);
                     int resourceId = getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName());
                     if (resourceId == 0) {
-                        resourceId = R.drawable.haisanca_cakhoto; // Hình mặc định
+                        resourceId = R.drawable.haisanca_cakhoto;
                     }
                     anhh1.add(resourceId);
                 }
@@ -390,26 +513,6 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota1.add(itemSnapshot.getValue(String.class));
                 }
-                loadFirebaseMtt1();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebaseMtt1() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Load dish names
-        mDatabase.child("Home").child("Home1").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt1.add(itemSnapshot.getValue(Integer.class));
-                }
                 loadPriceData1();
             }
 
@@ -420,6 +523,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+
     private void loadPriceData1() {
         mDatabase.child("Home").child("Home1").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -427,10 +532,9 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Gia1.add(itemSnapshot.getValue(String.class));
                 }
-
                 if (tma1.size() == anhh1.size() && anhh1.size() == Gia1.size()) {
                     for (int i = 0; i < tma1.size(); i++) {
-                        list1.add(new Class_Home(2,tma1.get(i), anhh1.get(i), Gia1.get(i),mota1.get(i),tt1.get(i)));
+                        list1.add(new Class_Home(1,madm1.get(i),masp1.get(i),tma1.get(i), anhh1.get(i), Gia1.get(i),mota1.get(i),tt1.get(i)));
                     }
                     // Update RecyclerView adapter
                     gh1 = new Apdate_CategoryHome(list1,getActivity());

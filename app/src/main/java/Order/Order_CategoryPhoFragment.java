@@ -1,5 +1,7 @@
 package Order;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,7 +46,7 @@ public class Order_CategoryPhoFragment extends Fragment {
     private ArrayList<Class_CategoryBanhCuon> list ;
     private Apdate_OrderCategory apdate ;
     private RecyclerView rcv;
-
+    private int iduser;
 
     // Khai báo nút quay lại
     private ImageView imgback;
@@ -95,7 +97,8 @@ public class Order_CategoryPhoFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_order__category_pho, container, false);
         // ...
-
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",-1);
         rcv = (RecyclerView) view.findViewById(R.id.rcv_categoryccsup);
         rcv.setLayoutManager(new GridLayoutManager(getActivity(),2));
         loadFirebasemadanhmuc();
@@ -146,14 +149,45 @@ public class Order_CategoryPhoFragment extends Fragment {
     private void loadMasanpham(String madanhmuc) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         List<String> masanpham = new ArrayList<>();
+        List<Integer> tt = new ArrayList<>();
         // Load dish names
         mDatabase.child("Order").child("Pho").child("Listid").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     masanpham.add(itemSnapshot.getValue(String.class));
+                    if (iduser == -1)
+                    {
+                        tt.add(0);
+                    } else
+                    if (iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("7").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
-                loadFirebaseData(madanhmuc,masanpham);
+                loadFirebaseData(madanhmuc,masanpham,tt);
             }
 
             @Override
@@ -163,9 +197,8 @@ public class Order_CategoryPhoFragment extends Fragment {
         });
     }
 
-    private void loadFirebaseData(String madanhmuc, List<String> masanpham) {
+    private void loadFirebaseData(String madanhmuc, List<String> masanpham,List<Integer> tt) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mDatabase.child("Order").child("Pho").child("Listtenmonan").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -174,7 +207,7 @@ public class Order_CategoryPhoFragment extends Fragment {
                     tma.add(itemSnapshot.getValue(String.class));
                 }
 
-                loadImageData(madanhmuc,masanpham,tma);
+                loadImageData(madanhmuc,masanpham,tma,tt);
             }
 
             @Override
@@ -184,7 +217,7 @@ public class Order_CategoryPhoFragment extends Fragment {
         });
     }
 
-    private void loadImageData(String madanhmuc, List<String> masanpham,List<String> tma) {
+    private void loadImageData(String madanhmuc, List<String> masanpham,List<String> tma,List<Integer> tt) {
         mDatabase.child("Order").child("Pho").child("Listanh").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -200,7 +233,7 @@ public class Order_CategoryPhoFragment extends Fragment {
                     }
                 }
 
-                loadPriceData(madanhmuc,masanpham,tma, anhh); // Chuyển tiếp để tải giá
+                loadPriceData(madanhmuc,masanpham,tma, anhh,tt); // Chuyển tiếp để tải giá
             }
 
             @Override
@@ -210,7 +243,7 @@ public class Order_CategoryPhoFragment extends Fragment {
         });
     }
 
-    private void loadPriceData(String madanhmuc, List<String> masanpham,List<String> tma, List<Integer> anhh) {
+    private void loadPriceData(String madanhmuc, List<String> masanpham,List<String> tma, List<Integer> anhh,List<Integer> tt) {
         mDatabase.child("Order").child("Pho").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -218,7 +251,7 @@ public class Order_CategoryPhoFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Gia.add(itemSnapshot.getValue(String.class));
                 }
-                loadPriceTinhtrang(madanhmuc, masanpham, tma,  anhh, Gia) ;
+                loadMota(madanhmuc, masanpham, tma,  anhh, Gia,tt) ;
 
 
                 }
@@ -229,27 +262,6 @@ public class Order_CategoryPhoFragment extends Fragment {
             }
         });
     }
-
-    private void loadPriceTinhtrang(String madanhmuc, List<String> masanpham,List<String> tma, List<Integer> anhh,List<String> gia) {
-        mDatabase.child("Order").child("Pho").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Integer> tt = new ArrayList<>();
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
-                loadMota(madanhmuc, masanpham, tma,  anhh, gia,tt) ;
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải giá", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void loadMota(String madanhmuc, List<String> masanpham,List<String> tma, List<Integer> anhh,List<String> Gia, List<Integer> tt) {
         mDatabase.child("Order").child("Pho").child("Listmota").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -258,7 +270,7 @@ public class Order_CategoryPhoFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
                 }
-                if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
+                if (tma.size() == anhh.size() && anhh.size() == Gia.size() && tt.size() == Gia.size()) {
                     list = new ArrayList<>();
                     for (int i = 0; i < masanpham.size(); i++) {
                         list.add(new Class_CategoryBanhCuon(madanhmuc,masanpham.get(i),tma.get(i), anhh.get(i), Gia.get(i),mota.get(i),tt.get(i)));

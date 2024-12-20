@@ -98,13 +98,12 @@ private int stt;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         BottomNavigationView bt = getActivity().findViewById(R.id.ngv_bottomNavigation);
         bt.setVisibility(View.GONE);
         view = inflater.inflate(R.layout.fragment_accout_detail_user, container, false);
 
         SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
-        iduser = sharett.getInt("id",0);
+        iduser = sharett.getInt("id",-1);
 
         edthoten = (EditText) view.findViewById(R.id.edtnameuser);
 
@@ -121,9 +120,15 @@ private int stt;
         btn_update = view.findViewById(R.id.btn_capnhat);
 
         rdnu = view.findViewById(R.id.rdnu);
-        latthongtin();
         Exit();
-        Kiemtraucapnhat();
+        if(iduser != -1) {
+            latthongtin();
+            Kiemtraucapnhat();
+        }
+        else
+        {
+            Toast.makeText(getContext(), "Vui lòng đăng nhập", Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
     private void Exit()
@@ -143,15 +148,9 @@ private int stt;
                     int k = bl.getInt("bk",0);
                     if(k != 0)
                     {
-                        ((Nagigationkey) getActivity()).navigateToFragment(R.id.book); // Chuyển đến BookFragment
-                        // Tạo Fragment và thêm dữ liệu vào Bundle
-                        Fragment newFragment = new PayBook_Fragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("nameuser", s);
-                        bundle.putInt("kt", 1);
-                        newFragment.setArguments(bundle); // Gắn Bundle vào Fragment
+                        ((Nagigationkey) getActivity()).navigateToFragment(R.id.book);
 
-                        // Thay thế Fragment hiện tại bằng Fragment mới
+                        Fragment newFragment = new PayBook_Fragment();
                         FragmentManager fragmentManager = getParentFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
@@ -159,14 +158,7 @@ private int stt;
                     }
                 }
                 else {
-                    // Tạo Fragment và thêm dữ liệu vào Bundle
                     Fragment newFragment = new AccountFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("nameuser", s);
-                    bundle.putInt("kt", 1);
-                    newFragment.setArguments(bundle); // Gắn Bundle vào Fragment
-
-                    // Thay thế Fragment hiện tại bằng Fragment mới
                     FragmentManager fragmentManager = getParentFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.ngv_viewPager, newFragment);
@@ -195,7 +187,7 @@ private int stt;
                        newban.put("GioiTinh", h);
                        newban.put("Email", edtemail.getText().toString());
                        newban.put("name", edthoten.getText().toString());
-                       database.child("User").child(iduser + "").setValue(newban)
+                       database.child("User").child(iduser + "").updateChildren(newban)
                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                    @Override
                                    public void onSuccess(Void aVoid) {
@@ -215,7 +207,7 @@ private int stt;
 
        private  void latthongtin() {
            mDatabase = FirebaseDatabase.getInstance().getReference();
-           // Load dish names
+
            mDatabase.child("User").child(iduser+"").child("Email").addListenerForSingleValueEvent(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -227,8 +219,7 @@ private int stt;
                    Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
                }
            });
-           mDatabase = FirebaseDatabase.getInstance().getReference();
-           // Load dish names
+
            mDatabase.child("User").child(iduser+"").child("SDT").addListenerForSingleValueEvent(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -240,8 +231,7 @@ private int stt;
                    Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
                }
            });
-           mDatabase = FirebaseDatabase.getInstance().getReference();
-           // Load dish names
+
            mDatabase.child("User").child(iduser+"").child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -253,8 +243,7 @@ private int stt;
                    Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
                }
            });
-           mDatabase = FirebaseDatabase.getInstance().getReference();
-           // Load dish names
+
            mDatabase.child("User").child(iduser+"").child("GioiTinh").addListenerForSingleValueEvent(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -269,7 +258,7 @@ private int stt;
                }
                @Override
                public void onCancelled(@NonNull DatabaseError error) {
-                   Toast.makeText(getActivity(), "Lỗi khi tải người dùng", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getActivity(), "Lỗi khi tải gioi tinh", Toast.LENGTH_SHORT).show();
                }
            });
        }

@@ -1,5 +1,7 @@
 package Order;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,7 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
     private List<String> mota;
     private List<String> masanpham;
     private DatabaseReference mDatabase;
+    private int iduser;
 
 //    private  String tenmonan[] = {"Cơm chiên lá é","Cơm chiên hải sản","Cơm chiên trứng","Súp hải sản","Súp thập cẩm","Cháo bò bằm","Xôi nấm hạt sen"};
 //    private String giadonvi[] = {"135.000 vnd/phần","210.000 vnd/thố","155.000 vnd/thố","62.000 vnd/chén","102.000 vnd/thố","109.000 vnd/thố","138.000 vnd/phần"};
@@ -117,7 +120,8 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
         mota = new ArrayList<>();
         list = new ArrayList<>();
         masanpham = new ArrayList<>();
-
+        SharedPreferences sharett = getActivity().getSharedPreferences("idnguoidung", Context.MODE_PRIVATE);
+        iduser = sharett.getInt("id",-1);
         loadFirebasemadanhmuc();
         Quailai();
         return view;
@@ -150,6 +154,36 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     masanpham.add(itemSnapshot.getValue(String.class));
+                    if (iduser == -1)
+                    {
+                        tt.add(0);
+                    } else
+                    if (iduser != -1) {
+                        mDatabase.child("YeuThich").child(iduser + "").child("2").child("Listmasp").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean ktratt = false;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot itemSnapshott : snapshot.getChildren()) {
+                                        if (itemSnapshott.getValue(String.class).equals(itemSnapshot.getValue(String.class))) {
+                                            ktratt = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (false == ktratt) {
+                                    tt.add(0);
+                                } else {
+                                    tt.add(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Lỗi khi tải mã món ăn", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 loadFirebaseData();
             }
@@ -214,25 +248,6 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     mota.add(itemSnapshot.getValue(String.class));
                 }
-                loadFirebasett();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Lỗi khi tải tên món ăn", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadFirebasett() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        // Load dish names
-        mDatabase.child("Order").child("Comchaosup").child("Listt").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    tt.add(itemSnapshot.getValue(Integer.class));
-                }
                 loadPriceData();
             }
 
@@ -243,6 +258,7 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
         });
     }
 
+
     private void loadPriceData() {
         mDatabase.child("Order").child("Comchaosup").child("Listgia").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -250,7 +266,6 @@ public class Order_CategoryComChaoSupFragment extends Fragment {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Gia.add(itemSnapshot.getValue(String.class));
                 }
-
                 if (tma.size() == anhh.size() && anhh.size() == Gia.size()) {
                     list = new ArrayList<>();
                     for (int i = 0; i < tma.size(); i++) {
